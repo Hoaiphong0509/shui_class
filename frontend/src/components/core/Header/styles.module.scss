@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background: var(--black-0);
+  padding: 10px 5px;
+
+  p {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: var(--white-0);
+  }
+
+}

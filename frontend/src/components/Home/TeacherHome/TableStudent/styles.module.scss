@@ -1,0 +1,10 @@
+.root {
+  thead {
+    background: #ccc;
+    text-align: center;
+
+    tr th:first-child {
+      text-align: left;
+    }
+  }
+}

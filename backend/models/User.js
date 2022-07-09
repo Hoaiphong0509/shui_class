@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
   roles: {
     type: [String],
     default: ['student'],
-    enum: ['student', 'staff', 'teacher', 'admin'],
+    enum: ['student', 'teacher', 'admin'],
   },
   isDelete: {
     type: Boolean,

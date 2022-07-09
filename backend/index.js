@@ -29,7 +29,14 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use('/api/profile', require('./router/profile'))
 app.use('/api/users', require('./router/users'))
+app.use('/api/teacher', require('./router/teacher'))
+app.use('/api/staff', require('./router/staff'))
+app.use('/api/admin', require('./router/admin'))
+app.use('/api/classroom', require('./router/classroom'))
+app.use('/api/score', require('./router/score'))
+app.use('/api/competition', require('./router/competition'))
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../frontend', 'build')))

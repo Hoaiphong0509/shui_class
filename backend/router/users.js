@@ -23,20 +23,18 @@ router.get('/auth', authorize(), async (req, res) => {
 // @desc     Register user
 // @access   Public
 router.post('/register', async (req, res) => {
-  const { name, password } = req.body
+  const { username, password } = req.body
 
   try {
-    let user = await User.findOne({ name })
+    let user = await User.findOne({ username })
 
     if (user) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Tài khoản này đã tồn tại' }] })
+      return res.status(400).json({ msg: 'Tài khoản này đã tồn tại' })
     }
 
     user = new User({
-      name,
-      password,
+      username,
+      password
     })
 
     const salt = await bcrypt.genSalt(10)
@@ -45,8 +43,8 @@ router.post('/register', async (req, res) => {
 
     const profile = new Profile({
       user: user._id,
-      fullName: name,
-      avatar: '',
+      fullName: username,
+      avatar: ''
     })
 
     await user.save()
@@ -64,23 +62,25 @@ router.post('/register', async (req, res) => {
 // @desc     Authenticate user & get token
 // @access   Public
 router.post('/login', async (req, res) => {
-  const { name, password } = req.body
+  const { username, password, role } = req.body
 
   try {
-    let user = await User.findOne({ name })
+    let user = await User.findOne({ username })
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Thông tin đăng nhập không hợp lệ' }] })
+      return res.status(400).json({ msg: 'Thông tin đăng nhập không hợp lệ' })
+    }
+
+    if (!user.roles.includes(role)) {
+      return res.status(401).json({
+        msg: 'Bạn không có quyền truy cập vào trang này'
+      })
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
 
     if (!isMatch) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Thông tin đăng nhập không hợp lệ' }] })
+      return res.status(400).json({ msg: 'Thông tin đăng nhập không hợp lệ' })
     }
 
     const token = await signJWT(user.id)

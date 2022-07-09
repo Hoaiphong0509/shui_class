@@ -19,8 +19,9 @@ const authorize = (roles = []) => {
         } else {
           req.user = decoded.user
           const user = await User.findById(req.user.id)
+
           if (roles.length && !user.roles.includes(roles)) {
-            return res.status(401).json({ message: 'Unauthorized' })
+            return res.status(401).json({ msg: 'Không có quyền!' })
           }
 
           next()

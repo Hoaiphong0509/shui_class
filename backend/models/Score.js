@@ -4,359 +4,365 @@ const ScoreSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
+      ref: 'user'
+    },
+    studentName: {
+      type: String
+    },
+    studentUsername: {
+      type: String
     },
     math: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     physics: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     chemistry: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     literature: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     english: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     biology: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     civic: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     tech: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     geography: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     history: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     it: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
+        type: Number
+      }
     },
     dnu: {
       oral_1: {
-        type: Number,
+        type: Number
       },
       oral_2: {
-        type: Number,
+        type: Number
       },
       test15m_1: {
-        type: Number,
+        type: Number
       },
       test15m_2: {
-        type: Number,
+        type: Number
       },
       test15m_3: {
-        type: Number,
+        type: Number
       },
       test45m_1: {
-        type: Number,
+        type: Number
       },
       test45m_2: {
-        type: Number,
+        type: Number
       },
       final: {
-        type: Number,
+        type: Number
       },
       avg: {
-        type: Number,
-      },
-    },
+        type: Number
+      }
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 )
 

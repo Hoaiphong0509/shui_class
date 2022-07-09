@@ -15,8 +15,8 @@ const App = () => {
   useEffect(() => {
     if (localStorage.token) {
       setAuthToken(localStorage.token)
-      store.dispatch(loadUser())
     }
+    store.dispatch(loadUser())
 
     if (isServer)
       window.addEventListener('storage', () => {
@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Router basename='/'>
+      <Router basename="/">
         <Fragment>
           <Route component={Routes} />
         </Fragment>

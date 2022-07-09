@@ -5,7 +5,7 @@ const initialState = {
   users: [],
   loading: true,
   token: localStorage.getItem('token'),
-  isAuthenticated: null,
+  isAuthenticated: null
 }
 
 const userReducer = (state = initialState, action) => {
@@ -17,7 +17,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload,
+        user: payload
       }
     case USERS.LOGIN:
     case USERS.REGISTER:
@@ -25,40 +25,43 @@ const userReducer = (state = initialState, action) => {
         ...state,
         ...payload,
         isAuthenticated: true,
-        loading: false,
+        loading: false
       }
     case USERS.GET_USERS:
       return {
         ...state,
         users: payload,
-        loading: false,
+        loading: false
       }
     case USERS.UPDATE_USER:
       return {
         ...state,
         user: payload,
-        loading: false,
+        loading: false
       }
     case USERS.GET_USER:
       return {
         ...state,
         user: payload,
-        loading: false,
+        loading: false
       }
     case USERS.ERRORS:
       return {
         ...state,
         user: null,
-        loading: false,
+        token: null,
+        loading: false
       }
+    case USERS.LOGOUT:
     case USERS.CLEAN:
       return {
         ...state,
         user: null,
         users: [],
         token: null,
+        isAuthenticated: false,
         searchResult: null,
-        loading: false,
+        loading: false
       }
     default:
       return state
