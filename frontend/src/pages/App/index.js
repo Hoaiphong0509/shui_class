@@ -5,6 +5,7 @@ import 'devextreme/dist/css/dx.light.css'
 import { Fragment, useEffect } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { loadUser } from 'services/redux/actions/user'
 import store from 'services/store'
@@ -31,6 +32,7 @@ const App = () => {
           <Route component={Routes} />
         </Fragment>
       </Router>
+      <ToastContainer autoClose="5000" />
     </Provider>
   )
 }

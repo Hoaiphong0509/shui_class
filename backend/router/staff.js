@@ -8,7 +8,7 @@ const checkObjectId = require('../middleware/checkObjectId')
 // @route    GET api/staff
 // @desc     Get all Staff
 // @access   Private
-router.get('/', authorize(role.Admin), async (req, res) => {
+router.get('/', authorize(), async (req, res) => {
   try {
     const result = await Staff.find()
 

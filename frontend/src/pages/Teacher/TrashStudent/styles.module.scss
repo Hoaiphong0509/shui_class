@@ -1,0 +1,27 @@
+.root {
+  min-height: 90vh;
+
+  .container {
+    margin: 0 auto;
+    width: 80%;
+
+    .title {
+      text-align: left;
+      margin: 15px 0;
+    }
+
+    .buttonArea {
+      display: flex;
+      justify-content: flex-end;
+      margin: 15px 0;
+
+      button {
+        margin-left: 10px;
+      }
+    }
+
+    .table {
+      margin: 15px 0;
+    }
+  }
+}

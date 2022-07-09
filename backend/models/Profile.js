@@ -20,6 +20,9 @@ const ProfileSchema = new mongoose.Schema(
         }
       }
     ],
+    username: {
+      type: String
+    },
     fullName: {
       type: String
     },

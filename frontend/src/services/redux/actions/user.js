@@ -4,7 +4,6 @@ import { PROFILES, USERS } from 'constants/AppConstants'
 import { toast } from 'react-toastify'
 
 export const loadUser = () => async (dispatch) => {
-  console.log('runn')
   try {
     const res = await api.get('/users/auth')
 

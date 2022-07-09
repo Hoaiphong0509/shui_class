@@ -44,6 +44,25 @@ export const scrollToTop = () => {
   if (isServer)
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: 'smooth'
     })
+}
+
+export const filter_duplicates = (arr1, arr2) => {
+  let duplicates = []
+  let unique = []
+  for (let v of arr1) {
+    if (arr2.includes(v)) {
+      duplicates.push(v)
+    } else {
+      unique.push(v)
+    }
+  }
+  for (let v of arr2) {
+    if (!duplicates.includes(v)) {
+      unique.push(v)
+    }
+  }
+
+  return { duplicates: duplicates, unique: unique }
 }

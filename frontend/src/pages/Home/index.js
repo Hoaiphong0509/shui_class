@@ -1,6 +1,6 @@
 import LoaderComponent from 'components/core/LoaderComponent'
-import StudentHome from 'components/Home/StudentHome'
-import TeacherHome from 'components/Home/TeacherHome'
+import HomeStudentComponent from 'components/Student/HomeStudentComponent'
+import HomeTeacherComponent from 'components/Teacher/HomeTeacherComponent'
 import { ROLES } from 'constants/AppConstants'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -9,9 +9,9 @@ const Home = ({ user: { user, loading } }) => {
   return loading || user === null ? (
     <LoaderComponent />
   ) : user.roles.includes(ROLES.TEACHER) ? (
-    <TeacherHome />
+    <HomeTeacherComponent />
   ) : (
-    <StudentHome />
+    <HomeStudentComponent />
   )
 }
 

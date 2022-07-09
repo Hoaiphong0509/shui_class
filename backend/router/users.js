@@ -43,6 +43,7 @@ router.post('/register', async (req, res) => {
 
     const profile = new Profile({
       user: user._id,
+      username,
       fullName: username,
       avatar: ''
     })

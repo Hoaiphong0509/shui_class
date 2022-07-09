@@ -16,7 +16,7 @@ const ClassroomSchema = new mongoose.Schema({
       default: ''
     }
   },
-  student: [
+  students: [
     {
       user: {
         type: mongoose.Schema.Types.ObjectId,

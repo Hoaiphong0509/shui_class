@@ -12,6 +12,9 @@ const ScoreSchema = new mongoose.Schema(
     studentUsername: {
       type: String
     },
+    hk: {
+      type: Number
+    },
     math: {
       oral_1: {
         type: Number
