@@ -17,10 +17,7 @@ const Sheet1 = ({ score: { score, loading }, getScoreByStudent, match }) => {
   if (loading || score === null || score === undefined)
     return <LoaderComponent />
 
-  console.log('score', score)
-
   const tempScoreObj = score?.filter((s) => s.hk === 1)
-  console.log('tempScoreObj', tempScoreObj)
 
   return (
     <div className={s.root}>
@@ -29,7 +26,26 @@ const Sheet1 = ({ score: { score, loading }, getScoreByStudent, match }) => {
       tempScoreObj === null ||
       tempScoreObj === undefined ||
       tempScoreObj.length === 0 ? (
-        <h1>Học sinh này chưa có điểm HKI</h1>
+        <>
+          <h1>Học sinh này chưa có điểm HKI</h1>
+          <div>
+            <Button
+              style={{ marginRight: '5px' }}
+              variant="secondary"
+              onClick={() => history.push('/')}
+            >
+              Quay lại
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                history.push(`/add_score_1/${match.params.id_student}`)
+              }}
+            >
+              Thêm điểm HKI
+            </Button>
+          </div>
+        </>
       ) : (
         <>
           <div className={s.in4}>
@@ -38,36 +54,21 @@ const Sheet1 = ({ score: { score, loading }, getScoreByStudent, match }) => {
           <div className={s.table}>
             <TableScore score={tempScoreObj[0]} />
           </div>
+          <div className={s.buttonArea}>
+            <Button variant="secondary" onClick={() => history.push('/')}>
+              Quay lại
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() =>
+                history.push(`/update_score_1/${match.params.id_student}`)
+              }
+            >
+              Cập nhật
+            </Button>
+          </div>
         </>
       )}
-      <div className={s.buttonArea}>
-        <Button variant="secondary" onClick={() => history.push('/')}>
-          Quay lại
-        </Button>
-        {score === null ||
-        score === undefined ||
-        tempScoreObj === null ||
-        tempScoreObj === undefined ||
-        tempScoreObj.length === 0 ? (
-          <Button
-            variant="primary"
-            onClick={() => {
-              history.push(`/add_score_1/${match.params.id_student}`)
-            }}
-          >
-            Thêm điểm HKI
-          </Button>
-        ) : (
-          <Button
-            variant="primary"
-            onClick={() =>
-              history.push(`/update_score_1/${match.params.id_student}`)
-            }
-          >
-            Cập nhật
-          </Button>
-        )}
-      </div>
     </div>
   )
 }

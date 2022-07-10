@@ -44,7 +44,26 @@ const UpdateScoreSheet2 = ({
       tempScoreObj === null ||
       tempScoreObj === undefined ||
       tempScoreObj.length === 0 ? (
-        <h1>Học sinh này chưa có điểm HKII</h1>
+        <>
+          <h1>Học sinh này chưa có điểm HKII</h1>
+          <div>
+            <Button
+              style={{ marginRight: '5px' }}
+              variant="secondary"
+              onClick={() => history.push('/')}
+            >
+              Quay lại
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                history.push(`/add_score_2/${match.params.id_student}`)
+              }}
+            >
+              Thêm điểm HKI
+            </Button>
+          </div>
+        </>
       ) : (
         <>
           <div className={s.in4}>
@@ -61,25 +80,6 @@ const UpdateScoreSheet2 = ({
           </div>
         </>
       )}
-      <div className={s.buttonArea}>
-        <Button variant="secondary" onClick={() => history.push('/')}>
-          Quay lại
-        </Button>
-        {score === null ||
-        score === undefined ||
-        tempScoreObj === null ||
-        tempScoreObj === undefined ||
-        tempScoreObj.length === 0 ? (
-          <Button
-            variant="primary"
-            onClick={() => {
-              history.push(`/add_score_1/${match.params.id_student}`)
-            }}
-          >
-            Thêm điểm HKI
-          </Button>
-        ) : null}
-      </div>
     </div>
   )
 }
