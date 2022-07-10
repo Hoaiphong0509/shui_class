@@ -19,6 +19,8 @@ import AddScoreSheet1 from 'pages/ScoreSheet/AddScoreSheet1'
 import AddScoreSheet2 from 'pages/ScoreSheet/AddScoreSheet2'
 import UpdateScoreSheet1 from 'pages/ScoreSheet/UpdateScoreSheet1'
 import UpdateScoreSheet2 from 'pages/ScoreSheet/UpdateScoreSheet2'
+import DetailsProfile from 'pages/ProfileUser/DetailsProfile'
+import UpdateProfile from 'pages/ProfileUser/UpdateProfile'
 
 const Routes = () => {
   return (
@@ -79,6 +81,18 @@ const Routes = () => {
         layout={DefaultLayout}
         role={ROLES.TEACHER}
         component={UpdateScoreSheet2}
+      />
+      <PrivateRoute
+        exact
+        path="/my_profile"
+        layout={DefaultLayout}
+        component={DetailsProfile}
+      />
+      <PrivateRoute
+        exact
+        path="/update_profile"
+        layout={DefaultLayout}
+        component={UpdateProfile}
       />
       <PrivateRoute component={NotFoundPage} layout={DefaultLayout} />
     </Switch>

@@ -25,7 +25,6 @@ const PROFILEReducer = (state = initialState, action) => {
     case PROFILE.UPDATE_PROFILE:
       return {
         ...state,
-        profile: payload,
         loading: false
       }
     case PROFILE.ERRORS:

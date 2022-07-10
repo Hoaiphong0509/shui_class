@@ -4,6 +4,7 @@ const authorize = require('../middleware/authorize')
 const role = require('../helper/role')
 const checkObjectId = require('../middleware/checkObjectId')
 const Classroom = require('../models/Classroom')
+const Profile = require('../models/Profile')
 
 // @route    GET api/classroom
 // @desc     Get all classroom
@@ -33,7 +34,57 @@ router.get('/classroom_available', authorize(role.Admin), async (req, res) => {
   }
 })
 
-// @route    POST api/admin/classroom
+// @route    GET api/classroom/get_myclassroom
+// @desc     Get student my classroom
+// @access   Private
+router.get('/get_myclassroom', authorize(), async (req, res) => {
+  try {
+    const classroom = await Classroom.find()
+    const profileStudent = await Profile.find()
+
+    const result = classroom.filter(
+      (c) =>
+        (c.headTeacher.user && c.headTeacher.user.toString() === req.user.id) ||
+        c.students.some((s) => s.user.toString() === req.user.id)
+    )
+
+    if (result.length === 0) {
+      return res.json([])
+    }
+
+    const studentsTemp = result[0].students.map((s) => {
+      let fullName = ''
+      let staffDisplay = ''
+      let parentName = ''
+      profileStudent.forEach((p) => {
+        if (p.user.toString() === s.user.toString()) {
+          fullName = p.fullName
+          staffDisplay = p.staffClass[0].staffDisplay || 'Học sinh'
+          parentName = p.parentName
+        }
+      })
+      return {
+        studentId: s.user.toString(),
+        fullName,
+        staffDisplay,
+        parentName,
+        isDelete: s.isDelete
+      }
+    })
+
+    const respone = {
+      ...result[0]._doc,
+      students: studentsTemp
+    }
+
+    res.json(respone)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
+// @route    POST api/classroom
 // @desc     Add classrom
 // @access   Private
 router.post('/', authorize(role.Admin), async (req, res) => {

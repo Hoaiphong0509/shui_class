@@ -13,4 +13,18 @@
     color: var(--white-0);
   }
 
+  .in4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+    }
+
+    .menu {
+      margin-left: 5px;
+    }
+  }
 }

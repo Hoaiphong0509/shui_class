@@ -8,6 +8,7 @@ const multerSingle = multer()
 const { CLOUDINARY_PATH_AVATAR } = require('../config')
 const removeImage = require('../utils/removeImage')
 const checkObjectId = require('../middleware/checkObjectId')
+const normalizeFormatImg = require('../utils/normalizeFormatImg')
 
 // @route    GET api/profile/me
 // @desc     Get current profile
@@ -43,14 +44,11 @@ router.get(
 // @route    PUT api/profile
 // @desc     Update profile
 // @access   Public
-router.put('/', authorize(), async (req, res) => {
-  const { fullName, birthday } = req.body
+router.put('/me', authorize(), async (req, res) => {
+  const { ...rest } = req.body
   // console.log('req.user.id', req.user.id)
   try {
-    await Profile.findOneAndUpdate(
-      { user: req.user.id },
-      { $set: { fullName, birthday } }
-    )
+    await Profile.findOneAndUpdate({ user: req.user.id }, { $set: { ...rest } })
     res.json({ msg: 'Cập nhật hồ sơ thành công' })
   } catch (err) {
     console.error(err.message)
@@ -72,14 +70,14 @@ router.put(
         buffer,
         CLOUDINARY_PATH_AVATAR,
         'avatar',
-        70,
-        70
+        200,
+        200
       )
 
       const profile = await Profile.findOne({ user: req.user.id })
       if (profile && profile.avatar && profile.avatar.length > 0) {
         const firstTndex = profile.avatar.lastIndexOf('/ShuiClass')
-        const format = normalizeFormatImg(blog.avatar)
+        const format = normalizeFormatImg(profile.avatar)
         const lastTndex = profile.avatar.indexOf(format)
         const publidId = profile.avatar.substring(firstTndex + 1, lastTndex)
         await removeImage(publidId)
@@ -88,7 +86,7 @@ router.put(
       profile.avatar = secure_url
       await profile.save()
 
-      return res.send(profile)
+      return res.send({ msg: 'Thay đổi hình ảnh thành công' })
     } catch (err) {
       console.error(err.message)
       res.status(500).send('Server error')
