@@ -1,0 +1,24 @@
+.root {
+  thead {
+    background: #ccc;
+    text-align: center;
+
+    tr th:first-child {
+      text-align: left;
+    }
+  }
+
+  tbody {
+    tr td:first-child{
+      text-align: left;
+    }
+
+    tr td {
+      text-align: center;
+
+      button {
+        margin-right: 5px;
+      }
+    }
+  }
+}

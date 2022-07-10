@@ -4,8 +4,10 @@ import { connect } from 'react-redux'
 import { moveStudentToTrash } from 'services/redux/actions/teacher'
 import Swal from 'sweetalert2'
 import s from './styles.module.scss'
+import { useHistory } from 'react-router-dom'
 
 const TableStudent = ({ idClassroom, students, moveStudentToTrash }) => {
+  const history = useHistory()
   if (students.length === 0) return <h1>Lớp học này chưa có học sinh nào</h1>
 
   const handleMoveToTrash = (idStudent) => {
@@ -46,12 +48,32 @@ const TableStudent = ({ idClassroom, students, moveStudentToTrash }) => {
               <Button variant="outline-success">Chi tiết</Button>
             </td>
             <td>
-              <Button variant="outline-success">Xem điểm</Button>
-              <Button variant="outline-warning">Cập nhật</Button>
+              <Button
+                variant="outline-success"
+                onClick={() => history.push(`/sheet_1/${s.studentId}`)}
+              >
+                Xem điểm
+              </Button>
+              <Button
+                variant="outline-warning"
+                onClick={() => history.push(`/update_score_1/${s.studentId}`)}
+              >
+                Cập nhật
+              </Button>
             </td>
             <td>
-              <Button variant="outline-success">Xem điểm</Button>
-              <Button variant="outline-warning">Cập nhật</Button>
+              <Button
+                variant="outline-success"
+                onClick={() => history.push(`/sheet_2/${s.studentId}`)}
+              >
+                Xem điểm
+              </Button>
+              <Button
+                variant="outline-warning"
+                onClick={() => history.push(`/update_score_2/${s.studentId}`)}
+              >
+                Cập nhật
+              </Button>
             </td>
             <td>
               <Button variant="outline-success">Chi tiết</Button>

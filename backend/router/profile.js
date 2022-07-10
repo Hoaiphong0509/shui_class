@@ -7,6 +7,7 @@ const bufferUpload = require('../utils/bufferUpload')
 const multerSingle = multer()
 const { CLOUDINARY_PATH_AVATAR } = require('../config')
 const removeImage = require('../utils/removeImage')
+const checkObjectId = require('../middleware/checkObjectId')
 
 // @route    GET api/profile/me
 // @desc     Get current profile
@@ -20,6 +21,24 @@ router.get('/me', authorize(), async (req, res) => {
     res.status(500).send('Server Error')
   }
 })
+
+// @route    GET api/profile/:id_user
+// @desc     Get profile by id user
+// @access   Private
+router.get(
+  '/:id_user',
+  checkObjectId('id_user'),
+  authorize(),
+  async (req, res) => {
+    try {
+      const profile = await Profile.findOne({ user: req.params.id_user })
+      res.json(profile)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
 
 // @route    PUT api/profile
 // @desc     Update profile

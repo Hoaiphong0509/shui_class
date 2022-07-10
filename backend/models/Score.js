@@ -16,6 +16,10 @@ const ScoreSchema = new mongoose.Schema(
       type: Number
     },
     math: {
+      name: {
+        type: String,
+        default: 'Toán'
+      },
       oral_1: {
         type: Number
       },
@@ -45,6 +49,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     physics: {
+      name: {
+        type: String,
+        default: 'Vật lý'
+      },
       oral_1: {
         type: Number
       },
@@ -74,6 +82,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     chemistry: {
+      name: {
+        type: String,
+        default: 'Hoá học'
+      },
       oral_1: {
         type: Number
       },
@@ -103,6 +115,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     literature: {
+      name: {
+        type: String,
+        default: 'Ngữ văn'
+      },
       oral_1: {
         type: Number
       },
@@ -132,6 +148,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     english: {
+      name: {
+        type: String,
+        default: 'Tiếng Anh'
+      },
       oral_1: {
         type: Number
       },
@@ -161,6 +181,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     biology: {
+      name: {
+        type: String,
+        default: 'Sinh học'
+      },
       oral_1: {
         type: Number
       },
@@ -190,6 +214,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     civic: {
+      name: {
+        type: String,
+        default: 'GDCD'
+      },
       oral_1: {
         type: Number
       },
@@ -219,6 +247,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     tech: {
+      name: {
+        type: String,
+        default: 'Công nghệ'
+      },
       oral_1: {
         type: Number
       },
@@ -248,6 +280,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     geography: {
+      name: {
+        type: String,
+        default: 'Địa lý'
+      },
       oral_1: {
         type: Number
       },
@@ -277,6 +313,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     history: {
+      name: {
+        type: String,
+        default: 'Lịch sử'
+      },
       oral_1: {
         type: Number
       },
@@ -306,6 +346,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     it: {
+      name: {
+        type: String,
+        default: 'Tin học'
+      },
       oral_1: {
         type: Number
       },
@@ -335,6 +379,10 @@ const ScoreSchema = new mongoose.Schema(
       }
     },
     dnu: {
+      name: {
+        type: String,
+        default: 'Quốc phòng'
+      },
       oral_1: {
         type: Number
       },
