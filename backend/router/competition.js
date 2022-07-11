@@ -1,71 +1,36 @@
 const express = require('express')
 const router = express.Router()
 const authorize = require('../middleware/authorize')
-const Staff = require('../models/Staff')
 const role = require('../helper/role')
 const checkObjectId = require('../middleware/checkObjectId')
+const Competition = require('../models/Competition')
 
-// @route    GET api/staff
-// @desc     Get all Staff
+// @route    GET api/competion/
+// @desc     Get all competions
 // @access   Private
-router.get('/', authorize(role.Admin), async (req, res) => {
+router.get('/', authorize(), async (req, res) => {
   try {
-    const result = await Staff.find()
+    const competions = await Competition.find()
 
-    res.json(result)
+    res.json(competions)
   } catch (err) {
     console.error(err.message)
     res.status(500).send('Server Error')
   }
 })
 
-// @route    GET api/staff
-// @desc     Get all Staff isDelete = false
+// @route    GET api/competion/:id_student
+// @desc     Get competion by student
 // @access   Private
-router.get('/staff_available', authorize(role.Admin), async (req, res) => {
-  try {
-    const result = await Staff.find({ isDelete: false })
-
-    res.json(result)
-  } catch (err) {
-    console.error(err.message)
-    res.status(500).send('Server Error')
-  }
-})
-
-// @route    POST api/staff
-// @desc     ADD Staff
-// @access   Private
-router.post('/', authorize(role.Admin), async (req, res) => {
-  const { staffDisplay } = req.body
-  try {
-    const newStaff = new Staff({
-      staffDisplay
-    })
-
-    await newStaff.save()
-    res.json(newStaff)
-  } catch (err) {
-    console.error(err.message)
-    res.status(500).send('Server Error')
-  }
-})
-
-// @route    DELETE api/staff/:id
-// @desc     Move to trash
-// @access   Private
-router.put(
-  '/:id',
-  checkObjectId('id'),
-  authorize(role.Admin),
+router.get(
+  '/:id_student',
+  checkObjectId('id_student'),
+  authorize(),
   async (req, res) => {
     try {
-      const idStaff = req.params.id
-      await Staff.findByIdAndUpdate(idStaff, {
-        $set: { isDelete: true }
-      })
+      const competion = await Competition.find({ user: req.params.id_student })
 
-      res.json({ msg: 'Xoá thành công!' })
+      res.json(competion)
     } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error')
@@ -73,19 +38,46 @@ router.put(
   }
 )
 
-// @route    DELETE api/staff/:id
-// @desc     Delete Staff
+// @route    POST api/competion/:id_student
+// @desc     Add competion for student
 // @access   Private
-router.delete(
-  '/:id',
-  checkObjectId('id'),
-  authorize(role.Admin),
+router.post(
+  '/:id_student',
+  checkObjectId('id_student'),
+  authorize(role.Teacher),
   async (req, res) => {
+    const { ...rest } = req.body
     try {
-      const idStaff = req.params.id
-      await Staff.findByIdAndRemove(idStaff)
+      const newCompetion = new Competition({
+        user: req.params.id_student,
+        ...rest
+      })
 
-      res.json({ msg: 'Xoá vĩnh viễn thành công!' })
+      await newCompetion.save()
+      res.json({ msg: 'Thêm điểm thi đua thành công!' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/competion/:id_student
+// @desc     Update competion for student
+// @access   Private
+router.put(
+  '/:id_student',
+  checkObjectId('id_student'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    const { hk, ...rest } = req.body
+    try {
+      await Competition.findOneAndUpdate(
+        { user: req.params.id_student, hk },
+        { $set: { ...rest } }
+      )
+
+      res.json({ msg: 'Cập nhật điểm thi đua thành công!' })
     } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error')
