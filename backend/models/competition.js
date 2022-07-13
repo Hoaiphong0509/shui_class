@@ -15,6 +15,9 @@ const CompetitionSchema = new mongoose.Schema(
     hk: {
       type: Number
     },
+    avgAll: {
+      type: Number
+    },
     positivePoint: {
       point_1: {
         name: {
@@ -174,7 +177,7 @@ const CompetitionSchema = new mongoose.Schema(
       point_5: {
         name: {
           type: String,
-          default: 'Sử dụng xe phân khối lớp'
+          default: 'Sử dụng xe phân khối lớn'
         },
         point: {
           type: Number,

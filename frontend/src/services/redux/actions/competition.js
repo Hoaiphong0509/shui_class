@@ -1,47 +1,32 @@
 import api from 'utils/api'
 
-import { PROFILE } from 'constants/AppConstants'
+import { COMPETITION } from 'constants/AppConstants'
 import { toast } from 'react-toastify'
 
-export const getCurrentProfile = () => async (dispatch) => {
+export const getCompetitionByStudent = (idStudent) => async (dispatch) => {
   try {
-    const res = await api.get('/profile/me')
+    const res = await api.get(`/competition/${idStudent}`)
 
     dispatch({
-      type: PROFILE.GET_MYPROFILE,
+      type: COMPETITION.GET_COMPETITION,
       payload: res.data
     })
   } catch (err) {
     dispatch({
-      type: PROFILE.ERRORS
+      type: COMPETITION.ERRORS
     })
   }
 }
 
-export const getProfileByUserId = (userId) => async (dispatch) => {
+export const addCompetition = (idStudent, formData) => async (dispatch) => {
   try {
-    const res = await api.get(`/profile/${userId}`)
+    await api.post(`/competition/${idStudent}`, formData)
 
     dispatch({
-      type: PROFILE.GET_PROFILE,
-      payload: res.data
-    })
-  } catch (err) {
-    dispatch({
-      type: PROFILE.ERRORS
-    })
-  }
-}
-
-export const updateMyProfile = (formData) => async (dispatch) => {
-  try {
-    await api.put('/profile/me', formData)
-
-    dispatch({
-      type: PROFILE.UPDATE_PROFILE
+      type: COMPETITION.ADD_COMPETITION
     })
 
-    toast.success('Cập nhật hồ sơ thành công', {
+    toast.success('Thêm điểm thi đua thành công', {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -52,9 +37,10 @@ export const updateMyProfile = (formData) => async (dispatch) => {
     })
   } catch (err) {
     dispatch({
-      type: PROFILE.ERRORS
+      type: COMPETITION.ERRORS
     })
-    toast.error(err.response.data.msg, {
+
+    toast.error('Thêm điểm thi đua thất bại, vui lòng thử lại sau!', {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -66,16 +52,15 @@ export const updateMyProfile = (formData) => async (dispatch) => {
   }
 }
 
-
-export const changeAvatar = (formData) => async (dispatch) => {
+export const updateCompetition = (idStudent, formData) => async (dispatch) => {
   try {
-    await api.put('/profile/change_avatar', formData)
+    await api.put(`/competition/${idStudent}`, formData)
 
     dispatch({
-      type: PROFILE.UPDATE_PROFILE
+      type: COMPETITION.UPDATE_COMPETITION
     })
 
-    toast.success('Thay đổi ảnh đại diên thành công!', {
+    toast.success('Cập nhật điểm thi đua thành công', {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -86,9 +71,10 @@ export const changeAvatar = (formData) => async (dispatch) => {
     })
   } catch (err) {
     dispatch({
-      type: PROFILE.ERRORS
+      type: COMPETITION.ERRORS
     })
-    toast.error(err.response.data.msg, {
+
+    toast.error('Cập nhật điểm thi đua thất bại, vui lòng thử lại sau!', {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -98,4 +84,10 @@ export const changeAvatar = (formData) => async (dispatch) => {
       progress: undefined
     })
   }
+}
+
+export const cleanScore = () => async (dispatch) => {
+  dispatch({
+    type: COMPETITION.CLEAN
+  })
 }

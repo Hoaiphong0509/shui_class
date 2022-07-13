@@ -37,8 +37,8 @@ const LoginForm = ({ login, loginAs, goBack }) => {
     case 'teacher':
       loginAsDisplay = 'giáo viên chủ nhiệm'
       break
-    case 'staff':
-      loginAsDisplay = 'ban cán sự'
+    case 'parent':
+      loginAsDisplay = 'phụ huynh'
       break
     default:
       loginAsDisplay = 'học sinh'

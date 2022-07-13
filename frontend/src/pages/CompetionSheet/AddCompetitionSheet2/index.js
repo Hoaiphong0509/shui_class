@@ -1,12 +1,12 @@
+import AddCompetition from 'components/Competition/AddCompetition'
 import LoaderComponent from 'components/core/LoaderComponent'
-import AddScore from 'components/Score/AddScore'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getProfileByUserId } from 'services/redux/actions/profile'
 import s from './styles.module.scss'
 
-const AddScoreSheet2 = ({
+const AddCompetitionSheet1 = ({
   profile: { profile, loading },
   getProfileByUserId,
   match
@@ -21,10 +21,10 @@ const AddScoreSheet2 = ({
   return (
     <div className={s.root}>
       <div className={s.in4}>
-        <h1>Thêm Điểm HKII - {profile?.fullName}</h1>
+        <h1>Thêm Điểm thi đua HKII - {profile?.fullName}</h1>
       </div>
-      <div className={s.formAddScore}>
-        <AddScore
+      <div className={s.formAddCompetition}>
+        <AddCompetition
           hk={2}
           idStudent={match.params.id_student}
           studentName={profile?.fullName}
@@ -35,7 +35,7 @@ const AddScoreSheet2 = ({
   )
 }
 
-AddScoreSheet2.prototype = {
+AddCompetitionSheet1.prototype = {
   profile: PropTypes.object,
   getProfileByUserId: PropTypes.func
 }
@@ -46,4 +46,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getProfileByUserId
-})(AddScoreSheet2)
+})(AddCompetitionSheet1)

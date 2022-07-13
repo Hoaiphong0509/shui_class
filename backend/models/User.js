@@ -4,25 +4,25 @@ const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   roles: {
     type: [String],
     default: ['student'],
-    enum: ['student', 'teacher', 'admin'],
+    enum: ['student', 'teacher', 'admin', 'parent']
   },
   isDelete: {
     type: Boolean,
-    default: false,
+    default: false
   },
   date: {
     type: Date,
-    default: Date.now,
-  },
+    default: Date.now
+  }
 })
 
 module.exports = mongoose.model('user', UserSchema)

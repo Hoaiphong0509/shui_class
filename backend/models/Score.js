@@ -15,6 +15,13 @@ const ScoreSchema = new mongoose.Schema(
     hk: {
       type: Number
     },
+    avgAll: {
+      type: Number
+    },
+    classification: {
+      type: String,
+      enum: ['Xuất sắc','Giỏi', 'Khá', 'Trung Bình', 'Yếu']
+    },
     math: {
       name: {
         type: String,

@@ -1,20 +1,38 @@
 import LoaderComponent from 'components/core/LoaderComponent'
-import TableScore from 'components/Score/TableScore'
+import UpdateScore from 'components/Competition/UpdateScore'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { getProfileByUserId } from 'services/redux/actions/profile'
 import { getScoreByStudent } from 'services/redux/actions/score'
 import s from './styles.module.scss'
 
-const Sheet2 = ({ score: { score, loading }, getScoreByStudent, match }) => {
+const UpdateCompetionSheet1 = ({
+  profile: { profile, loading: ldp },
+  score: { score, loading: ldSc },
+  getProfileByUserId,
+  getScoreByStudent,
+  match
+}) => {
   const history = useHistory()
+  useEffect(() => {
+    getProfileByUserId(match.params.id_student)
+  }, [getProfileByUserId, match])
+
   useEffect(() => {
     getScoreByStudent(match.params.id_student)
   }, [getScoreByStudent, match])
 
-  if (loading || score === null || score === undefined)
+  if (
+    ldp ||
+    ldSc ||
+    profile === null ||
+    profile === undefined ||
+    score === null ||
+    score === undefined
+  )
     return <LoaderComponent />
 
   const tempScoreObj = score?.filter((s) => s.hk === 2)
@@ -49,23 +67,16 @@ const Sheet2 = ({ score: { score, loading }, getScoreByStudent, match }) => {
       ) : (
         <>
           <div className={s.in4}>
-            <h1>Điểm HKI - {score[0]?.studentName}</h1>
+            <h1>Cập nhật điểm HKII - {profile?.fullName}</h1>
           </div>
-          <div className={s.table}>
-            <TableScore score={tempScoreObj[0]} />
-          </div>
-          <div className={s.buttonArea}>
-            <Button variant="secondary" onClick={() => history.push('/')}>
-              Quay lại
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() =>
-                history.push(`/update_score_2/${match.params.id_student}`)
-              }
-            >
-              Cập nhật
-            </Button>
+          <div className={s.formAddScore}>
+            <UpdateScore
+              hk={2}
+              score={tempScoreObj[0]}
+              idStudent={match.params.id_student}
+              studentName={profile?.fullName}
+              studentUsername={profile?.username}
+            />
           </div>
         </>
       )}
@@ -73,15 +84,18 @@ const Sheet2 = ({ score: { score, loading }, getScoreByStudent, match }) => {
   )
 }
 
-Sheet2.prototype = {
-  score: PropTypes.object,
+UpdateCompetionSheet1.prototype = {
+  profile: PropTypes.object,
+  getProfileByUserId: PropTypes.func,
   getScoreByStudent: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
+  profile: state.profile,
   score: state.score
 })
 
 export default connect(mapStateToProps, {
+  getProfileByUserId,
   getScoreByStudent
-})(Sheet2)
+})(UpdateCompetionSheet1)

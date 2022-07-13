@@ -45,12 +45,27 @@ const TableStudent = ({ idClassroom, students, moveStudentToTrash }) => {
             <td>{idx + 1}</td>
             <td>{s.fullName}</td>
             <td>
-              <Button variant="outline-success">Chi tiết</Button>
+              <Button
+                variant="outline-success"
+                onClick={() =>
+                  history.push(`/sheet_competition_1/${s.studentId}`)
+                }
+              >
+                Thi đua HKI
+              </Button>
+              <Button
+                variant="outline-success"
+                onClick={() =>
+                  history.push(`/sheet_competition_2/${s.studentId}`)
+                }
+              >
+                Thi đua HKII
+              </Button>
             </td>
             <td>
               <Button
                 variant="outline-success"
-                onClick={() => history.push(`/sheet_1/${s.studentId}`)}
+                onClick={() => history.push(`/sheet_score_1/${s.studentId}`)}
               >
                 Xem điểm
               </Button>
@@ -64,7 +79,7 @@ const TableStudent = ({ idClassroom, students, moveStudentToTrash }) => {
             <td>
               <Button
                 variant="outline-success"
-                onClick={() => history.push(`/sheet_2/${s.studentId}`)}
+                onClick={() => history.push(`/sheet_score_2/${s.studentId}`)}
               >
                 Xem điểm
               </Button>

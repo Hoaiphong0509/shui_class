@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom'
 import { getCurrentProfile } from 'services/redux/actions/profile'
 import { useEffect } from 'react'
 
-const Header = ({ profile: { profile }, getCurrentProfile, logout }) => {
+const Header = ({ profile: { myprofile }, getCurrentProfile, logout }) => {
   const history = useHistory()
 
   useEffect(() => {
@@ -26,8 +26,8 @@ const Header = ({ profile: { profile }, getCurrentProfile, logout }) => {
       <div className={s.in4}>
         <img
           src={
-            profile?.avatar.length > 0
-              ? profile?.avatar
+            myprofile?.avatar.length > 0
+              ? myprofile?.avatar
               : '/assets/img/avatar.png'
           }
           alt="Avatar"
@@ -35,7 +35,7 @@ const Header = ({ profile: { profile }, getCurrentProfile, logout }) => {
         <DropdownButton
           className={s.menu}
           variant="primary"
-          title={profile?.fullName ? profile?.fullName : 'Menu'}
+          title={myprofile?.fullName ? myprofile?.fullName : 'Menu'}
           id="input-group-dropdown-2"
           align="end"
         >

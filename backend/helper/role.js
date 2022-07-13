@@ -3,4 +3,5 @@ module.exports = {
   Teacher: 'teacher',
   Staff: 'staff',
   Student: 'student',
+  Parent: 'parent',
 }

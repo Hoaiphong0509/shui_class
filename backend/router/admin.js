@@ -6,6 +6,7 @@ const Profile = require('../models/Profile')
 const role = require('../helper/role')
 const checkObjectId = require('../middleware/checkObjectId')
 const Classroom = require('../models/Classroom')
+const ParentIn4 = require('../models/ParentIn4')
 
 // @route    GET api/admin/users
 // @desc     Get all users
@@ -35,10 +36,10 @@ router.get('/teacher', authorize(role.Admin), async (req, res) => {
   }
 })
 
-// @route    GET api/admin/teacher
+// @route    GET api/admin/add_teacher
 // @desc     Add teacher
 // @access   Private
-router.put('/teacher', authorize(role.Admin), async (req, res) => {
+router.put('/add_teacher', authorize(role.Admin), async (req, res) => {
   const { username } = req.body
   try {
     await User.findOneAndUpdate(
@@ -128,6 +129,149 @@ router.put(
       })
 
       res.json({ msg: 'Xoá giáo viên chủ nhiệm khỏi lớp học thành công' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/admin/add_parent
+// @desc     ADD parent into class
+// @access   Private
+router.put('/add_parent', authorize(role.Admin), async (req, res) => {
+  const { username } = req.body
+  try {
+    const user = await User.findOne({ username })
+
+    if (user.roles.includes(role.Teacher))
+      return res.status(400).json({ msg: 'Tài khoản này đang là giáo viên' })
+
+    await User.findOneAndUpdate(
+      { username: username },
+      {
+        $set: { roles: [role.Parent] }
+      }
+    )
+    res.json({ msg: 'Thêm phụ huynh thành công' })
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
+// @route    PUT api/admin/add_parent_into_class
+// @desc     ADD teacher into class
+// @access   Private
+router.put(
+  '/add_parent_into_class',
+  authorize(role.Admin),
+  async (req, res) => {
+    const { username, className } = req.body
+    try {
+      const classroom = await Classroom.findOne({ name: className })
+      const parent = await User.findOne({ username })
+      const profile = await Profile.findOne({ username })
+
+      if (!classroom) {
+        return res.status(400).json({ msg: 'Lớp học không tồn tại' })
+      }
+      if (!parent) {
+        return res.status(400).json({ msg: 'Tài khoản này không tồn tại' })
+      }
+
+      if (!parent.roles.includes(role.Parent)) {
+        return res
+          .status(400)
+          .json({ msg: 'Tài khoản này không phải là phụ huynh' })
+      }
+
+      const parenttemp = await ParentIn4.findOne({
+        username
+      })
+
+      if (!parenttemp) {
+        const parentinfor = new ParentIn4({
+          username,
+          fullName: profile.fullName,
+          classroomIn4: {
+            class: classroom._id.toString(),
+            name: classroom.name,
+            isDelete: false
+          }
+        })
+
+        await parentinfor.save()
+
+        return res.json({ msg: 'Thêm phụ huynh vào lớp học thành công!' })
+      } else if (!parenttemp.classroomIn4.some((c) => c.name === className)) {
+        await ParentIn4.findOneAndUpdate(
+          { username },
+          {
+            $push: {
+              classroomIn4: {
+                class: classroom._id.toString(),
+                name: classroom.name,
+                isDelete: false
+              }
+            }
+          }
+        )
+        return res.json({ msg: 'Thêm phụ huynh vào lớp học thành công!' })
+      } else {
+        return res
+          .status(400)
+          .json({ msg: 'Phụ huynh này đã ở trong lớp học!' })
+      }
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/admin/remove_class_for_parent
+// @desc     Remove class for parent
+// @access   Private
+router.put(
+  '/remove_class_for_parent',
+  authorize(role.Admin),
+  async (req, res) => {
+    const { username, className } = req.body
+    try {
+      const parent = await User.findOne({ username })
+      const classroom = await Classroom.findOne({ name: className })
+      const parenttemp = await ParentIn4.findOne({ username })
+
+      if (!classroom) {
+        return res.status(400).json({ msg: 'Lớp học không tồn tại' })
+      }
+      if (!parent) {
+        return res.status(400).json({ msg: 'Tài khoản này không tồn tại' })
+      }
+
+      if (!parent.roles.includes(role.Parent)) {
+        return res
+          .status(400)
+          .json({ msg: 'Tài khoản này không phải là phụ huynh' })
+      }
+
+      if (!parenttemp) {
+        return res.status(400).json({ msg: 'Vui lòng thử lại sau!' })
+      }
+
+      const classTemp = parenttemp.classroomIn4
+
+      await ParentIn4.findOneAndUpdate(
+        { username },
+        {
+          $set: {
+            classroomIn4: classTemp.filter((c) => c.name !== className)
+          }
+        }
+      )
+
+      res.json({ msg: 'Xoá phụ huynh ra khỏi lớp học thành công' })
     } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error')

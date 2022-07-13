@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addScore } from 'services/redux/actions/score'
 import { useHistory } from 'react-router-dom'
-import { calcAvgPoint, CalcTotalPoint } from 'utils/AppUltils'
 
 const AddScore = ({
   hk,
@@ -161,7 +160,6 @@ const AddScore = ({
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(schema)
@@ -178,142 +176,6 @@ const AddScore = ({
     history.push('/')
   }
 
-  const avgMath = calcAvgPoint(
-    watch('math.oral_1'),
-    watch('math.oral_2'),
-    watch('math.test15m_1'),
-    watch('math.test15m_2'),
-    watch('math.test15m_3'),
-    watch('math.test45m_1'),
-    watch('math.test45m_2'),
-    watch('math.final')
-  )
-  const avgPhysic = calcAvgPoint(
-    watch('physics.oral_1'),
-    watch('physics.oral_2'),
-    watch('physics.test15m_1'),
-    watch('physics.test15m_2'),
-    watch('physics.test15m_3'),
-    watch('physics.test45m_1'),
-    watch('physics.test45m_2'),
-    watch('physics.final')
-  )
-  const avgChem = calcAvgPoint(
-    watch('chemistry.oral_1'),
-    watch('chemistry.oral_2'),
-    watch('chemistry.test15m_1'),
-    watch('chemistry.test15m_2'),
-    watch('chemistry.test15m_3'),
-    watch('chemistry.test45m_1'),
-    watch('chemistry.test45m_2'),
-    watch('chemistry.final')
-  )
-  const avgLit = calcAvgPoint(
-    watch('literature.oral_1'),
-    watch('literature.oral_2'),
-    watch('literature.test15m_1'),
-    watch('literature.test15m_2'),
-    watch('literature.test15m_3'),
-    watch('literature.test45m_1'),
-    watch('literature.test45m_2'),
-    watch('literature.final')
-  )
-  const avgEng = calcAvgPoint(
-    watch('english.oral_1'),
-    watch('english.oral_2'),
-    watch('english.test15m_1'),
-    watch('english.test15m_2'),
-    watch('english.test15m_3'),
-    watch('english.test45m_1'),
-    watch('english.test45m_2'),
-    watch('english.final')
-  )
-  const avgBio = calcAvgPoint(
-    watch('biology.oral_1'),
-    watch('biology.oral_2'),
-    watch('biology.test15m_1'),
-    watch('biology.test15m_2'),
-    watch('biology.test15m_3'),
-    watch('biology.test45m_1'),
-    watch('biology.test45m_2'),
-    watch('biology.final')
-  )
-  const avgCiv = calcAvgPoint(
-    watch('civic.oral_1'),
-    watch('civic.oral_2'),
-    watch('civic.test15m_1'),
-    watch('civic.test15m_2'),
-    watch('civic.test15m_3'),
-    watch('civic.test45m_1'),
-    watch('civic.test45m_2'),
-    watch('civic.final')
-  )
-  const avgTech = calcAvgPoint(
-    watch('tech.oral_1'),
-    watch('tech.oral_2'),
-    watch('tech.test15m_1'),
-    watch('tech.test15m_2'),
-    watch('tech.test15m_3'),
-    watch('tech.test45m_1'),
-    watch('tech.test45m_2'),
-    watch('tech.final')
-  )
-  const avgGeo = calcAvgPoint(
-    watch('geography.oral_1'),
-    watch('geography.oral_2'),
-    watch('geography.test15m_1'),
-    watch('geography.test15m_2'),
-    watch('geography.test15m_3'),
-    watch('geography.test45m_1'),
-    watch('geography.test45m_2'),
-    watch('geography.final')
-  )
-  const avgHis = calcAvgPoint(
-    watch('history.oral_1'),
-    watch('history.oral_2'),
-    watch('history.test15m_1'),
-    watch('history.test15m_2'),
-    watch('history.test15m_3'),
-    watch('history.test45m_1'),
-    watch('history.test45m_2'),
-    watch('history.final')
-  )
-  const avgItt = calcAvgPoint(
-    watch('it.oral_1'),
-    watch('it.oral_2'),
-    watch('it.test15m_1'),
-    watch('it.test15m_2'),
-    watch('it.test15m_3'),
-    watch('it.test45m_1'),
-    watch('it.test45m_2'),
-    watch('it.final')
-  )
-  const avgDnu = calcAvgPoint(
-    watch('dnu.oral_1'),
-    watch('dnu.oral_2'),
-    watch('dnu.test15m_1'),
-    watch('dnu.test15m_2'),
-    watch('dnu.test15m_3'),
-    watch('dnu.test45m_1'),
-    watch('dnu.test45m_2'),
-    watch('dnu.final')
-  )
-
-  const totalPoint = CalcTotalPoint(
-    avgMath,
-    avgLit,
-    avgEng,
-    avgPhysic,
-    avgChem,
-    avgBio,
-    avgCiv,
-    avgTech,
-    avgGeo,
-    avgHis,
-    avgItt,
-    avgDnu
-  )
-  console.log('totalPoint', +totalPoint)
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
       <Table className={s.table} bordered responsive hover>
@@ -413,8 +275,6 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={+avgMath}
                 defaultValue="0"
                 {...register('math.avg')}
                 className={`${
@@ -508,9 +368,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgPhysic}
-                defaultValue={avgPhysic}
+                defaultValue="0"
                 {...register('physics.avg')}
                 className={`${
                   errors?.physics?.avg?.message ? s.error_input : null
@@ -603,9 +461,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgChem}
-                defaultValue={avgChem}
+                defaultValue="0"
                 {...register('chemistry.avg')}
                 className={`${
                   errors?.chemistry?.avg?.message ? s.error_input : null
@@ -698,9 +554,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgLit}
-                defaultValue={avgLit}
+                defaultValue="0"
                 {...register('literature.avg')}
                 className={`${
                   errors?.literature?.avg?.message ? s.error_input : null
@@ -793,9 +647,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgEng}
-                defaultValue={avgEng}
+                defaultValue="0"
                 {...register('english.avg')}
                 className={`${
                   errors?.english?.avg?.message ? s.error_input : null
@@ -888,9 +740,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgBio}
-                defaultValue={avgBio}
+                defaultValue="0"
                 {...register('biology.avg')}
                 className={`${
                   errors?.biology?.avg?.message ? s.error_input : null
@@ -983,9 +833,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgCiv}
-                defaultValue={avgCiv}
+                defaultValue="0"
                 {...register('civic.avg')}
                 className={`${
                   errors?.civic?.avg?.message ? s.error_input : null
@@ -1078,9 +926,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgTech}
-                defaultValue={avgTech}
+                defaultValue="0"
                 {...register('tech.avg')}
                 className={`${
                   errors?.tech?.avg?.message ? s.error_input : null
@@ -1173,9 +1019,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgGeo}
-                defaultValue={avgGeo}
+                defaultValue="0"
                 {...register('geography.avg')}
                 className={`${
                   errors?.geography?.avg?.message ? s.error_input : null
@@ -1268,9 +1112,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgHis}
-                defaultValue={avgHis}
+                defaultValue="0"
                 {...register('history.avg')}
                 className={`${
                   errors?.history?.avg?.message ? s.error_input : null
@@ -1363,9 +1205,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgItt}
-                defaultValue={avgItt}
+                defaultValue="0"
                 {...register('it.avg')}
                 className={`${errors?.it?.avg?.message ? s.error_input : null}`}
               />
@@ -1456,9 +1296,7 @@ const AddScore = ({
             <td>
               <input
                 type="text"
-                disabled
-                value={avgDnu}
-                defaultValue={avgDnu}
+                defaultValue="0"
                 {...register('dnu.avg')}
                 className={`${
                   errors?.dnu?.avg?.message ? s.error_input : null

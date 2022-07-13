@@ -1,0 +1,78 @@
+.root {
+  width: 100%;
+  .overview {
+    div {
+      font-size: 20px;
+    }
+  }
+  .detailsPoint {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .point {
+      width: 47%;
+
+      h3 {
+        font-weight: bold;
+        color: black;
+      }
+
+      .panel {
+        .panel_in4 {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          p:first-child {
+            width: 65%;
+            padding: 15px;
+            border-radius: 10px;
+          }
+
+          p:nth-child(2) {
+            width: 30%;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+          }
+        }
+
+        .note {
+          padding: 15px;
+          border-radius: 10px;
+          background-color: whitesmoke;
+          border: 1px solid #ccc;
+        }
+      }
+    }
+
+    .point:first-child {
+      .panel {
+        .panel_in4 {
+          p:first-child {
+            border: 1px solid greenyellow;
+          }
+          p:last-child {
+            background-color: greenyellow;
+          }
+        }
+      }
+    }
+
+    .point:last-child {
+      .panel {
+        .panel_in4 {
+          p:first-child {
+            border: 1px solid rosybrown;
+          }
+          p:last-child {
+            background-color: rosybrown;
+          }
+        }
+      }
+    }
+  }
+}

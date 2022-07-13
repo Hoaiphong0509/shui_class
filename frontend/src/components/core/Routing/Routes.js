@@ -6,21 +6,27 @@ import PrivateRoute from './PrivateRoute'
 
 import { ROLES } from 'constants/AppConstants'
 import BlankLayout from 'layout/BlankLayout'
+import AddCompetitionSheet1 from 'pages/CompetionSheet/AddCompetitionSheet1'
+import AddCompetitionSheet2 from 'pages/CompetionSheet/AddCompetitionSheet2'
+import SheetCompetion1 from 'pages/CompetionSheet/SheetCompetion1'
+import SheetCompetion2 from 'pages/CompetionSheet/SheetCompetion2'
+import UpdateCompetionSheet1 from 'pages/CompetionSheet/UpdateCompetionSheet1'
+import UpdateCompetionSheet2 from 'pages/CompetionSheet/UpdateCompetionSheet2'
 import Home from 'pages/Home'
 import Login from 'pages/Login'
 import NotFoundPage from 'pages/NotFoundPage'
+import DetailsProfile from 'pages/ProfileUser/DetailsProfile'
+import UpdateProfile from 'pages/ProfileUser/UpdateProfile'
 import Register from 'pages/Register'
+import AddScoreSheet1 from 'pages/ScoreSheet/AddScoreSheet1'
+import AddScoreSheet2 from 'pages/ScoreSheet/AddScoreSheet2'
+import SheetScore1 from 'pages/ScoreSheet/SheetScore1'
+import SheetScore2 from 'pages/ScoreSheet/SheetScore2'
+import UpdateScoreSheet1 from 'pages/ScoreSheet/UpdateScoreSheet1'
+import UpdateScoreSheet2 from 'pages/ScoreSheet/UpdateScoreSheet2'
 import CreateStudent from 'pages/Teacher/CreateStudent'
 import TrashStudent from 'pages/Teacher/TrashStudent'
 import Route from './Route'
-import Sheet1 from 'pages/ScoreSheet/Sheet1'
-import Sheet2 from 'pages/ScoreSheet/Sheet2'
-import AddScoreSheet1 from 'pages/ScoreSheet/AddScoreSheet1'
-import AddScoreSheet2 from 'pages/ScoreSheet/AddScoreSheet2'
-import UpdateScoreSheet1 from 'pages/ScoreSheet/UpdateScoreSheet1'
-import UpdateScoreSheet2 from 'pages/ScoreSheet/UpdateScoreSheet2'
-import DetailsProfile from 'pages/ProfileUser/DetailsProfile'
-import UpdateProfile from 'pages/ProfileUser/UpdateProfile'
 
 const Routes = () => {
   return (
@@ -44,15 +50,27 @@ const Routes = () => {
       />
       <PrivateRoute
         exact
-        path="/sheet_1/:id_student"
+        path="/sheet_score_1/:id_student"
         layout={DefaultLayout}
-        component={Sheet1}
+        component={SheetScore1}
       />
       <PrivateRoute
         exact
-        path="/sheet_2/:id_student"
+        path="/sheet_score_2/:id_student"
         layout={DefaultLayout}
-        component={Sheet2}
+        component={SheetScore2}
+      />
+      <PrivateRoute
+        exact
+        path="/sheet_competition_1/:id_student"
+        layout={DefaultLayout}
+        component={SheetCompetion1}
+      />
+      <PrivateRoute
+        exact
+        path="/sheet_competition_2/:id_student"
+        layout={DefaultLayout}
+        component={SheetCompetion2}
       />
       <PrivateRoute
         exact
@@ -81,6 +99,34 @@ const Routes = () => {
         layout={DefaultLayout}
         role={ROLES.TEACHER}
         component={UpdateScoreSheet2}
+      />
+      <PrivateRoute
+        exact
+        path="/add_competition_1/:id_student"
+        layout={DefaultLayout}
+        role={ROLES.TEACHER}
+        component={AddCompetitionSheet1}
+      />
+      <PrivateRoute
+        exact
+        path="/add_competition_2/:id_student"
+        layout={DefaultLayout}
+        role={ROLES.TEACHER}
+        component={AddCompetitionSheet2}
+      />
+      <PrivateRoute
+        exact
+        path="/update_competition_1/:id_student"
+        layout={DefaultLayout}
+        role={ROLES.TEACHER}
+        component={UpdateCompetionSheet1}
+      />
+      <PrivateRoute
+        exact
+        path="/update_competition_2/:id_student"
+        layout={DefaultLayout}
+        role={ROLES.TEACHER}
+        component={UpdateCompetionSheet2}
       />
       <PrivateRoute
         exact

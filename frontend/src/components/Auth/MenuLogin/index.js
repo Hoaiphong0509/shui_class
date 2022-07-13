@@ -17,6 +17,9 @@ const MenuLogin = (props) => {
           <button onClick={() => handlelLoginAs('student')}>
             HỌC SINH LỚP HỌC
           </button>
+          <button onClick={() => handlelLoginAs('parent')}>
+            PHỤ HUYNH HỌC SINH
+          </button>
         </div>
       </div>
     </div>

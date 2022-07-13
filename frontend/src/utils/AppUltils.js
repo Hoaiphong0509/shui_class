@@ -66,3 +66,67 @@ export const filter_duplicates = (arr1, arr2) => {
 
   return { duplicates: duplicates, unique: unique }
 }
+
+export const classificationFunc = (point) => {
+  let xl = ''
+  if (point <= 20) xl = 'Yếu'
+  if (point <= 50) xl = 'Trung bình'
+  if (point > 50 && point < 180) xl = 'Khá'
+  if (point >= 180) xl = 'Giỏi'
+  return xl
+}
+
+export const calcAvgPoint = (
+  oral_1,
+  oral_2,
+  test15m_1,
+  test15m_2,
+  test15m_3,
+  test45m_1,
+  test45m_2,
+  final
+) => {
+  let point = 0
+
+  point =
+    (+oral_1 +
+      +oral_2 +
+      (+test15m_1 + +test15m_2 + +test15m_3) +
+      2 * (+test45m_1 + +test45m_2) +
+      3 * +final) /
+    12
+
+  return point.toFixed(2)
+}
+
+export const CalcTotalPoint = (
+  avgMath,
+  avgLit,
+  avgEng,
+  avgPhysic,
+  avgChem,
+  avgBio,
+  avgCiv,
+  avgTech,
+  avgGeo,
+  avgHis,
+  avgItt,
+  avgDnu
+) => {
+  let point = 0
+
+  point =
+    (2 * (+avgMath + +avgLit + +avgEng) +
+      +avgPhysic +
+      +avgChem +
+      +avgBio +
+      +avgCiv +
+      +avgTech +
+      +avgGeo +
+      +avgHis +
+      +avgItt +
+      +avgDnu) /
+    15
+
+  return point.toFixed(2)
+}

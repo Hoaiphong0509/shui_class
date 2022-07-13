@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom'
 import { getScoreByStudent } from 'services/redux/actions/score'
 import s from './styles.module.scss'
 
-const Sheet1 = ({ score: { score, loading }, getScoreByStudent, match }) => {
+const SheetScore1 = ({ score: { score, loading }, getScoreByStudent, match }) => {
   const history = useHistory()
   useEffect(() => {
     getScoreByStudent(match.params.id_student)
@@ -73,7 +73,7 @@ const Sheet1 = ({ score: { score, loading }, getScoreByStudent, match }) => {
   )
 }
 
-Sheet1.prototype = {
+SheetScore1.prototype = {
   score: PropTypes.object,
   getScoreByStudent: PropTypes.func
 }
@@ -84,4 +84,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getScoreByStudent
-})(Sheet1)
+})(SheetScore1)

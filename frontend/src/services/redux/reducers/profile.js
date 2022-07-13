@@ -2,6 +2,7 @@ import { PROFILE } from 'constants/AppConstants'
 
 const initialState = {
   profile: null,
+  myprofile: null,
   profiles: [],
   loading: true
 }
@@ -10,6 +11,12 @@ const PROFILEReducer = (state = initialState, action) => {
   const { type, payload } = action
 
   switch (type) {
+    case PROFILE.GET_MYPROFILE:
+      return {
+        ...state,
+        myprofile: payload,
+        loading: false
+      }
     case PROFILE.GET_PROFILE:
       return {
         ...state,
@@ -32,6 +39,7 @@ const PROFILEReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: null,
+        myprofile: null,
         profiles: [],
         loading: false
       }
