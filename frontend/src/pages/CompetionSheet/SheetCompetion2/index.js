@@ -66,7 +66,7 @@ const SheetCompetion2 = ({
             <Button
               variant="primary"
               onClick={() =>
-                history.push(`/update_score_2/${match.params.id_student}`)
+                history.push(`/update_competition_2/${match.params.id_student}`)
               }
             >
               Cập nhật

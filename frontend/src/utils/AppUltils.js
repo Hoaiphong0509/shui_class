@@ -76,6 +76,16 @@ export const classificationFunc = (point) => {
   return xl
 }
 
+export const classificationPointFunc = (avgFinal) => {
+  let xl = ''
+  if (avgFinal <= 2) xl = 'Yếu'
+  if (avgFinal > 2 && avgFinal < 6.5) xl = 'Trung bình'
+  if (avgFinal >= 6.5 && avgFinal < 8) xl = 'Khá'
+  if (avgFinal >= 8) xl = 'Giỏi'
+  if (avgFinal === 10) xl = 'Xuất sắc'
+  return xl
+}
+
 export const calcAvgPoint = (
   oral_1,
   oral_2,

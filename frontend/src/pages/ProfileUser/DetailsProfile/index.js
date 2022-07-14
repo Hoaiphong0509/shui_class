@@ -9,7 +9,7 @@ import { getCurrentProfile } from 'services/redux/actions/profile'
 import s from './styles.module.scss'
 
 const DetailsProfile = ({
-  profile: { profile, loading: ldp },
+  profile: { myprofile, loading: ldp },
   user: { user, loading: ldu },
   classroom: { classroom, loading: ldc },
   getCurrentProfile,
@@ -27,16 +27,16 @@ const DetailsProfile = ({
     ldp ||
     ldc ||
     ldu ||
-    profile === null ||
+    myprofile === null ||
     classroom === null ||
     user === null
   )
     return <LoaderComponent />
-console.log("classroom",classroom);
+
   return (
     <div className={s.root}>
       <DetailsProfileComponent
-        profile={profile}
+        profile={myprofile}
         classroom={classroom}
         user={user}
       />

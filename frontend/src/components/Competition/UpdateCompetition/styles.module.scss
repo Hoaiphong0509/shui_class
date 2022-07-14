@@ -1,0 +1,107 @@
+.root {
+  width: 100%;
+  form {
+
+    .overview {
+      div {
+        font-size: 20px;
+      }
+    }
+    .detailsPoint {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+
+      .point {
+        width: 47%;
+
+        h3 {
+          font-weight: bold;
+          color: black;
+        }
+
+        .panel {
+          .panel_in4 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            div:first-child {
+              width: 65%;
+              padding: 15px;
+              border-radius: 10px;
+              height: 100%;
+              font-weight: bold;
+            }
+
+            .panel_input {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+              width: 30%;
+              // padding: 15px;
+              border-radius: 10px;
+              text-align: center;
+              font-weight: bold;
+
+              input {
+                width: 20%;
+                padding: 0 !important;
+                height: auto;
+                text-align: center;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+              }
+            }
+          }
+
+          .note {
+            margin-top: 5px;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: transparent;
+            border: 1px solid #ccc;
+          }
+        }
+      }
+
+      .point:first-child {
+        .panel {
+          .panel_in4 {
+            div:first-child {
+              background: greenyellow;
+            }
+            .panel_input {
+              background-color: transparent;
+              border: 1px solid greenyellow;
+            }
+          }
+        }
+      }
+
+      .point:last-child {
+        .panel {
+          .panel_in4 {
+            div:first-child {
+              background: rosybrown;
+            }
+            .panel_input {
+              border: 1px solid rosybrown;
+            }
+          }
+        }
+      }
+    }
+
+    .btnArea {
+      display: flex;
+      justify-content: flex-end;
+      button {
+        margin-left: 5px;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
+import AddCompetition from 'components/Competition/AddCompetition'
 import LoaderComponent from 'components/core/LoaderComponent'
-import AddScore from 'components/Competition/AddScore'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
@@ -21,10 +21,10 @@ const AddCompetitionSheet1 = ({
   return (
     <div className={s.root}>
       <div className={s.in4}>
-        <h1>Thêm Điểm Thi Đua HKI - {profile?.fullName}</h1>
+        <h1>Thêm Điểm thi đua HKI - {profile?.fullName}</h1>
       </div>
-      <div className={s.formAddScore}>
-        <AddScore
+      <div className={s.formAddCompetition}>
+        <AddCompetition
           hk={1}
           idStudent={match.params.id_student}
           studentName={profile?.fullName}

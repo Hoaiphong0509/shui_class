@@ -56,7 +56,6 @@ const SheetCompetion1 = ({
             <h1>Điểm thi đua HKI - {competition[0]?.studentName}</h1>
           </div>
           <div className={s.table}>
-            {/* <TableScore score={tempCompetitionObj[0]} /> */}
             <TableCompetition
               title="Tích cực"
               dataCompetitions={tempCompetitionObj[0]}
@@ -69,7 +68,7 @@ const SheetCompetion1 = ({
             <Button
               variant="primary"
               onClick={() =>
-                history.push(`/update_score_1/${match.params.id_student}`)
+                history.push(`/update_competition_1/${match.params.id_student}`)
               }
             >
               Cập nhật

@@ -1,5 +1,5 @@
+import UpdateCompetition from 'components/Competition/UpdateCompetition'
 import LoaderComponent from 'components/core/LoaderComponent'
-import UpdateScore from 'components/Competition/UpdateScore'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
@@ -57,20 +57,20 @@ const UpdateCompetionSheet1 = ({
             <Button
               variant="primary"
               onClick={() => {
-                history.push(`/add_score_2/${match.params.id_student}`)
+                history.push(`/add_competition_2/${match.params.id_student}`)
               }}
             >
-              Thêm điểm HKI
+              Thêm điểm thi đua HKI
             </Button>
           </div>
         </>
       ) : (
         <>
           <div className={s.in4}>
-            <h1>Cập nhật điểm HKII - {profile?.fullName}</h1>
+            <h1>Cập nhật điểm thi đua HKII - {profile?.fullName}</h1>
           </div>
-          <div className={s.formAddScore}>
-            <UpdateScore
+          <div className={s.formAddCompetition}>
+            <UpdateCompetition
               hk={2}
               score={tempScoreObj[0]}
               idStudent={match.params.id_student}

@@ -8,7 +8,7 @@ import { getCurrentProfile } from 'services/redux/actions/profile'
 import s from './styles.module.scss'
 
 const UpdateProfile = ({
-  profile: { profile, loading: ldp },
+  profile: { myprofile, loading: ldp },
   user: { user, loading: ldu },
   classroom: { classroom, loading: ldc },
   getCurrentProfile,
@@ -26,7 +26,7 @@ const UpdateProfile = ({
     ldp ||
     ldc ||
     ldu ||
-    profile === null ||
+    myprofile === null ||
     classroom === null ||
     user === null
   )
@@ -35,7 +35,7 @@ const UpdateProfile = ({
   return (
     <div className={s.root}>
       <UpdateProfileComponent
-        profile={profile}
+        profile={myprofile}
         classroom={classroom}
         user={user}
       />

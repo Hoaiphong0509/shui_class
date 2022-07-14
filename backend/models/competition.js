@@ -211,8 +211,6 @@ const CompetitionSchema = new mongoose.Schema(
     },
     classification: {
       type: String,
-      default: ['Khá'],
-      enum: ['Giỏi', 'Khá', 'Trung Bình', 'Yếu']
     },
     isDelete: {
       type: Boolean,

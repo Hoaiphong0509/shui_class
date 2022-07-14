@@ -10,7 +10,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addScore } from 'services/redux/actions/score'
 import { useHistory } from 'react-router-dom'
-import { calcAvgPoint, CalcTotalPoint } from 'utils/AppUltils'
+import {
+  calcAvgPoint,
+  CalcTotalPoint,
+  classificationPointFunc
+} from 'utils/AppUltils'
 
 const AddScore = ({
   hk,
@@ -167,17 +171,6 @@ const AddScore = ({
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (data) => {
-    const payload = {
-      hk,
-      studentName,
-      studentUsername,
-      ...data
-    }
-    addScore(idStudent, payload)
-    history.push('/')
-  }
-
   const avgMath = calcAvgPoint(
     watch('math.oral_1'),
     watch('math.oral_2'),
@@ -314,8 +307,35 @@ const AddScore = ({
     avgDnu
   )
   console.log('totalPoint', +totalPoint)
+
+  const onSubmit = (data) => {
+    const payload = {
+      classification: classificationPointFunc(+totalPoint),
+      avgAll: +totalPoint,
+      hk,
+      studentName,
+      studentUsername,
+      ...data
+    }
+    addScore(idStudent, payload)
+    history.push('/')
+  }
+
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <h3>
+          Trung bình cả năm:{' '}
+          <b>
+            {totalPoint !== 'NaN'
+              ? Number.parseFloat(totalPoint).toFixed(2)
+              : '0'}
+          </b>
+        </h3>
+        <h3>
+          Xếp loại:<b>{classificationPointFunc(+totalPoint)}</b>
+        </h3>
+      </div>
       <Table className={s.table} bordered responsive hover>
         <thead>
           <tr>
@@ -414,8 +434,8 @@ const AddScore = ({
               <input
                 type="text"
                 disabled
-                value={+avgMath}
-                defaultValue="0"
+                value={avgMath}
+                defaultValue={avgMath}
                 {...register('math.avg')}
                 className={`${
                   errors?.math?.avg?.message ? s.error_input : null

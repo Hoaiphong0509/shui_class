@@ -1,19 +1,19 @@
+import UpdateCompetition from 'components/Competition/UpdateCompetition'
 import LoaderComponent from 'components/core/LoaderComponent'
-import UpdateScore from 'components/Competition/UpdateScore'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getProfileByUserId } from 'services/redux/actions/profile'
-import { getScoreByStudent } from 'services/redux/actions/score'
+import { getCompetitionByStudent } from 'services/redux/actions/competition'
 import s from './styles.module.scss'
 
 const UpdateCompetionSheet1 = ({
   profile: { profile, loading: ldp },
-  score: { score, loading: ldSc },
+  competition: { competition, loading: ldSc },
   getProfileByUserId,
-  getScoreByStudent,
+  getCompetitionByStudent,
   match
 }) => {
   const history = useHistory()
@@ -22,28 +22,28 @@ const UpdateCompetionSheet1 = ({
   }, [getProfileByUserId, match])
 
   useEffect(() => {
-    getScoreByStudent(match.params.id_student)
-  }, [getScoreByStudent, match])
+    getCompetitionByStudent(match.params.id_student)
+  }, [getCompetitionByStudent, match])
 
   if (
     ldp ||
     ldSc ||
     profile === null ||
     profile === undefined ||
-    score === null ||
-    score === undefined
+    competition === null ||
+    competition === undefined
   )
     return <LoaderComponent />
-  console.log('score', score)
-  const tempScoreObj = score?.filter((s) => s.hk === 1)
+
+  const tempCompetitionObj = competition?.filter((s) => s.hk === 1)
 
   return (
     <div className={s.root}>
-      {score === null ||
-      score === undefined ||
-      tempScoreObj === null ||
-      tempScoreObj === undefined ||
-      tempScoreObj.length === 0 ? (
+      {competition === null ||
+      competition === undefined ||
+      tempCompetitionObj === null ||
+      tempCompetitionObj === undefined ||
+      tempCompetitionObj.length === 0 ? (
         <>
           <h1>Học sinh này chưa có điểm HKI</h1>
           <div>
@@ -57,22 +57,22 @@ const UpdateCompetionSheet1 = ({
             <Button
               variant="primary"
               onClick={() => {
-                history.push(`/add_score_1/${match.params.id_student}`)
+                history.push(`/add_competition_1/${match.params.id_student}`)
               }}
             >
-              Thêm điểm HKI
+              Thêm điểm thi đua HKI
             </Button>
           </div>
         </>
       ) : (
         <>
           <div className={s.in4}>
-            <h1>Cập nhật điểm HKI - {profile?.fullName}</h1>
+            <h1>Cập nhật điểm thi đua HKI - {profile?.fullName}</h1>
           </div>
-          <div className={s.formAddScore}>
-            <UpdateScore
+          <div className={s.formAddCompetition}>
+            <UpdateCompetition
               hk={1}
-              score={tempScoreObj[0]}
+              score={tempCompetitionObj[0]}
               idStudent={match.params.id_student}
               studentName={profile?.fullName}
               studentUsername={profile?.username}
@@ -87,15 +87,15 @@ const UpdateCompetionSheet1 = ({
 UpdateCompetionSheet1.prototype = {
   profile: PropTypes.object,
   getProfileByUserId: PropTypes.func,
-  getScoreByStudent: PropTypes.func
+  getCompetitionByStudent: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
-  score: state.score
+  competition: state.competition
 })
 
 export default connect(mapStateToProps, {
   getProfileByUserId,
-  getScoreByStudent
+  getCompetitionByStudent
 })(UpdateCompetionSheet1)

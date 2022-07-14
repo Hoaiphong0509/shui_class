@@ -20,7 +20,6 @@ const ScoreSchema = new mongoose.Schema(
     },
     classification: {
       type: String,
-      enum: ['Xuất sắc','Giỏi', 'Khá', 'Trung Bình', 'Yếu']
     },
     math: {
       name: {
