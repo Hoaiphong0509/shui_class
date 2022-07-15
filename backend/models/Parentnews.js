@@ -1,10 +1,23 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-const SchoolnewsSchema = new mongoose.Schema(
+const ParentnewsSchema = new mongoose.Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
       ref: 'user'
+    },
+    classroom: {
+      type: Schema.Types.ObjectId,
+      ref: 'classroom'
+    },
+    author: {
+      name: {
+        type: String
+      },
+      avatar: {
+        type: String
+      }
     },
     title: {
       type: String,
@@ -21,6 +34,34 @@ const SchoolnewsSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
+    likes: [
+      {
+        user: {
+          type: Schema.Types.ObjectId
+        }
+      }
+    ],
+    comments: [
+      {
+        user: {
+          type: Schema.Types.ObjectId
+        },
+        text: {
+          type: String,
+          required: true
+        },
+        name: {
+          type: String
+        },
+        avatar: {
+          type: String
+        },
+        date: {
+          type: Date,
+          default: Date.now
+        }
+      }
+    ],
     date: {
       type: Date,
       default: Date.now
@@ -31,4 +72,4 @@ const SchoolnewsSchema = new mongoose.Schema(
   }
 )
 
-module.exports = mongoose.model('schoolnews', SchoolnewsSchema)
+module.exports = mongoose.model('parentnews', ParentnewsSchema)
