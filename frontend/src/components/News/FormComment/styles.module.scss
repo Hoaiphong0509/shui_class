@@ -1,0 +1,14 @@
+.form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  input {
+    padding: 10px;
+    width: 69%;
+    border-radius: 5px;
+  }
+
+  button {
+    width: 30%;
+  }
+}

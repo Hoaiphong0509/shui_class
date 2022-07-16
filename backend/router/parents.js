@@ -7,6 +7,7 @@ const Classroom = require('../models/Classroom')
 const Profile = require('../models/Profile')
 const User = require('../models/User')
 const ParentIn4 = require('../models/ParentIn4')
+const Parentnews = require('../models/Parentnews')
 
 // @route    GET api/parents
 // @desc     Get all parents
@@ -133,5 +134,107 @@ router.put('/remove_student', authorize(role.Parent), async (req, res) => {
     res.status(500).send('Server Error')
   }
 })
+
+// @route    PUT api/student/like_parentnews/:id_parentnews
+// @desc     Like news
+// @access   Private
+router.put(
+  '/like_parentnews/:id_parentnews',
+  checkObjectId('id_parentnews'),
+  authorize(),
+  async (req, res) => {
+    try {
+      await Parentnews.findByIdAndUpdate(req.params.id_parentnews, {
+        $push: { likes: { user: req.user.id } }
+      })
+
+      return res.json({ msg: 'Like thành công' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/student/unlike_parentnews/:id_parentnews
+// @desc     Like news
+// @access   Private
+router.put(
+  '/unlike_parentnews/:id_parentnews',
+  checkObjectId('id_parentnews'),
+  authorize(),
+  async (req, res) => {
+    try {
+      const parentnews = await Parentnews.findById(req.params.id_parentnews)
+      const likes = parentnews.likes.filter((l) => l.user !== req.user.id)
+
+      await Parentnews.findByIdAndUpdate(req.params.id_parentnews, {
+        $set: { likes }
+      })
+
+      return res.json({ msg: 'Unlike thành công' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/student/add_comment/:id_parentnews
+// @desc     Comment into parents
+// @access   Private
+router.put(
+  '/add_comment/:id_parentnews',
+  checkObjectId('id_parentnews'),
+  authorize(),
+  async (req, res) => {
+    const { text } = req.body
+    try {
+      const profile = await Profile.findOne({ user: req.user.id })
+
+      await Parentnews.findByIdAndUpdate(req.params.id_parentnews, {
+        $push: {
+          comments: {
+            user: req.user.id,
+            text,
+            name: profile.fullName,
+            avatar: profile.avatar
+          }
+        }
+      })
+
+      return res.json({ msg: 'Comment vào bản tin thành công' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/student/delete_comment/:id_parentnews
+// @desc     Delelte Comment
+// @access   Private
+router.put(
+  '/delete_comment/:id_parentnews',
+  checkObjectId('id_parentnews'),
+  authorize(),
+  async (req, res) => {
+    try {
+      const parentnews = await Parentnews.findById(req.params.id_parentnews)
+      const comments = parentnews.comments.filter((c) => c.user !== req.user.id)
+
+      await Parentnews.findByIdAndUpdate(req.params.id_parentnews, {
+        $set: {
+          comments
+        }
+      })
+
+      return res.json({ msg: 'Xoá comment thành công' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
 
 module.exports = router

@@ -27,6 +27,7 @@ import UpdateScoreSheet2 from 'pages/ScoreSheet/UpdateScoreSheet2'
 import CreateStudent from 'pages/Teacher/CreateStudent'
 import TrashStudent from 'pages/Teacher/TrashStudent'
 import Route from './Route'
+import Classnews from 'pages/Classnews'
 
 const Routes = () => {
   return (
@@ -139,6 +140,12 @@ const Routes = () => {
         path="/update_profile"
         layout={DefaultLayout}
         component={UpdateProfile}
+      />
+      <PrivateRoute
+        exact
+        path="/classnews"
+        layout={DefaultLayout}
+        component={Classnews}
       />
       <PrivateRoute component={NotFoundPage} layout={DefaultLayout} />
     </Switch>

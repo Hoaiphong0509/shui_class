@@ -238,19 +238,6 @@ router.put(
   }
 )
 
-// @route    GET api/teacher/get_myclassnews
-// @desc     GET my classnews
-// @access   Private
-router.get('/get_myclassnews', authorize(role.Teacher), async (req, res) => {
-  try {
-    const classnews = await Classnews.find({ user: req.user.id })
-    res.json(classnews)
-  } catch (err) {
-    console.error(err.message)
-    res.status(500).send('Server Error')
-  }
-})
-
 // @route    POST api/teacher/add_classnews
 // @desc     Add class news
 // @access   Private

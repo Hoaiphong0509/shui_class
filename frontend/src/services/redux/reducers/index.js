@@ -6,6 +6,7 @@ import staff from './staff'
 import score from './score'
 import profile from './profile'
 import competition from './competition'
+import classnews from './classnews'
 
 export default combineReducers({
   user,
@@ -14,5 +15,6 @@ export default combineReducers({
   staff,
   score,
   profile,
-  competition
+  competition,
+  classnews
 })

@@ -1,0 +1,51 @@
+.root {
+  .in4 {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 54px;
+      height: 54px;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+    .name_date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 5px;
+      p {
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+      }
+      i {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  .content {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8edeb;
+    padding: 20px;
+    div {
+      width: 79%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+      word-wrap: break-word;
+    }
+    button {
+      width: 20%;
+      // height: ;
+    }
+  }
+}

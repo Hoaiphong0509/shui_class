@@ -5,6 +5,9 @@ const signJWT = require('../utils/signJWT')
 const authorize = require('../middleware/authorize')
 const User = require('../models/User')
 const Profile = require('../models/Profile')
+const Classroom = require('../models/Classroom')
+const Classnews = require('../models/Classnews')
+const Parentnews = require('../models/Parentnews')
 
 // @route    GET api/users/auth
 // @desc     Get user by token
@@ -89,6 +92,56 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     console.error(err.message)
     res.status(500).send('Server error')
+  }
+})
+
+// @route    GET api/users/get_myclassnews
+// @desc     GET my classnews
+// @access   Private
+router.get('/get_myclassnews', authorize(), async (req, res) => {
+  try {
+    const classroom = await Classroom.find()
+
+    const result = classroom.filter(
+      (c) =>
+        (c.headTeacher.user && c.headTeacher.user.toString() === req.user.id) ||
+        c.students.some((s) => s.user.toString() === req.user.id)
+    )
+
+    const classnews = await Classnews.find({
+      classroom: result[0]._id.toString()
+    })
+
+    classnews?.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
+    })
+    res.json(classnews)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
+// @route    GET api/users/get_myparentnews
+// @desc     GET my parentnews
+// @access   Private
+router.get('/get_myparentnews', authorize(), async (req, res) => {
+  try {
+    const classroom = await Classroom.find()
+
+    const result = classroom.filter(
+      (c) =>
+        (c.headTeacher.user && c.headTeacher.user.toString() === req.user.id) ||
+        c.students.some((s) => s.user.toString() === req.user.id)
+    )
+
+    const parentnews = await Parentnews.find({
+      classroom: result[0]._id.toString()
+    })
+    res.json(parentnews)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
   }
 })
 
