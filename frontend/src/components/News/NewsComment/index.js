@@ -10,7 +10,6 @@ import { deleteCommentClassnews } from 'services/redux/actions/student'
 
 const NewsComment = ({ newsState, myprofile, deleteCommentClassnews }) => {
   const [cmts, setCmts] = useState(newsState.comments)
-  console.log('newsState', newsState)
 
   const handleAddCmt = (cmt) => {
     setCmts([cmt, ...cmts])

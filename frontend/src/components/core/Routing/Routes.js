@@ -28,6 +28,9 @@ import CreateStudent from 'pages/Teacher/CreateStudent'
 import TrashStudent from 'pages/Teacher/TrashStudent'
 import Route from './Route'
 import Classnews from 'pages/Classnews'
+import CreateClassnews from 'pages/Classnews/CreateClassnews'
+import Parentnews from 'pages/Parentnews'
+import CreateParentnews from 'pages/Parentnews/CreateParentnews'
 
 const Routes = () => {
   return (
@@ -146,6 +149,26 @@ const Routes = () => {
         path="/classnews"
         layout={DefaultLayout}
         component={Classnews}
+      />
+      <PrivateRoute
+        exact
+        path="/add_classnews"
+        role={ROLES.TEACHER}
+        layout={DefaultLayout}
+        component={CreateClassnews}
+      />
+      <PrivateRoute
+        exact
+        path="/parentnews"
+        layout={DefaultLayout}
+        component={Parentnews}
+      />
+      <PrivateRoute
+        exact
+        path="/add_parentnews"
+        role={ROLES.TEACHER}
+        layout={DefaultLayout}
+        component={CreateParentnews}
       />
       <PrivateRoute component={NotFoundPage} layout={DefaultLayout} />
     </Switch>

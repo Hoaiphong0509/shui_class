@@ -8,6 +8,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { getCurrentProfile } from 'services/redux/actions/profile'
 import { useEffect } from 'react'
 import { ROLES } from 'constants/AppConstants'
+import { useLocation } from 'react-router-dom'
 
 const Header = ({
   user: { user },
@@ -16,7 +17,7 @@ const Header = ({
   logout
 }) => {
   const history = useHistory()
-
+  const location = useLocation()
   useEffect(() => {
     getCurrentProfile()
   }, [getCurrentProfile])
@@ -28,10 +29,20 @@ const Header = ({
 
   const teacherLink = (
     <>
-      <Link to="/classnews">
+      <Link
+        to="/classnews"
+        className={`${
+          location.pathname.includes('classnews') ? s.active : null
+        }`}
+      >
         <p> Bản tin lớp học</p>
       </Link>
-      <Link to="/classnews">
+      <Link
+        to="/parentnews"
+        className={`${
+          location.pathname.includes('parentnews') ? s.active : null
+        }`}
+      >
         <p> Bản tin phụ huynh</p>
       </Link>
     </>
@@ -39,7 +50,12 @@ const Header = ({
 
   const studentLink = (
     <>
-      <Link to="/classnews">
+      <Link
+        to="/classnews"
+        className={`${
+          location.pathname.includes('classnews') ? s.active : null
+        }`}
+      >
         <p> Bản tin lớp học</p>
       </Link>
     </>
@@ -47,7 +63,12 @@ const Header = ({
 
   const parentLink = (
     <>
-      <Link to="/classnews">
+      <Link
+        to="/parentnews"
+        className={`${
+          location.pathname.includes('parentnews') ? s.active : null
+        }`}
+      >
         <p> Bản tin phụ huynh</p>
       </Link>
     </>
@@ -95,6 +116,23 @@ const Header = ({
           >
             Cập nhật tài khoản
           </Dropdown.Item>
+          {user?.roles.includes(ROLES.TEACHER) ? (
+            <>
+              <Dropdown.Item
+                as="button"
+                onClick={() => history.push('/add_classnews')}
+              >
+                Thêm bản tin học sinh
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                onClick={() => history.push('/add_parentnews')}
+              >
+                Thêm bản tin phụ huynh
+              </Dropdown.Item>
+            </>
+          ) : null}
+
           <Dropdown.Divider />
           <Dropdown.Item as="button" onClick={handleLogout}>
             Đăng xuất

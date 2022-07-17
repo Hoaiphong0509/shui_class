@@ -138,6 +138,10 @@ router.get('/get_myparentnews', authorize(), async (req, res) => {
     const parentnews = await Parentnews.find({
       classroom: result[0]._id.toString()
     })
+
+    parentnews?.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
+    })
     res.json(parentnews)
   } catch (err) {
     console.error(err.message)

@@ -1,47 +1,47 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getMyClassnews } from 'services/redux/actions/classnews'
+import { getMyParentnews } from 'services/redux/actions/parentnews'
 import { getCurrentProfile } from 'services/redux/actions/profile'
 
 import LoaderComponent from 'components/core/LoaderComponent'
 import NewsComponent from 'components/News/NewsComponent'
 
-const Classnews = ({
-  classnews: { classnewss, loading: ldc },
+const Parentnews = ({
+  parentnews: { parentnewss, loading: ldc },
   profile: { myprofile, loading: ldp },
-  getMyClassnews,
+  getMyParentnews,
   getCurrentProfile
 }) => {
   useEffect(() => {
-    getMyClassnews()
-  }, [getMyClassnews])
+    getMyParentnews()
+  }, [getMyParentnews])
   useEffect(() => {
     getCurrentProfile()
   }, [getCurrentProfile])
 
   return ldc ||
     ldp ||
-    classnewss === null ||
-    classnewss.length === 0 ||
+    parentnewss === null ||
+    parentnewss.length === 0 ||
     myprofile === null ? (
     <LoaderComponent />
   ) : (
-    <NewsComponent newss={classnewss} myprofile={myprofile} asNews="class" />
+    <NewsComponent newss={parentnewss} myprofile={myprofile} asNews="parent" />
   )
 }
 
-Classnews.prototype = {
-  classnews: PropTypes.object.isRequired,
-  getMyClassnews: PropTypes.func.isRequired,
+Parentnews.prototype = {
+  parentnews: PropTypes.object.isRequired,
+  getMyParentnews: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  classnews: state.classnews,
+  parentnews: state.parentnews,
   profile: state.profile
 })
 
-export default connect(mapStateToProps, { getMyClassnews, getCurrentProfile })(
-  Classnews
+export default connect(mapStateToProps, { getMyParentnews, getCurrentProfile })(
+  Parentnews
 )

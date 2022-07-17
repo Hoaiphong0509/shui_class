@@ -34,7 +34,6 @@ const UpdateScoreSheet1 = ({
     score === undefined
   )
     return <LoaderComponent />
-  console.log('score', score)
   const tempScoreObj = score?.filter((s) => s.hk === 1)
 
   return (

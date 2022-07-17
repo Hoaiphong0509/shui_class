@@ -306,7 +306,6 @@ const AddScore = ({
     avgItt,
     avgDnu
   )
-  console.log('totalPoint', +totalPoint)
 
   const onSubmit = (data) => {
     const payload = {

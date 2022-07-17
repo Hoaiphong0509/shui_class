@@ -1,6 +1,6 @@
 import api from 'utils/api'
 
-import { CLASSROOM } from 'constants/AppConstants'
+import { CLASSNEWS, CLASSROOM, PARENTNEWS } from 'constants/AppConstants'
 import { toast } from 'react-toastify'
 
 export const getStudentMyClassroom = () => async (dispatch) => {
@@ -121,7 +121,6 @@ export const restoreStudent = (idClassroom, idStudent) => async (dispatch) => {
   }
 }
 
-
 export const deleteStudent = (idClassroom, idStudent) => async (dispatch) => {
   try {
     const res = await api.put(
@@ -144,6 +143,137 @@ export const deleteStudent = (idClassroom, idStudent) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: CLASSROOM.ERRORS
+    })
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  }
+}
+
+export const addClassnews = (formData) => async (dispatch) => {
+  try {
+    const res = await api.post(`/teacher/add_classnews`, formData)
+
+    dispatch({
+      type: CLASSNEWS.ADD_CLASSNEWS,
+      payload: res.data
+    })
+    toast.success('Thêm bản tin lớp thành công!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  } catch (err) {
+    dispatch({
+      type: CLASSNEWS.ERRORS
+    })
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  }
+}
+
+export const addParentnews = (formData) => async (dispatch) => {
+  try {
+    const res = await api.post(`/teacher/add_parentnews`, formData)
+    dispatch({
+      type: PARENTNEWS.ADD_PARENTNEWS,
+      payload: res.data
+    })
+    toast.success('Thêm bản tin phụ huynh thành công!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  } catch (err) {
+    dispatch({
+      type: PARENTNEWS.ERRORS
+    })
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  }
+}
+
+export const deleteClassnews = (idClassnews) => async (dispatch) => {
+  try {
+    await api.delete(`/teacher/delete_classnews/${idClassnews}`)
+
+    dispatch({
+      type: CLASSNEWS.DELETE_CLASSNEWS,
+      payload: idClassnews
+    })
+    toast.success('Xoá bản tin thành công!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  } catch (err) {
+    dispatch({
+      type: CLASSNEWS.ERRORS
+    })
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  }
+}
+
+export const deleteParentnews = (idParentnews) => async (dispatch) => {
+  try {
+    await api.delete(`/teacher/delete_parentnews/${idParentnews}`)
+
+    dispatch({
+      type: PARENTNEWS.DELETE_PARENTNEWS,
+      payload: idParentnews
+    })
+    toast.success('Xoá bản tin thành công!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  } catch (err) {
+    dispatch({
+      type: CLASSNEWS.ERRORS
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',

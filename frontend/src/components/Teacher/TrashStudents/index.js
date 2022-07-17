@@ -12,8 +12,6 @@ const TrashStudents = ({
   deleteStudent
 }) => {
   if (students.length === 0) return <h1>Chưa có học sinh nào bị xoá</h1>
-  console.log('students', students)
-
   const handleRestore = (idStudent) => {
     Swal.fire({
       title: 'Xác nhận',

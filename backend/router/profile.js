@@ -46,7 +46,6 @@ router.get(
 // @access   Public
 router.put('/me', authorize(), async (req, res) => {
   const { ...rest } = req.body
-  // console.log('req.user.id', req.user.id)
   try {
     await Profile.findOneAndUpdate({ user: req.user.id }, { $set: { ...rest } })
     res.json({ msg: 'Cập nhật hồ sơ thành công' })

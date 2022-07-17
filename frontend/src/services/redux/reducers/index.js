@@ -7,6 +7,7 @@ import score from './score'
 import profile from './profile'
 import competition from './competition'
 import classnews from './classnews'
+import parentnews from './parentnews'
 
 export default combineReducers({
   user,
@@ -16,5 +17,6 @@ export default combineReducers({
   score,
   profile,
   competition,
-  classnews
+  classnews,
+  parentnews
 })

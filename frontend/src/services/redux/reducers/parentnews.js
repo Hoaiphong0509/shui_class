@@ -1,8 +1,8 @@
-import { CLASSNEWS } from 'constants/AppConstants'
+import { PARENTNEWS } from 'constants/AppConstants'
 
 const initialState = {
-  classnews: null,
-  classnewss: [],
+  parentnews: null,
+  parentnewss: [],
   loading: true
 }
 
@@ -10,44 +10,44 @@ const classReducer = (state = initialState, action) => {
   const { type, payload } = action
 
   switch (type) {
-    case CLASSNEWS.GET_CLASSNEWS:
+    case PARENTNEWS.GET_PARENTNEWS:
       return {
         ...state,
-        classnews: payload,
+        parentnews: payload,
         loading: false
       }
-    case CLASSNEWS.GET_CLASSNEWSS:
+    case PARENTNEWS.GET_PARENTNEWSS:
       return {
         ...state,
-        classnewss: payload,
+        parentnewss: payload,
         loading: false
       }
-    case CLASSNEWS.UPDATE_CLASSNEWS:
+    case PARENTNEWS.UPDATE_PARENTNEWS:
       return {
         ...state,
         loading: false
       }
-    case CLASSNEWS.ADD_CLASSNEWS:
+    case PARENTNEWS.ADD_PARENTNEWS:
       return {
         ...state,
-        classnews: payload,
-        classnewss: [payload, ...state.classnewss],
+        parentnews: payload,
+        parentnewss: [payload, ...state.parentnewss],
         loading: false
       }
-    case CLASSNEWS.DELETE_CLASSNEWS:
+    case PARENTNEWS.DELETE_PARENTNEWS:
       return {
         ...state,
-        classnewss: state.classnewss.filter(
+        parentnewss: state.parentnewss.filter(
           (c) => c._id.toString() !== payload
         ),
         loading: false
       }
-    case CLASSNEWS.ERRORS:
-    case CLASSNEWS.CLEAN:
+    case PARENTNEWS.ERRORS:
+    case PARENTNEWS.CLEAN:
       return {
         ...state,
-        classnews: null,
-        classnewss: [],
+        parentnews: null,
+        parentnewss: [],
         loading: false
       }
     default:

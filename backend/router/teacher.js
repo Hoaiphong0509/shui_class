@@ -470,7 +470,7 @@ router.delete(
   authorize(role.Teacher),
   async (req, res) => {
     try {
-      await Classnews.findByIdAndDelete(req.params.id_parentnews)
+      await Parentnews.findByIdAndDelete(req.params.id_parentnews)
       res.json({ msg: 'Xoá bản tin thành công' })
     } catch (err) {
       console.error(err.message)
