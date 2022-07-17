@@ -13,6 +13,7 @@ const CommentItem = ({
   authorId
 }) => {
   const { _id, avatar, name, date, text, user: usCmt } = cmt
+
   return (
     <>
       <div className={s.root}>

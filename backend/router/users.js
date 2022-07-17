@@ -8,6 +8,7 @@ const Profile = require('../models/Profile')
 const Classroom = require('../models/Classroom')
 const Classnews = require('../models/Classnews')
 const Parentnews = require('../models/Parentnews')
+const ParentIn4 = require('../models/ParentIn4')
 
 // @route    GET api/users/auth
 // @desc     Get user by token
@@ -127,17 +128,14 @@ router.get('/get_myclassnews', authorize(), async (req, res) => {
 // @access   Private
 router.get('/get_myparentnews', authorize(), async (req, res) => {
   try {
-    const classroom = await Classroom.find()
+    const parentIn4 = await ParentIn4.findOne({ user: req.user.id })
 
-    const result = classroom.filter(
-      (c) =>
-        (c.headTeacher.user && c.headTeacher.user.toString() === req.user.id) ||
-        c.students.some((s) => s.user.toString() === req.user.id)
+    const parentnews = await Parentnews.find()
+    parentnews.filter((pn) =>
+      parentIn4?.classroomIn4.some(
+        (pc) => pc.class.toString() === pn.classroom.toString()
+      )
     )
-
-    const parentnews = await Parentnews.find({
-      classroom: result[0]._id.toString()
-    })
 
     parentnews?.sort((a, b) => {
       return new Date(b.date) - new Date(a.date)

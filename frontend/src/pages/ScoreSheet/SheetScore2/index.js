@@ -1,5 +1,6 @@
 import LoaderComponent from 'components/core/LoaderComponent'
 import TableScore from 'components/Score/TableScore'
+import { ROLES } from 'constants/AppConstants'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
@@ -8,13 +9,25 @@ import { useHistory } from 'react-router-dom'
 import { getScoreByStudent } from 'services/redux/actions/score'
 import s from './styles.module.scss'
 
-const SheetScore2 = ({ score: { score, loading }, getScoreByStudent, match }) => {
+const SheetScore2 = ({
+  user: { user, loading: ldu },
+  score: { score, loading: lds },
+  getScoreByStudent,
+  match
+}) => {
   const history = useHistory()
   useEffect(() => {
     getScoreByStudent(match.params.id_student)
   }, [getScoreByStudent, match])
 
-  if (loading || score === null || score === undefined)
+  if (
+    lds ||
+    ldu ||
+    score === null ||
+    score === undefined ||
+    user === null ||
+    user === undefined
+  )
     return <LoaderComponent />
 
   const tempScoreObj = score?.filter((s) => s.hk === 2)
@@ -36,20 +49,22 @@ const SheetScore2 = ({ score: { score, loading }, getScoreByStudent, match }) =>
             >
               Quay lại
             </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                history.push(`/add_score_2/${match.params.id_student}`)
-              }}
-            >
-              Thêm điểm HKI
-            </Button>
+            {user?.roles.includes(ROLES.TEACHER) ? (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  history.push(`/add_score_2/${match.params.id_student}`)
+                }}
+              >
+                Thêm điểm HKI
+              </Button>
+            ) : null}
           </div>
         </>
       ) : (
         <>
           <div className={s.in4}>
-            <h1>Điểm HKI - {score[0]?.studentName}</h1>
+            <h1>Điểm HKII - {score[0]?.studentName}</h1>
           </div>
           <div className={s.table}>
             <TableScore score={tempScoreObj[0]} />
@@ -75,11 +90,13 @@ const SheetScore2 = ({ score: { score, loading }, getScoreByStudent, match }) =>
 
 SheetScore2.prototype = {
   score: PropTypes.object,
+  user: PropTypes.object,
   getScoreByStudent: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
-  score: state.score
+  score: state.score,
+  user: state.user
 })
 
 export default connect(mapStateToProps, {

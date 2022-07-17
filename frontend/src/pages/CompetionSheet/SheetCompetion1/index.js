@@ -1,5 +1,6 @@
 import TableCompetition from 'components/Competition/TableCompetition'
 import LoaderComponent from 'components/core/LoaderComponent'
+import { ROLES } from 'constants/AppConstants'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
@@ -9,7 +10,8 @@ import { getCompetitionByStudent } from 'services/redux/actions/competition'
 import s from './styles.module.scss'
 
 const SheetCompetion1 = ({
-  competition: { competition, loading },
+  user: { user, loading: ldu },
+  competition: { competition, loading: ldc },
   getCompetitionByStudent,
   match
 }) => {
@@ -18,7 +20,14 @@ const SheetCompetion1 = ({
     getCompetitionByStudent(match.params.id_student)
   }, [getCompetitionByStudent, match])
 
-  if (loading || competition === null || competition === undefined)
+  if (
+    ldc ||
+    ldu ||
+    competition === null ||
+    competition === undefined ||
+    user === null ||
+    user === undefined
+  )
     return <LoaderComponent />
 
   const tempCompetitionObj = competition?.filter((s) => s.hk === 1)
@@ -31,7 +40,7 @@ const SheetCompetion1 = ({
       tempCompetitionObj === undefined ||
       tempCompetitionObj.length === 0 ? (
         <>
-          <h1>Học sinh này chưa có điểm thi đua HKI</h1>
+          <h1>Chưa có điểm thi đua HKI</h1>
           <div>
             <Button
               style={{ marginRight: '5px' }}
@@ -40,14 +49,16 @@ const SheetCompetion1 = ({
             >
               Quay lại
             </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                history.push(`/add_competition_1/${match.params.id_student}`)
-              }}
-            >
-              Thêm điểm thi đua HKI
-            </Button>
+            {user?.roles.includes(ROLES.TEACHER) ? (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  history.push(`/add_competition_1/${match.params.id_student}`)
+                }}
+              >
+                Thêm điểm thi đua HKI
+              </Button>
+            ) : null}
           </div>
         </>
       ) : (
@@ -82,11 +93,13 @@ const SheetCompetion1 = ({
 
 SheetCompetion1.prototype = {
   competition: PropTypes.object,
+  user: PropTypes.object,
   getCompetitionByStudent: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
-  competition: state.competition
+  competition: state.competition,
+  user: state.user
 })
 
 export default connect(mapStateToProps, {

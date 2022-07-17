@@ -97,7 +97,7 @@ const TableCompetition = (props) => {
           <hr />
         </div>
         <div className={s.point}>
-          <h3>Tiêu cực</h3>
+          <h3>Cần cải thiện</h3>
           <div className={s.panel}>
             <div className={s.panel_in4}>
               <p>{negativePoint.point_1.name}</p>

@@ -1,3 +1,5 @@
+import { ROLES } from 'constants/AppConstants'
+
 // eslint-disable-next-line
 export const isServer = typeof window !== 'undefined'
 
@@ -139,4 +141,11 @@ export const CalcTotalPoint = (
     15
 
   return point.toFixed(2)
+}
+
+export const normalizeRole = (user) => {
+  if (user.roles.includes(ROLES.ADMIN)) return 'admin'
+  if (user.roles.includes(ROLES.TEACHER)) return 'teacher'
+  if (user.roles.includes(ROLES.STUDENT)) return 'student'
+  if (user.roles.includes(ROLES.PARENT)) return 'parent'
 }

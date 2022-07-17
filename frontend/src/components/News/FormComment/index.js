@@ -28,6 +28,7 @@ const FormComment = ({
   const onSubmit = (data) => {
     handleAddCmt({
       _id: uuidv4(),
+      user: myprofile.user,
       avatar: myprofile.avatar,
       name: myprofile.fullName,
       text: data.text,

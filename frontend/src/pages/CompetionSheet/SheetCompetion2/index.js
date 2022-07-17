@@ -1,5 +1,6 @@
 import TableCompetition from 'components/Competition/TableCompetition'
 import LoaderComponent from 'components/core/LoaderComponent'
+import { ROLES } from 'constants/AppConstants'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
@@ -9,7 +10,8 @@ import { getCompetitionByStudent } from 'services/redux/actions/competition'
 import s from './styles.module.scss'
 
 const SheetCompetion2 = ({
-  competition: { competition, loading },
+  user: { user, loading: ldu },
+  competition: { competition, loading: ldc },
   getCompetitionByStudent,
   match
 }) => {
@@ -18,7 +20,14 @@ const SheetCompetion2 = ({
     getCompetitionByStudent(match.params.id_student)
   }, [getCompetitionByStudent, match])
 
-  if (loading || competition === null || competition === undefined)
+  if (
+    ldc ||
+    ldu ||
+    competition === null ||
+    competition === undefined ||
+    user === null ||
+    user === undefined
+  )
     return <LoaderComponent />
 
   const tempCompetitionObj = competition?.filter((s) => s.hk === 2)
@@ -31,7 +40,7 @@ const SheetCompetion2 = ({
       tempCompetitionObj === undefined ||
       tempCompetitionObj.length === 0 ? (
         <>
-          <h1>Học sinh này chưa có điểm thi đua HKII</h1>
+          <h1>Chưa có điểm thi đua HKII</h1>
           <div>
             <Button
               style={{ marginRight: '5px' }}
@@ -40,14 +49,16 @@ const SheetCompetion2 = ({
             >
               Quay lại
             </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                history.push(`/add_competition_2/${match.params.id_student}`)
-              }}
-            >
-              Thêm điểm thi đua HKII
-            </Button>
+            {user?.roles.includes(ROLES.TEACHER) ? (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  history.push(`/add_competition_2/${match.params.id_student}`)
+                }}
+              >
+                Thêm điểm thi đua HKII
+              </Button>
+            ) : null}
           </div>
         </>
       ) : (
@@ -56,7 +67,6 @@ const SheetCompetion2 = ({
             <h1>Điểm thi đua HKII - {competition[0]?.studentName}</h1>
           </div>
           <div className={s.table}>
-            {/* <TableScore score={tempCompetitionObj[0]} /> */}
             <TableCompetition dataCompetitions={tempCompetitionObj[0]} />
           </div>
           <div className={s.buttonArea}>
@@ -79,12 +89,14 @@ const SheetCompetion2 = ({
 }
 
 SheetCompetion2.prototype = {
+  user: PropTypes.object,
   competition: PropTypes.object,
   getCompetitionByStudent: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
-  competition: state.competition
+  competition: state.competition,
+  user: state.user
 })
 
 export default connect(mapStateToProps, {

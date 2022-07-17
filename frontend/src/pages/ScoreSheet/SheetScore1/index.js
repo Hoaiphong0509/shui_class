@@ -1,5 +1,6 @@
 import LoaderComponent from 'components/core/LoaderComponent'
 import TableScore from 'components/Score/TableScore'
+import { ROLES } from 'constants/AppConstants'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
@@ -8,13 +9,25 @@ import { useHistory } from 'react-router-dom'
 import { getScoreByStudent } from 'services/redux/actions/score'
 import s from './styles.module.scss'
 
-const SheetScore1 = ({ score: { score, loading }, getScoreByStudent, match }) => {
+const SheetScore1 = ({
+  user: { user, loading: ldu },
+  score: { score, loading: lds },
+  getScoreByStudent,
+  match
+}) => {
   const history = useHistory()
   useEffect(() => {
     getScoreByStudent(match.params.id_student)
   }, [getScoreByStudent, match])
 
-  if (loading || score === null || score === undefined)
+  if (
+    lds ||
+    ldu ||
+    score === null ||
+    score === undefined ||
+    user === null ||
+    user === undefined
+  )
     return <LoaderComponent />
 
   const tempScoreObj = score?.filter((s) => s.hk === 1)
@@ -27,7 +40,7 @@ const SheetScore1 = ({ score: { score, loading }, getScoreByStudent, match }) =>
       tempScoreObj === undefined ||
       tempScoreObj.length === 0 ? (
         <>
-          <h1>Học sinh này chưa có điểm HKI</h1>
+          <h1>Chưa có điểm HKI</h1>
           <div>
             <Button
               style={{ marginRight: '5px' }}
@@ -36,14 +49,16 @@ const SheetScore1 = ({ score: { score, loading }, getScoreByStudent, match }) =>
             >
               Quay lại
             </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                history.push(`/add_score_1/${match.params.id_student}`)
-              }}
-            >
-              Thêm điểm HKI
-            </Button>
+            {user?.roles.includes(ROLES.TEACHER) ? (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  history.push(`/add_score_1/${match.params.id_student}`)
+                }}
+              >
+                Thêm điểm HKI
+              </Button>
+            ) : null}
           </div>
         </>
       ) : (
@@ -75,11 +90,13 @@ const SheetScore1 = ({ score: { score, loading }, getScoreByStudent, match }) =>
 
 SheetScore1.prototype = {
   score: PropTypes.object,
+  user: PropTypes.object,
   getScoreByStudent: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
-  score: state.score
+  score: state.score,
+  user: state.user
 })
 
 export default connect(mapStateToProps, {

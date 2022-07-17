@@ -24,8 +24,6 @@ const UpdateScore = ({
   updateScore
 }) => {
   const {
-    classification = '',
-    avgAll = 0,
     math: mth,
     physics: phy,
     chemistry: che,
@@ -44,8 +42,6 @@ const UpdateScore = ({
 
   const schema = yup
     .object({
-      classification: yup.string(),
-      avgAll: yup.string(),
       math: yup.object().shape({
         oral_1: yup.string().matches(regexScore, 'Điểm không hợp lệ'),
         oral_2: yup.string().matches(regexScore, 'Điểm không hợp lệ'),
@@ -326,12 +322,20 @@ const UpdateScore = ({
   )
 
   const onSubmit = (data) => {
+    const tp = +totalPoint
+    const xl = classificationPointFunc(+totalPoint)
+    console.log('tp', tp)
+    console.log('xl', xl)
+    console.log('data', data)
     const payload = {
+      ...data,
+      classification: xl,
+      avgAll: +tp,
       hk,
       studentName,
-      studentUsername,
-      ...data
+      studentUsername
     }
+    console.log('payload', payload)
     updateScore(idStudent, payload)
   }
 
@@ -340,23 +344,14 @@ const UpdateScore = ({
       <div>
         <h3>
           Trung bình cả năm:{' '}
-          <input
-            style={{ width: '150px' }}
-            value={totalPoint}
-            defaultValue={avgAll}
-            disabled
-            {...register('avgAll')}
-          />
+          <b>
+            {totalPoint !== 'NaN'
+              ? Number.parseFloat(totalPoint).toFixed(2)
+              : '0'}
+          </b>
         </h3>
         <h3>
-          Xếp loại:{' '}
-          <input
-            style={{ width: '150px' }}
-            value={classificationPointFunc(+totalPoint)}
-            defaultValue={classification}
-            disabled
-            {...register('classification')}
-          />
+          Xếp loại:<b>{classificationPointFunc(+totalPoint)}</b>
         </h3>
       </div>
       <Table className={s.table} bordered responsive hover>

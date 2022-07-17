@@ -31,6 +31,7 @@ import Classnews from 'pages/Classnews'
 import CreateClassnews from 'pages/Classnews/CreateClassnews'
 import Parentnews from 'pages/Parentnews'
 import CreateParentnews from 'pages/Parentnews/CreateParentnews'
+import DetailIn4Student from 'pages/DetailIn4Student'
 
 const Routes = () => {
   return (
@@ -169,6 +170,13 @@ const Routes = () => {
         role={ROLES.TEACHER}
         layout={DefaultLayout}
         component={CreateParentnews}
+      />
+      <PrivateRoute
+        exact
+        path="/detail_in4_student/:id_student"
+        role={ROLES.TEACHER}
+        layout={DefaultLayout}
+        component={DetailIn4Student}
       />
       <PrivateRoute component={NotFoundPage} layout={DefaultLayout} />
     </Switch>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import CommentItem from '../CommentItem'
 import FormComment from '../FormComment'
@@ -10,6 +10,9 @@ import { deleteCommentClassnews } from 'services/redux/actions/student'
 
 const NewsComment = ({ newsState, myprofile, deleteCommentClassnews }) => {
   const [cmts, setCmts] = useState(newsState.comments)
+  useEffect(() => {
+    setCmts(newsState.comments)
+  }, [newsState])
 
   const handleAddCmt = (cmt) => {
     setCmts([cmt, ...cmts])

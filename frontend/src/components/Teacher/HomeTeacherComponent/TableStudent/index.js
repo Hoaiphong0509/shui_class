@@ -91,8 +91,13 @@ const TableStudent = ({ idClassroom, students, moveStudentToTrash }) => {
               </Button>
             </td>
             <td>
-              <Button variant="outline-success">Chi tiết</Button>
-              <Button variant="outline-warning">Sửa</Button>
+              <Button
+                variant="outline-success"
+                onClick={() => history.push(`/detail_in4_student/${s.studentId}`)}
+              >
+                Chi tiết
+              </Button>
+              {/* <Button variant="outline-warning">Sửa</Button> */}
               <Button
                 variant="outline-danger"
                 onClick={() => handleMoveToTrash(s.studentId)}

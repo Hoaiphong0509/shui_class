@@ -18,12 +18,12 @@ const NewsComponent = ({
   deleteParentnews
 }) => {
   const [newssState, setNewssState] = useState(newss)
+  const [newsState, setNewsState] = useState()
 
   useEffect(()=> {
     setNewssState(newss)
   }, [newss])
 
-  const [newsState, setNewsState] = useState()
 
   const handleGetNews = (news) => {
     setNewsState(news)

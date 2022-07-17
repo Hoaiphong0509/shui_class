@@ -132,7 +132,40 @@ const Header = ({
               </Dropdown.Item>
             </>
           ) : null}
-
+          {user?.roles.includes(ROLES.STUDENT) ? (
+            <>
+              <Dropdown.Divider />
+              <Dropdown.Item
+                as="button"
+                onClick={() => history.push(`/sheet_score_1/${myprofile.user}`)}
+              >
+                Bảng điểm HKI
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                onClick={() => history.push(`/sheet_score_2/${myprofile.user}`)}
+              >
+                Bảng điểm HKII
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item
+                as="button"
+                onClick={() =>
+                  history.push(`/sheet_competition_1/${myprofile.user}`)
+                }
+              >
+                Thi đua HKI
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                onClick={() =>
+                  history.push(`/sheet_competition_2/${myprofile.user}`)
+                }
+              >
+                Thi đua HKII
+              </Dropdown.Item>
+            </>
+          ) : null}
           <Dropdown.Divider />
           <Dropdown.Item as="button" onClick={handleLogout}>
             Đăng xuất

@@ -84,6 +84,62 @@ router.get('/get_myclassroom', authorize(), async (req, res) => {
   }
 })
 
+// @route    GET api/classroom/get_classroom_user/:userId
+// @desc     Get student my classroom
+// @access   Private
+router.get(
+  '/get_classroom_user/:userId',
+  checkObjectId('userId'),
+  authorize(),
+  async (req, res) => {
+    try {
+      const classroom = await Classroom.find()
+      const profileStudent = await Profile.find()
+
+      const result = classroom.filter(
+        (c) =>
+          (c.headTeacher.user &&
+            c.headTeacher.user.toString() === req.params.userId) ||
+          c.students.some((s) => s.user.toString() === req.params.userId)
+      )
+
+      if (result.length === 0) {
+        return res.json([])
+      }
+
+      const studentsTemp = result[0].students.map((s) => {
+        let fullName = ''
+        let staffDisplay = ''
+        let parentName = ''
+        profileStudent.forEach((p) => {
+          if (p.user.toString() === s.user.toString()) {
+            fullName = p.fullName
+            staffDisplay = p.staffClass[0].staffDisplay || 'Học sinh'
+            parentName = p.parentName
+          }
+        })
+        return {
+          studentId: s.user.toString(),
+          fullName,
+          staffDisplay,
+          parentName,
+          isDelete: s.isDelete
+        }
+      })
+
+      const respone = {
+        ...result[0]._doc,
+        students: studentsTemp
+      }
+
+      res.json(respone)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
 // @route    POST api/classroom
 // @desc     Add classrom
 // @access   Private
