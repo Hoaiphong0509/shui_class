@@ -32,7 +32,7 @@ const App = () => {
           <Route component={Routes} />
         </Fragment>
       </Router>
-      <ToastContainer autoClose="5000" />
+      <ToastContainer/>
     </Provider>
   )
 }

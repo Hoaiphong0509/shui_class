@@ -26,7 +26,7 @@ const FormComment = ({
   })
 
   const onSubmit = (data) => {
-    handleAddCmt({
+    handleAddCmt(idClassnews, {
       _id: uuidv4(),
       user: myprofile.user,
       avatar: myprofile.avatar,

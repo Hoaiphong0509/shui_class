@@ -20,10 +20,9 @@ const NewsComponent = ({
   const [newssState, setNewssState] = useState(newss)
   const [newsState, setNewsState] = useState()
 
-  useEffect(()=> {
+  useEffect(() => {
     setNewssState(newss)
   }, [newss])
-
 
   const handleGetNews = (news) => {
     setNewsState(news)

@@ -17,6 +17,7 @@ const NewsItem = ({
   handleDelete
 }) => {
   const history = useHistory()
+  console.log("news", news);
   const { _id, createdAt, likes, text, title, user } = news
   const [numLike, setNumLike] = useState(likes.length)
   const [isDisableLike, setIsDisableLike] = useState(

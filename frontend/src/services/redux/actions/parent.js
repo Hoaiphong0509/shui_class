@@ -22,8 +22,8 @@ export const addChildren = (formData) => async (dispatch) => {
   try {
     await api.put(`/parents/add_children`, formData)
     toast.success('Thêm học sinh thành công', {
-      position: 'top-right',
-      autoClose: 5000,
+     position: 'top-right',  autoClose: 2000,
+     
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -36,8 +36,8 @@ export const addChildren = (formData) => async (dispatch) => {
     dispatch(getMyParentIn4())
   } catch (err) {
     toast.error(err.response.data.msg, {
-      position: 'top-right',
-      autoClose: 5000,
+     position: 'top-right',  autoClose: 2000,
+     
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -54,8 +54,8 @@ export const removeChildren = (idUser) => async (dispatch) => {
   try {
     await api.put(`/parents/remove_student/${idUser}`)
     toast.success('Xoá học sinh thành công', {
-      position: 'top-right',
-      autoClose: 5000,
+     position: 'top-right',  autoClose: 2000,
+     
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -68,8 +68,8 @@ export const removeChildren = (idUser) => async (dispatch) => {
     dispatch(getMyParentIn4())
   } catch (err) {
     toast.error(err.response.data.msg, {
-      position: 'top-right',
-      autoClose: 5000,
+     position: 'top-right',  autoClose: 2000,
+     
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

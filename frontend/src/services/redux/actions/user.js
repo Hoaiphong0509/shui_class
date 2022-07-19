@@ -36,7 +36,7 @@ export const registerAccount = (formData) => async (dispatch) => {
     })
     toast.success('Đăng ký tài khoản thành công', {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -50,7 +50,7 @@ export const registerAccount = (formData) => async (dispatch) => {
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -72,7 +72,7 @@ export const login = (formData) => async (dispatch) => {
     dispatch(loadUser())
     toast.success('Đăng nhập tài khoản thành công', {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -85,7 +85,7 @@ export const login = (formData) => async (dispatch) => {
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

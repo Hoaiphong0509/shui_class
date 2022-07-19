@@ -48,6 +48,7 @@ export const unlikeClassnews = (id_classnews) => async (dispatch) => {
       type: CLASSNEWS.UPDATE_CLASSNEWS,
       payload: res.data
     })
+
     toast.warn('Đã unlike 💔', {
       position: 'top-right',
       autoClose: 2000,

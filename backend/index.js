@@ -39,6 +39,7 @@ app.use('/api/classroom', require('./router/classroom'))
 app.use('/api/score', require('./router/score'))
 app.use('/api/competition', require('./router/competition'))
 app.use('/api/parents', require('./router/parents'))
+app.use('/api/notify', require('./router/notify'))
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../frontend', 'build')))

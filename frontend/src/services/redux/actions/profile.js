@@ -43,7 +43,7 @@ export const updateMyProfile = (formData) => async (dispatch) => {
 
     toast.success('Cập nhật hồ sơ thành công', {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -56,7 +56,7 @@ export const updateMyProfile = (formData) => async (dispatch) => {
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -65,7 +65,6 @@ export const updateMyProfile = (formData) => async (dispatch) => {
     })
   }
 }
-
 
 export const changeAvatar = (formData) => async (dispatch) => {
   try {
@@ -77,7 +76,8 @@ export const changeAvatar = (formData) => async (dispatch) => {
 
     toast.success('Thay đổi ảnh đại diên thành công!', {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -90,7 +90,8 @@ export const changeAvatar = (formData) => async (dispatch) => {
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

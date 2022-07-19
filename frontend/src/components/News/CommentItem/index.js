@@ -12,14 +12,21 @@ const CommentItem = ({
   idClassnews,
   authorId
 }) => {
-  const { _id, avatar, name, date, text, user: usCmt } = cmt
+  const {
+    _id,
+    avatar = '/assets/img/avatar.png',
+    name,
+    date,
+    text,
+    user: usCmt
+  } = cmt
 
   return (
     <>
       <div className={s.root}>
         <div className={s.in4}>
           <img
-            src={avatar.length > 0 ? avatar : '/assets/img/avatar.png'}
+            src={avatar?.length > 0 ? avatar : '/assets/img/avatar.png'}
             alt="avatar"
           />
           <div className={s.name_date}>
