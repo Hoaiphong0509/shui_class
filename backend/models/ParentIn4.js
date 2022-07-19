@@ -38,6 +38,12 @@ const ParentIn4Schema = new mongoose.Schema({
       name: {
         type: String
       },
+      avatar: {
+        type: String
+      },
+      classroom: {
+        type: String
+      },
       isDelete: {
         type: Boolean,
         default: false

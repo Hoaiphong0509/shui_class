@@ -156,6 +156,37 @@ export const deleteStudent = (idClassroom, idStudent) => async (dispatch) => {
   }
 }
 
+export const getClassnewsById = (idClassnews) => async (dispatch) => {
+  try {
+    const res = await api.get(`/teacher/get_classnews/${idClassnews}`)
+
+    dispatch({
+      type: CLASSNEWS.GET_CLASSNEWS,
+      payload: res.data
+    })
+  } catch (err) {
+    dispatch({
+      type: CLASSNEWS.ERRORS
+    })
+  }
+}
+
+export const getParentnewsById = (idParentnews) => async (dispatch) => {
+  try {
+    const res = await api.get(`/teacher/get_parentnews/${idParentnews}`)
+
+    dispatch({
+      type: PARENTNEWS.GET_PARENTNEWS,
+      payload: res.data
+    })
+  } catch (err) {
+    dispatch({
+      type: PARENTNEWS.ERRORS
+    })
+  }
+}
+
+
 export const addClassnews = (formData) => async (dispatch) => {
   try {
     const res = await api.post(`/teacher/add_classnews`, formData)

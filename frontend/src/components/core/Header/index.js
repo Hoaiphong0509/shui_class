@@ -116,6 +116,16 @@ const Header = ({
           >
             Cập nhật tài khoản
           </Dropdown.Item>
+          {user?.roles.includes(ROLES.PARENT) ? (
+            <>
+              <Dropdown.Item
+                as="button"
+                onClick={() => history.push('/children')}
+              >
+                Danh sách học sinh
+              </Dropdown.Item>
+            </>
+          ) : null}
           {user?.roles.includes(ROLES.TEACHER) ? (
             <>
               <Dropdown.Item

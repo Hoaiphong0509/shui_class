@@ -1,0 +1,26 @@
+.root {
+  h2,
+  h3 {
+    font-weight: bold;
+  }
+
+  .scoreHk {
+    display: flex;
+    justify-content: space-between;
+
+    .scorePanel {
+      width: 49.9%;
+    }
+  }
+
+  .scoreAll {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+
+    p {
+      font-size: 19px;
+    }
+  }
+}

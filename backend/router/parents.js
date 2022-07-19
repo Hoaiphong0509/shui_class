@@ -28,8 +28,8 @@ router.get('/', authorize(role.Admin), async (req, res) => {
 // @access   Private
 router.get('/me', authorize(role.Parent), async (req, res) => {
   try {
-    const result = await ParentIn4.findOne({ user: req.user.id.toString() })
-
+    const result = await ParentIn4.findOne({  user: req.user.id.toString() })
+ 
     res.json(result)
   } catch (err) {
     console.error(err.message)
@@ -41,12 +41,22 @@ router.get('/me', authorize(role.Parent), async (req, res) => {
 // @desc     Add children for parent
 // @access   Private
 router.put('/add_children', authorize(role.Parent), async (req, res) => {
-  const { childrenUsername, username } = req.body
+  const { childrenUsername } = req.body
+  console.log('childrenUsername', childrenUsername)
   try {
-    const parentin4 = await ParentIn4.findOne({ username })
+    const parentin4 = await ParentIn4.findOne({ user: req.user.id })
     const profileChild = await Profile.findOne({
       username: childrenUsername
     })
+    const classroom = await Classroom.find()
+
+    const result = classroom.filter(
+      (c) =>
+        (c.headTeacher.user && c.headTeacher.user.toString() === req.user.id) ||
+        c.students.some(
+          (s) => s.user.toString() === profileChild.user.toString()
+        )
+    )
 
     if (!parentin4) {
       return res.status(400).json({ msg: 'Tài khoản này không tồn tại' })
@@ -68,12 +78,14 @@ router.put('/add_children', authorize(role.Parent), async (req, res) => {
         .json({ msg: 'Học sinh này đã tồn tại trong tài khoản của bạn!' })
 
     await ParentIn4.findOneAndUpdate(
-      { username },
+      { user: req.user.id },
       {
         $push: {
           children: {
             user: profileChild.user.toString(),
             name: profileChild.fullName,
+            avatar: profileChild.avatar,
+            classroom: result[0].name,
             isDelete: false
           }
         }
@@ -87,53 +99,58 @@ router.put('/add_children', authorize(role.Parent), async (req, res) => {
   }
 })
 
-// @route    PUT api/parents/remove_student
+// @route    PUT api/parents/remove_student/:id_user
 // @desc     Remove children for parent
 // @access   Private
-router.put('/remove_student', authorize(role.Parent), async (req, res) => {
-  const { childrenUsername, username } = req.body
-  try {
-    const parentin4 = await ParentIn4.findOne({ username })
-    const profileChild = await Profile.findOne({
-      username: childrenUsername
-    })
+router.put(
+  '/remove_student/:id_user',
+  checkObjectId('id_user'),
+  authorize(role.Parent),
+  async (req, res) => {
+    const { childrenUsername } = req.body
+    try {
+      const parentin4 = await ParentIn4.findOne({ user: req.user.id })
+      const profileChild = await Profile.findOne({
+        user: req.params.id_user
+      })
 
-    if (!parentin4) {
-      return res.status(400).json({ msg: 'Tài khoản này không tồn tại' })
-    }
-
-    if (!profileChild) {
-      return res
-        .status(400)
-        .json({ msg: 'Tài khoản học sinh này không tồn tại' })
-    }
-
-    if (
-      !parentin4.children.some(
-        (c) => c.user.toString() === profileChild.user.toString()
-      )
-    )
-      return res
-        .status(400)
-        .json({ msg: 'Học sinh này không có trong tài khoản của bạn!' })
-
-    await ParentIn4.findOneAndUpdate(
-      { username },
-      {
-        $set: {
-          children: parentin4.children.filter(
-            (c) => c.user.toString() !== profileChild.user.toString()
-          )
-        }
+      if (!parentin4) {
+        return res.status(400).json({ msg: 'Tài khoản này không tồn tại' })
       }
-    )
 
-    return res.json({ msg: 'Xoá học sinh thành công!' })
-  } catch (err) {
-    console.error(err.message)
-    res.status(500).send('Server Error')
+      if (!profileChild) {
+        return res
+          .status(400)
+          .json({ msg: 'Tài khoản học sinh này không tồn tại' })
+      }
+
+      if (
+        !parentin4.children.some(
+          (c) => c.user.toString() === profileChild.user.toString()
+        )
+      )
+        return res
+          .status(400)
+          .json({ msg: 'Học sinh này không có trong tài khoản của bạn!' })
+
+      await ParentIn4.findOneAndUpdate(
+        { user: req.user.id },
+        {
+          $set: {
+            children: parentin4.children.filter(
+              (c) => c.user.toString() !== profileChild.user.toString()
+            )
+          }
+        }
+      )
+
+      return res.json({ msg: 'Xoá học sinh thành công!' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
   }
-})
+)
 
 // @route    PUT api/student/like_parentnews/:id_parentnews
 // @desc     Like news

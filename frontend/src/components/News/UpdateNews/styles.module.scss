@@ -1,0 +1,33 @@
+.form {
+  width: 100%;
+ 
+  .panel {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    input {
+      padding: 14px;
+      font-size: 20px;
+    }
+
+    .editor {
+      min-height: 725px;
+      height: auto;
+    }
+  }
+
+  .btn {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin-right: 5px;
+    }
+  }
+}

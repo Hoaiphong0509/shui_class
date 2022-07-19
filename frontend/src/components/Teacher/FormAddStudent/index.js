@@ -9,6 +9,7 @@ import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { addStudent } from 'services/redux/actions/teacher'
+
 const FormAddStudent = ({
   idClassroom,
   studentsAvailable,

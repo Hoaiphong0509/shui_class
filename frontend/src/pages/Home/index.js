@@ -1,7 +1,5 @@
 import LoaderComponent from 'components/core/LoaderComponent'
-import HomeStudentComponent from 'components/Student/HomeStudentComponent'
 import HomeTeacherComponent from 'components/Teacher/HomeTeacherComponent'
-import { ROLES } from 'constants/AppConstants'
 import Classnews from 'pages/Classnews'
 import Parentnews from 'pages/Parentnews'
 import PropTypes from 'prop-types'

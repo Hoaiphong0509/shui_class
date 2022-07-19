@@ -6,6 +6,7 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { likeClassnews, unlikeClassnews } from 'services/redux/actions/student'
+import { useHistory } from 'react-router-dom'
 
 const NewsItem = ({
   user: { user: us },
@@ -15,6 +16,7 @@ const NewsItem = ({
   unlikeClassnews,
   handleDelete
 }) => {
+  const history = useHistory()
   const { _id, createdAt, likes, text, title, user } = news
   const [numLike, setNumLike] = useState(likes.length)
   const [isDisableLike, setIsDisableLike] = useState(
@@ -74,6 +76,14 @@ const NewsItem = ({
         <Button className={s.btnCmt} onClick={() => handleGetNews(news)}>
           Bình luận
         </Button>
+        {user === us._id.toString() ? (
+          <Button
+            variant="primary"
+            onClick={() => history.push(`/update_classnews/${_id}`)}
+          >
+            Sửa
+          </Button>
+        ) : null}
         {user === us._id.toString() ? (
           <Button variant="danger" onClick={() => handleDelete(_id)}>
             Xoá

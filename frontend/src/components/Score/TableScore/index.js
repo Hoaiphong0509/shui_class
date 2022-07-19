@@ -24,7 +24,7 @@ const TableScore = ({ score }) => {
     <>
       <div>
         <h3>
-          Trung bình cả năm:{' '}
+          Trung bình:{' '}
           <b>{avgAll !== 'NaN' ? Number.parseFloat(avgAll).toFixed(2) : '0'}</b>
         </h3>
         <h3>

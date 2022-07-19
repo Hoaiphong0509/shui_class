@@ -32,6 +32,10 @@ import CreateClassnews from 'pages/Classnews/CreateClassnews'
 import Parentnews from 'pages/Parentnews'
 import CreateParentnews from 'pages/Parentnews/CreateParentnews'
 import DetailIn4Student from 'pages/DetailIn4Student'
+import UpdateClassnews from 'pages/Classnews/UpdateClassnews'
+import ChildrenPage from 'pages/ChildrenPage'
+import ScoreChild from 'pages/ParentPage/ScoreChild'
+import CompetitionChild from 'pages/ParentPage/CompetitionChild'
 
 const Routes = () => {
   return (
@@ -160,6 +164,13 @@ const Routes = () => {
       />
       <PrivateRoute
         exact
+        path="/update_classnews/:id_classnews"
+        role={ROLES.TEACHER}
+        layout={DefaultLayout}
+        component={UpdateClassnews}
+      />
+      <PrivateRoute
+        exact
         path="/parentnews"
         layout={DefaultLayout}
         component={Parentnews}
@@ -177,6 +188,27 @@ const Routes = () => {
         role={ROLES.TEACHER}
         layout={DefaultLayout}
         component={DetailIn4Student}
+      />
+      <PrivateRoute
+        exact
+        path="/children"
+        role={ROLES.PARENT}
+        layout={DefaultLayout}
+        component={ChildrenPage}
+      />
+      <PrivateRoute
+        exact
+        path="/score_child/:id_student"
+        role={ROLES.PARENT}
+        layout={DefaultLayout}
+        component={ScoreChild}
+      />
+      <PrivateRoute
+        exact
+        path="/competition_child/:id_student"
+        role={ROLES.PARENT}
+        layout={DefaultLayout}
+        component={CompetitionChild}
       />
       <PrivateRoute component={NotFoundPage} layout={DefaultLayout} />
     </Switch>

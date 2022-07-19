@@ -8,6 +8,7 @@ import profile from './profile'
 import competition from './competition'
 import classnews from './classnews'
 import parentnews from './parentnews'
+import parentIn4 from './parentIn4'
 
 export default combineReducers({
   user,
@@ -18,5 +19,6 @@ export default combineReducers({
   profile,
   competition,
   classnews,
-  parentnews
+  parentnews,
+  parentIn4,
 })

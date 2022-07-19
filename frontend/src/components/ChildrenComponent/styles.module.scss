@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  justify-content: center;
+  height: 90vh;
+
+  .content {
+    margin: 20px;
+    width: 80%;
+    height: 100%;
+
+    .header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .childrenList {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-gap: 20px;
+    }
+  }
+}

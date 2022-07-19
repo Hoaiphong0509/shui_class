@@ -286,6 +286,24 @@ router.post('/add_classnews', authorize(role.Teacher), async (req, res) => {
   }
 })
 
+// @route    GET api/teacher/get_classnews/:id_classnews
+// @desc     Get classnews
+// @access   Private
+router.get(
+  '/get_classnews/:id_classnews',
+  checkObjectId('id_classnews'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    try {
+      const classnews = await Classnews.findById(req.params.id_classnews)
+      res.json(classnews)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
 // @route    PUT api/teacher/update_classnews/:id_classnews
 // @desc     Update class news
 // @access   Private
@@ -358,6 +376,24 @@ router.get('/get_myparentnews', authorize(role.Teacher), async (req, res) => {
     res.status(500).send('Server Error')
   }
 })
+
+// @route    GET api/teacher/get_parentnews/:id_parentnews
+// @desc     Get classnews
+// @access   Private
+router.get(
+  '/get_parentnews/:id_parentnews',
+  checkObjectId('id_parentnews'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    try {
+      const parentnews = await Parentnews.findById(req.params.id_parentnews)
+      res.json(parentnews)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
 
 // @route    POST api/teacher/add_parentnews
 // @desc     Add parent news
