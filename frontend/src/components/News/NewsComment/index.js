@@ -21,11 +21,7 @@ const NewsComment = ({
     setCmts(newsState.comments)
   }, [newsState])
 
-  const handleAddCmt = (idClassroom, cmt) => {
-    setCmts([cmt, ...cmts])
-  }
-
-  const handleRemoveCmt = (idCmts, idNews) => {
+  const handleRemoveCmt = (idNews, idUser, idCmts) => {
     Swal.fire({
       title: 'Xác nhận',
       text: 'Bạn có muốn xoá Comment này',
@@ -37,14 +33,12 @@ const NewsComment = ({
       cancelButtonText: 'Huỷ'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const temp = cmts.filter((c) => c._id !== idCmts)
-        setCmts(temp)
         switch (asNews) {
           case 'class':
-            deleteCommentClassnews(idNews, myprofile.user.toString())
+            deleteCommentClassnews(idNews, idCmts)
             break
           case 'parent':
-            deleteCommentParentnews(idNews, myprofile.user.toString())
+            deleteCommentParentnews(idNews, idCmts)
             break
           default:
             break
@@ -57,8 +51,7 @@ const NewsComment = ({
     <div className={s.root}>
       <div className={s.formCmt}>
         <FormComment
-          handleAddCmt={handleAddCmt}
-          idNews={newsState._id}
+          idNews={newsState._id.toString()}
           myprofile={myprofile}
           asNews={asNews}
         />
@@ -70,7 +63,7 @@ const NewsComment = ({
             <CommentItem
               cmt={cmt}
               handleRemoveCmt={handleRemoveCmt}
-              idNews={newsState._id}
+              idNews={newsState._id.toString()}
               authorId={newsState.user}
             />
           </div>

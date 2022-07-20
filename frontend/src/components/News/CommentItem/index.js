@@ -39,7 +39,7 @@ const CommentItem = ({
           {user._id.toString() === authorId || user._id.toString() === usCmt ? (
             <Button
               variant="danger"
-              onClick={() => handleRemoveCmt(_id, idNews)}
+              onClick={() => handleRemoveCmt(idNews, usCmt, _id)}
             >
               Xoá
             </Button>

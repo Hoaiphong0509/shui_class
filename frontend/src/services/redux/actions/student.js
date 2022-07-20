@@ -68,9 +68,13 @@ export const unlikeClassnews = (id_classnews) => async (dispatch) => {
 export const addCommentClassnews =
   (id_classnews, formData) => async (dispatch) => {
     try {
-      await api.put(`/student/add_comment/${id_classnews}`, formData)
+      const res = await api.put(
+        `/student/add_comment/${id_classnews}`,
+        formData
+      )
       dispatch({
-        type: CLASSNEWS.UPDATE_CLASSNEWS
+        type: CLASSNEWS.UPDATE_CLASSNEWS,
+        payload: res.data
       })
       toast.success('Bạn đã gửi comment', {
         position: 'top-right',
@@ -89,11 +93,14 @@ export const addCommentClassnews =
   }
 
 export const deleteCommentClassnews =
-  (id_classnews, idUser) => async (dispatch) => {
+  (id_classnews, idCmt) => async (dispatch) => {
     try {
-      await api.put(`/student/delete_comment/${id_classnews}/${idUser}`)
+      const res = await api.put(
+        `/student/delete_comment/${id_classnews}/${idCmt}`
+      )
       dispatch({
-        type: CLASSNEWS.UPDATE_CLASSNEWS
+        type: CLASSNEWS.UPDATE_CLASSNEWS,
+        payload: res.data
       })
       toast.success('Xoá comment thành công', {
         position: 'top-right',

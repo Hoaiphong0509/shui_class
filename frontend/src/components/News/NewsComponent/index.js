@@ -4,7 +4,7 @@ import NewsComment from '../NewsComment'
 import NewsItem from '../NewsItem'
 import s from './styles.module.scss'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import {
   deleteClassnews,
   deleteParentnews
@@ -19,6 +19,14 @@ const NewsComponent = ({
 }) => {
   const [newssState, setNewssState] = useState(newss)
   const [newsState, setNewsState] = useState()
+
+  const cln = useSelector((state) => state.classnews)
+  const pns = useSelector((state) => state.parentnews)
+
+  useEffect(() => {
+    if (asNews === 'class') setNewsState(cln.classnews)
+    if (asNews === 'parent') setNewsState(pns.parentnews)
+  }, [cln, pns, asNews])
 
   useEffect(() => {
     setNewssState(newss)

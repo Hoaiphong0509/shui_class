@@ -83,9 +83,13 @@ export const unlikeParentnews = (id_parentnews) => async (dispatch) => {
 export const addCommentParentnews =
   (id_parentnews, formData) => async (dispatch) => {
     try {
-      await api.put(`/parents/add_comment/${id_parentnews}`, formData)
+      const res = await api.put(
+        `/parents/add_comment/${id_parentnews}`,
+        formData
+      )
       dispatch({
-        type: PARENTNEWS.UPDATE_PARENTNEWS
+        type: PARENTNEWS.UPDATE_PARENTNEWS,
+        payload: res.data
       })
       toast.success('Bạn đã gửi comment', {
         position: 'top-right',
@@ -104,11 +108,14 @@ export const addCommentParentnews =
   }
 
 export const deleteCommentParentnews =
-  (id_parentnews, idUser) => async (dispatch) => {
+  (id_parentnews, idCmt) => async (dispatch) => {
     try {
-      await api.put(`/parents/delete_comment/${id_parentnews}/${idUser}`)
+      const res = await api.put(
+        `/parents/delete_comment/${id_parentnews}/${idCmt}`
+      )
       dispatch({
-        type: PARENTNEWS.UPDATE_PARENTNEWS
+        type: PARENTNEWS.UPDATE_PARENTNEWS,
+        payload: res.data
       })
       toast.success('Xoá comment thành công', {
         position: 'top-right',

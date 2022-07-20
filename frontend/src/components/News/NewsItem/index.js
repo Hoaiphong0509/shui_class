@@ -105,7 +105,13 @@ const NewsItem = ({
         {user === us._id.toString() ? (
           <Button
             variant="primary"
-            onClick={() => history.push(`/update_classnews/${_id}`)}
+            onClick={() =>
+              history.push(
+                `/${
+                  asNews === 'class' ? 'update_classnews' : 'update_parentnews'
+                }/${_id}`
+              )
+            }
           >
             Sửa
           </Button>

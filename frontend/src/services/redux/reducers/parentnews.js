@@ -6,7 +6,7 @@ const initialState = {
   loading: true
 }
 
-const classReducer = (state = initialState, action) => {
+const parentnewsReducer = (state = initialState, action) => {
   const { type, payload } = action
 
   switch (type) {
@@ -25,6 +25,7 @@ const classReducer = (state = initialState, action) => {
     case PARENTNEWS.UPDATE_PARENTNEWS:
       return {
         ...state,
+        parentnews: payload,
         loading: false
       }
     case PARENTNEWS.ADD_PARENTNEWS:
@@ -55,4 +56,4 @@ const classReducer = (state = initialState, action) => {
   }
 }
 
-export default classReducer
+export default parentnewsReducer

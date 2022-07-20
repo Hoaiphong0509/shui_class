@@ -9,7 +9,7 @@ import { Button } from 'react-bootstrap'
 import { Controller, useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { addClassnews, addParentnews } from 'services/redux/actions/teacher'
+import { updateClassnews, updateParentnews } from 'services/redux/actions/teacher'
 import * as yup from 'yup'
 import s from './styles.module.scss'
 
@@ -26,9 +26,8 @@ const fontValues = [
 ]
 const headerValues = [false, 1, 2, 3, 4, 5]
 
-const UpdateNews = ({ asNews, news, addClassnews, addParentnews }) => {
-  const { title, text } = news
-  console.log("news",news);
+const UpdateNews = ({ asNews, news, updateClassnews, updateParentnews }) => {
+  const { _id, title, text } = news
   const history = useHistory()
   const schema = yup.object({
     title: yup.string().required('Tiêu đề không được bỏ trống'),
@@ -105,11 +104,11 @@ const UpdateNews = ({ asNews, news, addClassnews, addParentnews }) => {
   const onSubmit = (data) => {
     switch (asNews) {
       case 'class':
-        addClassnews(data)
+        updateClassnews(_id, data)
         history.push('/classnews')
         break
       case 'parent':
-        addParentnews(data)
+        updateParentnews(_id, data)
         history.push('/parentnews')
         break
       default:
@@ -147,11 +146,11 @@ const UpdateNews = ({ asNews, news, addClassnews, addParentnews }) => {
 }
 
 UpdateNews.prototype = {
-  addClassnews: PropTypes.func,
-  addParentnews: PropTypes.func
+  updateClassnews: PropTypes.func,
+  updateParentnews: PropTypes.func
 }
 
 export default connect(null, {
-  addClassnews,
-  addParentnews
+  updateClassnews,
+  updateParentnews
 })(UpdateNews)

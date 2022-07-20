@@ -131,7 +131,8 @@ router.put(
         }
       })
 
-      return res.json({ msg: 'Comment vào bản tin thành công' })
+      const result = await Parentnews.findById(req.params.id_parentnews)
+      return res.json(result)
     } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error')
@@ -143,15 +144,16 @@ router.put(
 // @desc     Delelte Comment
 // @access   Private
 router.put(
-  '/delete_comment/:id_parentnews/:id_user',
+  '/delete_comment/:id_parentnews/:id_cmt',
   checkObjectId('id_parentnews'),
-  checkObjectId('id_user'),
+  checkObjectId('id_cmt'),
   authorize(),
   async (req, res) => {
     try {
       const parentnews = await Parentnews.findById(req.params.id_parentnews)
+
       const comments = parentnews.comments.filter(
-        (c) => c.user.toString() !== req.params.id_user
+        (c) => c._id.toString() !== req.params.id_cmt
       )
 
       await Parentnews.findByIdAndUpdate(req.params.id_parentnews, {
@@ -159,8 +161,8 @@ router.put(
           comments
         }
       })
-
-      return res.json({ msg: 'Xoá comment thành công' })
+      const result = await Parentnews.findById(req.params.id_parentnews)
+      return res.json(result)
     } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error')

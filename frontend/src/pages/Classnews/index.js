@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getMyClassnews } from 'services/redux/actions/classnews'
 import { getCurrentProfile } from 'services/redux/actions/profile'

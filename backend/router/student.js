@@ -95,8 +95,8 @@ router.put(
           }
         }
       })
-
-      return res.json({ msg: 'Comment vào bản tin thành công' })
+      const result = await Classnews.findById(req.params.id_classnews)
+      return res.json(result)
     } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error')
@@ -104,20 +104,19 @@ router.put(
   }
 )
 
-// @route    PUT api/student/delete_comment/:id_classnews/:id_user
+// @route    PUT api/student/delete_comment/:id_classnews/:id_cmt
 // @desc     Delelte Comment
 // @access   Private
 router.put(
-  '/delete_comment/:id_classnews/:id_user',
+  '/delete_comment/:id_classnews/:id_cmt',
   checkObjectId('id_classnews'),
-  checkObjectId('id_user'),
+  checkObjectId('id_cmt'),
   authorize(),
   async (req, res) => {
     try {
       const classnews = await Classnews.findById(req.params.id_classnews)
-
       const comments = classnews.comments.filter(
-        (c) => c.user.toString() !== req.params.id_user
+        (c) => c._id.toString() !== req.params.id_cmt
       )
 
       await Classnews.findByIdAndUpdate(req.params.id_classnews, {
@@ -126,7 +125,8 @@ router.put(
         }
       })
 
-      return res.json({ msg: 'Xoá comment thành công' })
+      const result = await Classnews.findById(req.params.id_classnews)
+      return res.json(result)
     } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error')

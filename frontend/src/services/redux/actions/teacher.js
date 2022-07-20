@@ -485,6 +485,39 @@ export const addClassnews = (formData) => async (dispatch) => {
   }
 }
 
+export const updateClassnews = (idnews, formData) => async (dispatch) => {
+  try {
+    const res = await api.put(`/teacher/update_classnews/${idnews}`, formData)
+
+    dispatch({
+      type: CLASSNEWS.UPDATE_CLASSNEWS,
+      payload: res.data
+    })
+    toast.success('Cập nhật bản tin lớp thành công!', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  } catch (err) {
+    dispatch({
+      type: CLASSNEWS.ERRORS
+    })
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  }
+}
+
 export const addParentnews = (formData) => async (dispatch) => {
   try {
     const res = await api.post(`/teacher/add_parentnews`, formData)
@@ -509,6 +542,39 @@ export const addParentnews = (formData) => async (dispatch) => {
       position: 'top-right',
       autoClose: 2000,
 
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  }
+}
+
+export const updateParentnews = (idnews, formData) => async (dispatch) => {
+  try {
+    const res = await api.put(`/teacher/update_parentnews/${idnews}`, formData)
+
+    dispatch({
+      type: PARENTNEWS.UPDATE_PARENTNEWS,
+      payload: res.data
+    })
+    toast.success('Cập nhật bản tin lớp thành công!', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  } catch (err) {
+    dispatch({
+      type: PARENTNEWS.ERRORS
+    })
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

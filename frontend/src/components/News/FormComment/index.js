@@ -1,24 +1,23 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
-import { v4 as uuidv4 } from 'uuid'
+import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import s from './styles.module.scss'
 
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { addCommentClassnews } from 'services/redux/actions/student'
 import { addCommentParentnews } from 'services/redux/actions/parent'
+import { addCommentClassnews } from 'services/redux/actions/student'
 
 const FormComment = ({
   idNews,
-  handleAddCmt,
   addCommentClassnews,
   addCommentParentnews,
-  myprofile,
   asNews
 }) => {
+  const history = useHistory()
   const schema = yup
     .object({
       text: yup.string().required('Bình luận không được trống!')
@@ -29,20 +28,14 @@ const FormComment = ({
   })
 
   const onSubmit = (data) => {
-    handleAddCmt(idNews, {
-      _id: uuidv4(),
-      user: myprofile.user,
-      avatar: myprofile.avatar,
-      name: myprofile.fullName,
-      text: data.text,
-      date: new Date()
-    })
     switch (asNews) {
       case 'class':
         addCommentClassnews(idNews, data)
+        history.replace('/classnews')
         break
       case 'parent':
         addCommentParentnews(idNews, data)
+        history.replace('/parentnews')
         break
       default:
         break

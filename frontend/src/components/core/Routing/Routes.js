@@ -43,6 +43,7 @@ import ParentsList from 'pages/Teacher/ParentsList'
 import CreateParent from 'pages/Teacher/CreateParent'
 import TrashParent from 'pages/Teacher/TrashParent'
 import TeacherChildrenPage from 'pages/Teacher/TeacherChildrenPage'
+import UpdateParentnews from 'pages/Parentnews/UpdateParentnews'
 
 const Routes = () => {
   return (
@@ -235,6 +236,13 @@ const Routes = () => {
         role={ROLES.TEACHER}
         layout={DefaultLayout}
         component={CreateParentnews}
+      />
+      <PrivateRoute
+        exact
+        path="/update_parentnews/:id_parentnews"
+        role={ROLES.TEACHER}
+        layout={DefaultLayout}
+        component={UpdateParentnews}
       />
       <PrivateRoute
         exact
