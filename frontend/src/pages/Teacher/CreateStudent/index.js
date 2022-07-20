@@ -7,13 +7,13 @@ import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getStaffs } from 'services/redux/actions/staff'
 import { getStudents } from 'services/redux/actions/student'
-import { getStudentMyClassroom } from 'services/redux/actions/teacher'
+import { getStudentsMyClassroom } from 'services/redux/actions/teacher'
 
 const CreateStudent = ({
   student: { students, loading: ldStu },
   staff: { staffs, loading: ldStf },
   classroom: { classroom, loading: ldCls },
-  getStudentMyClassroom,
+  getStudentsMyClassroom,
   getStudents,
   getStaffs
 }) => {
@@ -26,8 +26,8 @@ const CreateStudent = ({
   }, [getStaffs])
 
   useEffect(() => {
-    getStudentMyClassroom()
-  }, [getStudentMyClassroom])
+    getStudentsMyClassroom()
+  }, [getStudentsMyClassroom])
 
   if (
     ldStu ||
@@ -72,7 +72,7 @@ CreateStudent.prototype = {
   staff: PropTypes.object,
   getStudents: PropTypes.func,
   getStaffs: PropTypes.func,
-  getStudentMyClassroom: PropTypes.func
+  getStudentsMyClassroom: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
@@ -84,5 +84,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getStudents,
   getStaffs,
-  getStudentMyClassroom
+  getStudentsMyClassroom
 })(CreateStudent)

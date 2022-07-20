@@ -6,22 +6,22 @@ import s from './styles.module.scss'
 import LoaderComponent from 'components/core/LoaderComponent'
 import TrashStudents from 'components/Teacher/TrashStudents'
 import { useHistory } from 'react-router-dom'
-import { getStudentMyClassroom } from 'services/redux/actions/teacher'
+import { getStudentsMyClassroom } from 'services/redux/actions/teacher'
 import { Button } from 'react-bootstrap'
 
 const TrashStudent = ({
   classroom: { classroom, loading },
-  getStudentMyClassroom
+  getStudentsMyClassroom
 }) => {
   const history = useHistory()
 
   useEffect(() => {
-    getStudentMyClassroom()
-  }, [getStudentMyClassroom])
+    getStudentsMyClassroom()
+  }, [getStudentsMyClassroom])
 
   if (loading) return <LoaderComponent />
   if (classroom === null)
-    return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nafoF</h1>
+    return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nào</h1>
 
   const { students } = classroom
 
@@ -49,11 +49,11 @@ const TrashStudent = ({
 
 TrashStudent.prototype = {
   classroom: PropTypes.object,
-  getStudentMyClassroom: PropTypes.func
+  getStudentsMyClassroom: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
   classroom: state.classroom
 })
 
-export default connect(mapStateToProps, { getStudentMyClassroom })(TrashStudent)
+export default connect(mapStateToProps, { getStudentsMyClassroom })(TrashStudent)

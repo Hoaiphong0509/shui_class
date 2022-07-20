@@ -30,8 +30,11 @@ const FormAddStudent = ({
           'Số điện thoại không đúng'
         ),
       staffCode: yup.number(),
-      parentName: yup.string(),
-      parentEmail: yup.string().email('Email sai định dạng')
+      parentName: yup.string().required('Tên phụ huynh không được trống'),
+      parentEmail: yup
+        .string()
+        .required('Email phụ huynh không được trống')
+        .email('Email sai định dạng')
     })
     .required()
   const {
@@ -44,6 +47,7 @@ const FormAddStudent = ({
 
   const onSubmit = (data) => {
     addStudent(idClassroom, data)
+    history.push('/')
   }
 
   return (
@@ -52,7 +56,9 @@ const FormAddStudent = ({
         <h1>Thêm học sinh</h1>
       </div>
       <div className={s.panel}>
-        <label htmlFor="username">Học sinh *</label>
+        <label htmlFor="username" style={{ color: 'red' }}>
+          Học sinh *
+        </label>
         <select {...register('username')}>
           {studentsAvailable &&
             studentsAvailable.map((s, idx) => (
@@ -65,7 +71,9 @@ const FormAddStudent = ({
         <p className={s.textError}>{errors.username?.message}</p>
       </div>
       <div className={s.panel}>
-        <label htmlFor="address">Địa chỉ học sinh *</label>
+        <label htmlFor="address" style={{ color: 'red' }}>
+          Địa chỉ học sinh *
+        </label>
         <input
           name="address"
           placeholder="Địa chỉ học sinh"
@@ -73,7 +81,7 @@ const FormAddStudent = ({
         />
         <p className={s.textError}>{errors.address?.message}</p>
       </div>
-      <div className={s.panel}>
+      <div className={s.panel} style={{ color: 'red' }}>
         <label htmlFor="phone">Số điện thoại *</label>
         <input name="phone" placeholder="0123 456 789" {...register('phone')} />
         <p className={s.textError}>{errors.phone?.message}</p>
@@ -89,11 +97,16 @@ const FormAddStudent = ({
         </select>
       </div>
       <div className={s.panel}>
-        <label htmlFor="parentName">Tên phụ huynh</label>
+        <label htmlFor="parentName" style={{ color: 'red' }}>
+          Tên phụ huynh *
+        </label>
         <input name="parentName" {...register('parentName')} />
+        <p className={s.textError}>{errors.parentName?.message}</p>
       </div>
       <div className={s.panel}>
-        <label htmlFor="parentEmail">Email phụ huynh</label>
+        <label htmlFor="parentEmail" style={{ color: 'red' }}>
+          Email phụ huynh *
+        </label>
         <input name="parentEmail" {...register('parentEmail')} />
         <p className={s.textError}>{errors.parentEmail?.message}</p>
       </div>

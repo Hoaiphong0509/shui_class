@@ -56,7 +56,6 @@ const NewsComponent = ({
       }
     })
   }
-
   return (
     <div className={s.root}>
       <div className={s.content}>
@@ -67,13 +66,18 @@ const NewsComponent = ({
                 news={c}
                 handleGetNews={handleGetNews}
                 handleDelete={handleDelete}
+                asNews={asNews}
               />
             </div>
           ))}
         </div>
         <div className={s.cmtArea}>
           {newsState && (
-            <NewsComment newsState={newsState} myprofile={myprofile} />
+            <NewsComment
+              newsState={newsState}
+              myprofile={myprofile}
+              asNews={asNews}
+            />
           )}
         </div>
       </div>

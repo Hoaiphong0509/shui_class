@@ -7,8 +7,10 @@ import { getStudents } from 'services/redux/actions/student'
 import ModalAddChild from './ModalAddChild'
 import ProfileItem from './ProfileItem'
 import s from './styles.module.scss'
+import { ROLES } from 'constants/AppConstants'
 
 const ChildrenComponent = ({
+  user: { user, loading: ldu },
   parentIn4,
   student: { students, loading: ldStu },
   getStudents
@@ -20,7 +22,8 @@ const ChildrenComponent = ({
     getStudents()
   }, [getStudents])
 
-  if (ldStu || students === null) return <LoaderComponent />
+  if (ldu || ldStu || students === null || user === null || user === undefined)
+    return <LoaderComponent />
 
   let duplicates = []
   let unique = []
@@ -41,29 +44,43 @@ const ChildrenComponent = ({
       <div className={s.root}>
         <div className={s.content}>
           <div className={s.header}>
-            <Button onClick={() => setShow(!show)}>Thêm học sinh</Button>
+            {user && user.roles.includes(ROLES.TEACHER) ? (
+              <Button onClick={() => setShow(!show)}>Thêm học sinh</Button>
+            ) : null}
           </div>
           <div className={s.childrenList}>
             {children.map((c, idx) => (
               <div key={idx} className={s.itemChild}>
-                <ProfileItem profile={c} />
+                <ProfileItem
+                  profile={c}
+                  user={user}
+                  idParent={parentIn4.user.toString()}
+                />
               </div>
             ))}
           </div>
         </div>
       </div>
-      <ModalAddChild show={show} setShow={setShow} childrenAvaible={unique} />
+      <ModalAddChild
+        show={show}
+        setShow={setShow}
+        user={user}
+        idParent={parentIn4.user.toString()}
+        childrenAvaible={unique}
+      />
     </>
   )
 }
 
 ChildrenComponent.prototype = {
   student: PropTypes.object,
+  user: PropTypes.object,
   getStudents: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
-  student: state.student
+  student: state.student,
+  user: state.user
 })
 
 export default connect(mapStateToProps, {

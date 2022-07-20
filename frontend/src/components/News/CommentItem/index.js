@@ -9,7 +9,7 @@ const CommentItem = ({
   user: { user },
   cmt,
   handleRemoveCmt,
-  idClassnews,
+  idNews,
   authorId
 }) => {
   const {
@@ -39,7 +39,7 @@ const CommentItem = ({
           {user._id.toString() === authorId || user._id.toString() === usCmt ? (
             <Button
               variant="danger"
-              onClick={() => handleRemoveCmt(_id, idClassnews)}
+              onClick={() => handleRemoveCmt(_id, idNews)}
             >
               Xoá
             </Button>

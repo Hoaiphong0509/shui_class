@@ -5,11 +5,17 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
-import { addChildren } from 'services/redux/actions/parent'
+import { addChildren } from 'services/redux/actions/teacher'
 import * as yup from 'yup'
 import s from './styles.module.scss'
 
-const ModalAddChild = ({ show, setShow, childrenAvaible, addChildren }) => {
+const ModalAddChild = ({
+  show,
+  setShow,
+  childrenAvaible,
+  addChildren,
+  idParent
+}) => {
   const handleClose = () => setShow(false)
 
   const schema = yup.object({
@@ -28,9 +34,8 @@ const ModalAddChild = ({ show, setShow, childrenAvaible, addChildren }) => {
     const payload = {
       childrenUsername: data.username
     }
-    addChildren(payload)
+    addChildren(payload, idParent)
     handleClose()
-    // if (typeof window !== 'undefined') window.location.reload()
   }
 
   return (

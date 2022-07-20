@@ -9,12 +9,15 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { addCommentClassnews } from 'services/redux/actions/student'
+import { addCommentParentnews } from 'services/redux/actions/parent'
 
 const FormComment = ({
-  idClassnews,
+  idNews,
   handleAddCmt,
   addCommentClassnews,
-  myprofile
+  addCommentParentnews,
+  myprofile,
+  asNews
 }) => {
   const schema = yup
     .object({
@@ -26,7 +29,7 @@ const FormComment = ({
   })
 
   const onSubmit = (data) => {
-    handleAddCmt(idClassnews, {
+    handleAddCmt(idNews, {
       _id: uuidv4(),
       user: myprofile.user,
       avatar: myprofile.avatar,
@@ -34,7 +37,16 @@ const FormComment = ({
       text: data.text,
       date: new Date()
     })
-    addCommentClassnews(idClassnews, data)
+    switch (asNews) {
+      case 'class':
+        addCommentClassnews(idNews, data)
+        break
+      case 'parent':
+        addCommentParentnews(idNews, data)
+        break
+      default:
+        break
+    }
     reset()
   }
   return (
@@ -51,7 +63,10 @@ const FormComment = ({
 }
 
 FormComment.prototype = {
-  addCommentClassnews: PropTypes.func
+  addCommentClassnews: PropTypes.func,
+  addCommentParentnews: PropTypes.func
 }
 
-export default connect(null, { addCommentClassnews })(FormComment)
+export default connect(null, { addCommentClassnews, addCommentParentnews })(
+  FormComment
+)

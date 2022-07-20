@@ -28,6 +28,18 @@ const ClassroomSchema = new mongoose.Schema({
       }
     }
   ],
+  parents: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+      },
+      isDelete: {
+        type: Boolean,
+        default: false
+      }
+    }
+  ],
   isDelete: {
     type: Boolean,
     default: false

@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  justify-content: center;
+  min-height: 90vh;
+
+  .scorePanel {
+    width: 90%;
+    padding: 20px;
+  }
+}

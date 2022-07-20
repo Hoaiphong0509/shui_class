@@ -45,6 +45,14 @@ const Header = ({
       >
         <p> Bản tin phụ huynh</p>
       </Link>
+      <Link
+        to="/parents"
+        className={`${
+          location.pathname.includes('parents') ? s.active : null
+        }`}
+      >
+        <p>Danh sách phụ huynh</p>
+      </Link>
     </>
   )
 
@@ -157,6 +165,12 @@ const Header = ({
               >
                 Bảng điểm HKII
               </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                onClick={() => history.push(`/sheet_all/${myprofile.user}`)}
+              >
+                Học tập cả năm
+              </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item
                 as="button"
@@ -173,6 +187,12 @@ const Header = ({
                 }
               >
                 Thi đua HKII
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                onClick={() => history.push(`/competition_all/${myprofile.user}`)}
+              >
+                Thi đua cả năm
               </Dropdown.Item>
             </>
           ) : null}

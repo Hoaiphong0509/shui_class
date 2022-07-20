@@ -63,7 +63,6 @@ export const updateCompetition = (idStudent, formData) => async (dispatch) => {
     toast.success('Cập nhật điểm thi đua thành công', {
       position: 'top-right',
       autoClose: 2000,
-
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -78,7 +77,6 @@ export const updateCompetition = (idStudent, formData) => async (dispatch) => {
     toast.error('Cập nhật điểm thi đua thất bại, vui lòng thử lại sau!', {
       position: 'top-right',
       autoClose: 2000,
-
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

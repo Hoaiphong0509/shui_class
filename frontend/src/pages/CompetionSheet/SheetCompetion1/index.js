@@ -76,14 +76,18 @@ const SheetCompetion1 = ({
             <Button variant="secondary" onClick={() => history.push('/')}>
               Quay lại
             </Button>
-            <Button
-              variant="primary"
-              onClick={() =>
-                history.push(`/update_competition_1/${match.params.id_student}`)
-              }
-            >
-              Cập nhật
-            </Button>
+            {user && user.roles.includes(ROLES.TEACHER) ? (
+              <Button
+                variant="primary"
+                onClick={() =>
+                  history.push(
+                    `/update_competition_1/${match.params.id_student}`
+                  )
+                }
+              >
+                Cập nhật
+              </Button>
+            ) : null}
           </div>
         </>
       )}

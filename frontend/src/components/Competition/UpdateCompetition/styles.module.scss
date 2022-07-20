@@ -72,11 +72,11 @@
         .panel {
           .panel_in4 {
             div:first-child {
-              background: greenyellow;
+              background: var(--green);
             }
             .panel_input {
               background-color: transparent;
-              border: 1px solid greenyellow;
+              border: 1px solid var(--green);
             }
           }
         }
@@ -86,10 +86,10 @@
         .panel {
           .panel_in4 {
             div:first-child {
-              background: rosybrown;
+              background: var(--red);
             }
             .panel_input {
-              border: 1px solid rosybrown;
+              border: 1px solid var(--red);
             }
           }
         }

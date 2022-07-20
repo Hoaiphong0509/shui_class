@@ -36,6 +36,13 @@ import UpdateClassnews from 'pages/Classnews/UpdateClassnews'
 import ChildrenPage from 'pages/ChildrenPage'
 import ScoreChild from 'pages/ParentPage/ScoreChild'
 import CompetitionChild from 'pages/ParentPage/CompetitionChild'
+import UpdateStudent from 'pages/Teacher/UpdateStudent'
+import ScoreAll from 'pages/Student/ScoreAll'
+import CompetitionAll from 'pages/Student/CompetitionAll'
+import ParentsList from 'pages/Teacher/ParentsList'
+import CreateParent from 'pages/Teacher/CreateParent'
+import TrashParent from 'pages/Teacher/TrashParent'
+import TeacherChildrenPage from 'pages/Teacher/TeacherChildrenPage'
 
 const Routes = () => {
   return (
@@ -45,6 +52,13 @@ const Routes = () => {
       <PrivateRoute exact path="/" layout={DefaultLayout} component={Home} />
       <PrivateRoute
         exact
+        path="/parents"
+        layout={DefaultLayout}
+        role={ROLES.TEACHER}
+        component={ParentsList}
+      />
+      <PrivateRoute
+        exact
         path="/createStudent"
         layout={DefaultLayout}
         role={ROLES.TEACHER}
@@ -52,10 +66,38 @@ const Routes = () => {
       />
       <PrivateRoute
         exact
+        path="/createParent"
+        layout={DefaultLayout}
+        role={ROLES.TEACHER}
+        component={CreateParent}
+      />
+      <PrivateRoute
+        exact
+        path="/detail_parent/:id_parent"
+        layout={DefaultLayout}
+        role={ROLES.TEACHER}
+        component={TeacherChildrenPage}
+      />
+      <PrivateRoute
+        exact
+        path="/updateStudent/:id_student"
+        layout={DefaultLayout}
+        role={ROLES.TEACHER}
+        component={UpdateStudent}
+      />
+      <PrivateRoute
+        exact
         path="/trashStudent"
         layout={DefaultLayout}
         role={ROLES.TEACHER}
         component={TrashStudent}
+      />
+      <PrivateRoute
+        exact
+        path="/trashParent"
+        layout={DefaultLayout}
+        role={ROLES.TEACHER}
+        component={TrashParent}
       />
       <PrivateRoute
         exact
@@ -80,6 +122,18 @@ const Routes = () => {
         path="/sheet_competition_2/:id_student"
         layout={DefaultLayout}
         component={SheetCompetion2}
+      />
+      <PrivateRoute
+        exact
+        path="/sheet_all/:id_student"
+        layout={DefaultLayout}
+        component={ScoreAll}
+      />
+      <PrivateRoute
+        exact
+        path="/competition_all/:id_student"
+        layout={DefaultLayout}
+        component={CompetitionAll}
       />
       <PrivateRoute
         exact

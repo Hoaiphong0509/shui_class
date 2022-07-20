@@ -62,6 +62,87 @@ router.get(
     }
   }
 )
+// @route    GET api/teacher/get_parent_myclassroom
+// @desc     Get parent my classroom
+// @access   Private
+router.get(
+  '/get_parent_myclassroom',
+  authorize(role.Teacher),
+  async (req, res) => {
+    try {
+      const classroom = await Classroom.find()
+      const profileParent = await Profile.find()
+
+      const result = classroom.filter(
+        (c) =>
+          c.headTeacher.user && c.headTeacher.user.toString() === req.user.id
+      )
+
+      if (result.length === 0) res.json([])
+
+      const parentsTemp = result[0].parents.map((s) => {
+        let fullName = ''
+        profileParent.forEach((p) => {
+          if (p.user.toString() === s.user.toString()) {
+            fullName = p.fullName
+          }
+        })
+
+        return {
+          parentId: s.user.toString(),
+          fullName,
+          isDelete: s.isDelete
+        }
+      })
+
+      const respone = {
+        ...result[0]._doc,
+        parents: parentsTemp
+      }
+
+      res.json(respone)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/teacher/update_student/:id_classroom/:id_student
+// @desc     Update student
+// @access   Private
+router.put(
+  '/update_student/:id_student',
+  checkObjectId('id_student'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    const { address, phone, staffCode = 0, parentName, parentEmail } = req.body
+    try {
+      const staff = await Staff.findOne({ staffCode })
+
+      await Profile.findOneAndUpdate(
+        { user: req.params.id_student },
+        {
+          $set: {
+            staffClass: {
+              staff: staff.id.toString(),
+              staffDisplay: staff.staffDisplay
+            },
+            address,
+            phone,
+            parentName,
+            parentEmail
+          }
+        }
+      )
+
+      res.json({ msg: 'Cập nhật thành công!' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
 
 // @route    PUT api/teacher/add_student/:id_classroom
 // @desc     Add student
@@ -130,6 +211,70 @@ router.put(
   }
 )
 
+// @route    PUT api/teacher/add_parent/:id_classroom
+// @desc     Add parent
+// @access   Private
+router.put(
+  '/add_parent/:id_classroom',
+  checkObjectId('id_classroom'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    const { username } = req.body
+    try {
+      const parent = await User.findOne({ username })
+      const idClassroom = req.params.id_classroom
+
+      const teacher = await User.findById(req.user.id)
+      const classroom = await Classroom.findById(idClassroom)
+
+      if (
+        classroom.parents.some(
+          (s) => s.user.toString() === parent._id.toString()
+        )
+      ) {
+        return res
+          .status(400)
+          .json({ msg: 'Phụ huynh này đã tồn tại trong lớp học' })
+      }
+
+      if (!parent)
+        return res.status(400).json({ msg: 'Phụ huynh này không tồn tại' })
+
+      if (!parent.roles.includes(role.Parent))
+        return res
+          .status(400)
+          .json({ msg: 'Tài khoản này không phải phụ huynh' })
+
+      if (classroom.headTeacher.user.toString() !== teacher._id.toString())
+        return res
+          .status(400)
+          .json({ msg: 'Bạn không phải là giáo viên chủ nhiệm của lớp này.' })
+
+      await Classroom.findByIdAndUpdate(idClassroom, {
+        $push: { parents: { user: parent._id.toString() } }
+      })
+      await ParentIn4.findOneAndUpdate(
+        { user: parent._id.toString() },
+        {
+          $push: {
+            classroomIn4: {
+              class: classroom._id.toString(),
+              name: classroom.name,
+              isDelete: false
+            }
+          }
+        }
+      )
+
+      const result = await Classroom.findById(req.params.id_classroom)
+      res.json(result)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
 // @route    PUT api/teacher/move_student_to_trash/:id_classroom/:id_student
 // @desc     Move student to trash
 // @access   Private
@@ -167,6 +312,58 @@ router.put(
   }
 )
 
+// @route    PUT api/teacher/move_parent_to_trash/:id_classroom/:id_parent
+// @desc     Move parent to trash
+// @access   Private
+router.put(
+  '/move_parent_to_trash/:id_classroom/:id_parent',
+  checkObjectId('id_classroom'),
+  checkObjectId('id_parent'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    try {
+      const teacher = await User.findById(req.user.id)
+
+      const classroom = await Classroom.findById(req.params.id_classroom)
+      const parentIn4 = await ParentIn4.findOne({ user: req.params.id_parent })
+
+      if (classroom.headTeacher.user.toString() !== teacher._id.toString())
+        return res
+          .status(400)
+          .json({ msg: 'Bạn không phải là giáo viên chủ nhiệm của lớp này.' })
+
+      await Classroom.findByIdAndUpdate(req.params.id_classroom, {
+        $set: {
+          parents: classroom.parents.map((s) => {
+            if (s.user.toString() === req.params.id_parent)
+              return { ...s._doc, isDelete: true }
+            else return s._doc
+          })
+        }
+      })
+
+      await ParentIn4.findOneAndUpdate(
+        { user: req.params.id_parent },
+        {
+          $set: {
+            classroomIn4: parentIn4.classroomIn4.map((c) => {
+              if (c.class.toString() === req.params.id_classroom)
+                return { ...c._doc, isDelete: true }
+              else return c._doc
+            })
+          }
+        }
+      )
+
+      const result = await Classroom.findById(req.params.id_classroom)
+      res.json(result)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
 // @route    PUT api/teacher/restore_student/:id_classroom/:id_student
 // @desc     Restore student
 // @access   Private
@@ -194,6 +391,57 @@ router.put(
           })
         }
       })
+
+      const result = await Classroom.findById(req.params.id_classroom)
+      res.json(result)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/teacher/restore_parent/:id_classroom/:id_parent
+// @desc     Restore parent
+// @access   Private
+router.put(
+  '/restore_parent/:id_classroom/:id_parent',
+  checkObjectId('id_classroom'),
+  checkObjectId('id_parent'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    try {
+      const teacher = await User.findById(req.user.id)
+      const parentIn4 = await ParentIn4.findOne({ user: req.params.id_parent })
+      const classroom = await Classroom.findById(req.params.id_classroom)
+      if (classroom.headTeacher.user.toString() !== teacher._id.toString())
+        return res
+          .status(400)
+          .json({ msg: 'Bạn không phải là giáo viên chủ nhiệm của lớp này.' })
+
+      await Classroom.findByIdAndUpdate(req.params.id_classroom, {
+        $set: {
+          parents: classroom.parents.map((s) => {
+            if (s.user.toString() === req.params.id_parent)
+              return { ...s._doc, isDelete: false }
+            else return s._doc
+          })
+        }
+      })
+
+      await ParentIn4.findOneAndUpdate(
+        { user: req.params.id_parent },
+        {
+          $set: {
+            classroomIn4: parentIn4.classroomIn4.map((c) => {
+              if (c.class.toString() === req.params.id_classroom)
+                return { ...c._doc, isDelete: false }
+              else return c._doc
+            })
+          }
+        }
+      )
+
       const result = await Classroom.findById(req.params.id_classroom)
       res.json(result)
     } catch (err) {
@@ -229,6 +477,58 @@ router.put(
           )
         }
       })
+      const result = await Classroom.findById(req.params.id_classroom)
+      res.json(result)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/teacher/delete_parent/:id_classroom/:id_parent
+// @desc     Delete parent
+// @access   Private
+router.put(
+  '/delete_parent/:id_classroom/:id_parent',
+  checkObjectId('id_classroom'),
+  checkObjectId('id_parent'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    try {
+      const teacher = await User.findById(req.user.id)
+      const parentIn4 = await ParentIn4.findOne({ user: req.params.id_parent })
+      const classroom = await Classroom.findById(req.params.id_classroom)
+
+      if (classroom.headTeacher.user.toString() !== teacher._id.toString())
+        return res
+          .status(400)
+          .json({ msg: 'Bạn không phải là giáo viên chủ nhiệm của lớp này.' })
+
+      if (!parentIn4) {
+        return res.status(400).json({ msg: 'Vui lòng thử lại sau!' })
+      }
+
+      await Classroom.findByIdAndUpdate(req.params.id_classroom, {
+        $set: {
+          parents: classroom.parents.filter(
+            (s) => s.user.toString() !== req.params.id_parent
+          )
+        }
+      })
+
+      const classTemp = parentIn4.classroomIn4
+      await ParentIn4.findOneAndUpdate(
+        { user: req.params.id_parent },
+        {
+          $set: {
+            classroomIn4: classTemp.filter(
+              (c) => c.class.toString() !== req.params.id_classroom
+            )
+          }
+        }
+      )
+
       const result = await Classroom.findById(req.params.id_classroom)
       res.json(result)
     } catch (err) {
@@ -285,6 +585,127 @@ router.post('/add_classnews', authorize(role.Teacher), async (req, res) => {
     res.status(500).send('Server Error')
   }
 })
+
+// @route    PUT api/teacher/add_children/:id_parent
+// @desc     Add children for parent
+// @access   Private
+router.put(
+  '/add_children/:id_parent',
+  checkObjectId('id_parent'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    const { childrenUsername } = req.body
+
+    try {
+      const parentin4 = await ParentIn4.findOne({ user: req.params.id_parent })
+      const profileChild = await Profile.findOne({
+        username: childrenUsername
+      })
+      const classroom = await Classroom.find()
+
+      const result = classroom.filter(
+        (c) =>
+          (c.headTeacher.user &&
+            c.headTeacher.user.toString() === req.user.id) ||
+          c.students.some(
+            (s) => s.user.toString() === profileChild.user.toString()
+          )
+      )
+
+      if (!parentin4) {
+        return res.status(400).json({ msg: 'Tài khoản này không tồn tại' })
+      }
+
+      if (!profileChild) {
+        return res
+          .status(400)
+          .json({ msg: 'Tài khoản học sinh này không tồn tại' })
+      }
+
+      if (
+        parentin4.children.some(
+          (c) => c.user.toString() === profileChild.user.toString()
+        )
+      )
+        return res.status(400).json({
+          msg: 'Học sinh này đã tồn tại trong tài khoản của phụ huynh!'
+        })
+
+      await ParentIn4.findOneAndUpdate(
+        { user: req.params.id_parent },
+        {
+          $push: {
+            children: {
+              user: profileChild.user.toString(),
+              name: profileChild.fullName,
+              avatar: profileChild.avatar,
+              classroom: result[0].name,
+              isDelete: false
+            }
+          }
+        }
+      )
+
+      return res.json({ msg: 'Thêm học sinh thành công!' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+// @route    PUT api/teacher/remove_student/:id_parent/:id_student
+// @desc     Remove children for parent
+// @access   Private
+router.put(
+  '/remove_student/:id_parent/:id_student',
+  checkObjectId('id_parent'),
+  checkObjectId('id_student'),
+  authorize(role.Teacher),
+  async (req, res) => {
+    try {
+      const parentin4 = await ParentIn4.findOne({ user: req.params.id_parent })
+      const profileChild = await Profile.findOne({
+        user: req.params.id_student
+      })
+
+      if (!parentin4) {
+        return res.status(400).json({ msg: 'Tài khoản này không tồn tại' })
+      }
+
+      if (!profileChild) {
+        return res
+          .status(400)
+          .json({ msg: 'Tài khoản học sinh này không tồn tại' })
+      }
+
+      if (
+        !parentin4.children.some(
+          (c) => c.user.toString() === profileChild.user.toString()
+        )
+      )
+        return res
+          .status(400)
+          .json({ msg: 'Học sinh này không có trong tài khoản của bạn!' })
+
+      await ParentIn4.findOneAndUpdate(
+        { user: req.params.id_parent },
+        {
+          $set: {
+            children: parentin4.children.filter(
+              (c) => c.user.toString() !== profileChild.user.toString()
+            )
+          }
+        }
+      )
+
+      return res.json({ msg: 'Xoá học sinh thành công!' })
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
 
 // @route    GET api/teacher/get_classnews/:id_classnews
 // @desc     Get classnews

@@ -16,7 +16,6 @@
 
       h3 {
         font-weight: bold;
-        color: black;
       }
 
       .panel {
@@ -53,10 +52,10 @@
       .panel {
         .panel_in4 {
           p:first-child {
-            border: 1px solid greenyellow;
+            border: 1px solid var(--green);
           }
           p:last-child {
-            background-color: greenyellow;
+            background-color: var(--green);
           }
         }
       }
@@ -66,10 +65,10 @@
       .panel {
         .panel_in4 {
           p:first-child {
-            border: 1px solid rosybrown;
+            border: 1px solid var(--red);
           }
           p:last-child {
-            background-color: rosybrown;
+            background-color: var(--red);
           }
         }
       }

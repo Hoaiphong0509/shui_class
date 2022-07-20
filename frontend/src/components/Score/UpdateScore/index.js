@@ -324,9 +324,7 @@ const UpdateScore = ({
   const onSubmit = (data) => {
     const tp = +totalPoint
     const xl = classificationPointFunc(+totalPoint)
-    console.log('tp', tp)
-    console.log('xl', xl)
-    console.log('data', data)
+
     const payload = {
       ...data,
       classification: xl,
@@ -335,7 +333,6 @@ const UpdateScore = ({
       studentName,
       studentUsername
     }
-    console.log('payload', payload)
     updateScore(idStudent, payload)
   }
 
@@ -451,7 +448,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={mth.avg}
+                disabled
+                value={avgMath}
+                defaultValue={avgMath}
                 {...register('math.avg')}
                 className={`${
                   errors?.math?.avg?.message ? s.error_input : null
@@ -544,7 +543,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={phy.avg}
+                disabled
+                value={avgPhysic}
+                defaultValue={avgPhysic}
                 {...register('physics.avg')}
                 className={`${
                   errors?.physics?.avg?.message ? s.error_input : null
@@ -637,7 +638,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={che.avg}
+                disabled
+                value={avgChem}
+                defaultValue={avgChem}
                 {...register('chemistry.avg')}
                 className={`${
                   errors?.chemistry?.avg?.message ? s.error_input : null
@@ -730,7 +733,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={lit.avg}
+                disabled
+                value={avgLit}
+                defaultValue={avgLit}
                 {...register('literature.avg')}
                 className={`${
                   errors?.literature?.avg?.message ? s.error_input : null
@@ -823,7 +828,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={eng.avg}
+                disabled
+                value={avgEng}
+                defaultValue={avgEng}
                 {...register('english.avg')}
                 className={`${
                   errors?.english?.avg?.message ? s.error_input : null
@@ -916,7 +923,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={bio.avg}
+                disabled
+                value={avgBio}
+                defaultValue={avgBio}
                 {...register('biology.avg')}
                 className={`${
                   errors?.biology?.avg?.message ? s.error_input : null
@@ -1009,7 +1018,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={civ.avg}
+                disabled
+                value={avgCiv}
+                defaultValue={avgCiv}
                 {...register('civic.avg')}
                 className={`${
                   errors?.civic?.avg?.message ? s.error_input : null
@@ -1102,7 +1113,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={tec.avg}
+                disabled
+                value={avgTech}
+                defaultValue={avgTech}
                 {...register('tech.avg')}
                 className={`${
                   errors?.tech?.avg?.message ? s.error_input : null
@@ -1195,7 +1208,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={geo.avg}
+                disabled
+                value={avgGeo}
+                defaultValue={avgGeo}
                 {...register('geography.avg')}
                 className={`${
                   errors?.geography?.avg?.message ? s.error_input : null
@@ -1288,7 +1303,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={his.avg}
+                disabled
+                value={avgHis}
+                defaultValue={avgHis}
                 {...register('history.avg')}
                 className={`${
                   errors?.history?.avg?.message ? s.error_input : null
@@ -1381,7 +1398,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={itt.avg}
+                disabled
+                value={avgItt}
+                defaultValue={avgItt}
                 {...register('it.avg')}
                 className={`${errors?.it?.avg?.message ? s.error_input : null}`}
               />
@@ -1472,7 +1491,9 @@ const UpdateScore = ({
             <td>
               <input
                 type="text"
-                defaultValue={dunn.avg}
+                disabled
+                value={avgDnu}
+                defaultValue={avgDnu}
                 {...register('dnu.avg')}
                 className={`${
                   errors?.dnu?.avg?.message ? s.error_input : null

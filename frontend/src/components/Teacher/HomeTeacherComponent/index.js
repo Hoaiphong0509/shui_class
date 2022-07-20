@@ -6,22 +6,22 @@ import s from './styles.module.scss'
 import TableStudent from './TableStudent'
 
 import LoaderComponent from 'components/core/LoaderComponent'
-import { getStudentMyClassroom } from 'services/redux/actions/teacher'
+import { getStudentsMyClassroom } from 'services/redux/actions/teacher'
 import { useHistory } from 'react-router-dom'
 
 const HomeTeacherComponent = ({
   classroom: { classroom, loading },
-  getStudentMyClassroom
+  getStudentsMyClassroom
 }) => {
   const history = useHistory()
 
   useEffect(() => {
-    getStudentMyClassroom()
-  }, [getStudentMyClassroom])
+    getStudentsMyClassroom()
+  }, [getStudentsMyClassroom])
 
   if (loading) return <LoaderComponent />
   if (classroom === null)
-    return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nafoF</h1>
+    return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nào</h1>
 
   const { name, students } = classroom
 
@@ -29,14 +29,14 @@ const HomeTeacherComponent = ({
 
   return (
     <div className={s.root}>
-      <div className={s.container}>
+      <div className={s.teacherContent}>
         <h1 className={s.title}>Lớp {name.toUpperCase()}</h1>
         <div className={s.buttonArea}>
           <Button onClick={() => history.push('/createStudent')} variant="info">
             Thêm mới
           </Button>
           <Button
-            onClick={() => history.push('/TrashStudent')}
+            onClick={() => history.push('/trashStudent')}
             variant="secondary"
           >
             Thùng rác
@@ -55,13 +55,13 @@ const HomeTeacherComponent = ({
 
 HomeTeacherComponent.prototype = {
   classroom: PropTypes.object,
-  getStudentMyClassroom: PropTypes.func
+  getStudentsMyClassroom: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
   classroom: state.classroom
 })
 
-export default connect(mapStateToProps, { getStudentMyClassroom })(
+export default connect(mapStateToProps, { getStudentsMyClassroom })(
   HomeTeacherComponent
 )

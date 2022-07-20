@@ -110,7 +110,7 @@ const UpdateCompetition = ({
         </div>
         <div className={s.detailsPoint}>
           <div className={s.point}>
-            <h3>Tích cực</h3>
+            <h3 style={{ color: 'var(--green)' }}>Tích cực</h3>
             <div className={s.panel}>
               <div className={s.panel_in4}>
                 <div>Tham gia xây dựng bài</div>
@@ -243,7 +243,7 @@ const UpdateCompetition = ({
             <hr />
           </div>
           <div className={s.point}>
-            <h3>Cần cải thiện</h3>
+            <h3 style={{ color: 'var(--red)' }}>Cần cải thiện</h3>
             <div className={s.panel}>
               <div className={s.panel_in4}>
                 <div>Làm việc riêng trong giờ học</div>

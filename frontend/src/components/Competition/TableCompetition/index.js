@@ -14,7 +14,7 @@ const TableCompetition = (props) => {
       </div>
       <div className={s.detailsPoint}>
         <div className={s.point}>
-          <h3>Tích cực</h3>
+          <h3 style={{ color: 'var(--green)' }}>Tích cực</h3>
           <div className={s.panel}>
             <div className={s.panel_in4}>
               <p>{positivePoint.point_1.name}</p>
@@ -97,7 +97,7 @@ const TableCompetition = (props) => {
           <hr />
         </div>
         <div className={s.point}>
-          <h3>Cần cải thiện</h3>
+          <h3 style={{ color: 'var(--red)' }}>Cần cải thiện</h3>
           <div className={s.panel}>
             <div className={s.panel_in4}>
               <p>{negativePoint.point_1.name}</p>

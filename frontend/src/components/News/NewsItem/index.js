@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Interweave } from 'interweave'
 import { Button } from 'react-bootstrap'
 import s from './styles.module.scss'
@@ -6,6 +6,7 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { likeClassnews, unlikeClassnews } from 'services/redux/actions/student'
+import { likeParentnews, unlikeParentnews } from 'services/redux/actions/parent'
 import { useHistory } from 'react-router-dom'
 
 const NewsItem = ({
@@ -14,28 +15,52 @@ const NewsItem = ({
   handleGetNews,
   likeClassnews,
   unlikeClassnews,
-  handleDelete
+  likeParentnews,
+  unlikeParentnews,
+  handleDelete,
+  asNews
 }) => {
   const history = useHistory()
-  console.log("news", news);
+
   const { _id, createdAt, likes, text, title, user } = news
   const [numLike, setNumLike] = useState(likes.length)
-  const [isDisableLike, setIsDisableLike] = useState(
-    likes.some((l) => l.user.toString() === us._id.toString())
-  )
-  const [isDisableUnLike, setIsUnDisableLike] = useState(
-    likes.some((l) => l.user.toString() !== us._id.toString())
-  )
+  const [isDisableLike, setIsDisableLike] = useState()
+  const [isDisableUnLike, setIsUnDisableLike] = useState()
+
+  useEffect(() => {
+    setIsDisableLike(likes.some((l) => l.user.toString() === us._id.toString()))
+    setIsUnDisableLike(
+      !likes.some((l) => l.user.toString() === us._id.toString())
+    )
+  }, [likes, us])
 
   const handleLike = () => {
-    likeClassnews(_id)
+    switch (asNews) {
+      case 'class':
+        likeClassnews(_id)
+        break
+      case 'parent':
+        likeParentnews(_id)
+        break
+      default:
+        break
+    }
     setNumLike((prev) => prev + 1)
     toggleLike()
     toggleUnLike()
   }
 
   const handleUnlike = () => {
-    unlikeClassnews(_id)
+    switch (asNews) {
+      case 'class':
+        unlikeClassnews(_id)
+        break
+      case 'parent':
+        unlikeParentnews(_id)
+        break
+      default:
+        break
+    }
     setNumLike((prev) => prev - 1)
     setIsUnDisableLike(!isDisableUnLike)
     toggleLike()
@@ -97,7 +122,9 @@ const NewsItem = ({
 
 NewsItem.prototype = {
   likeClassnews: PropTypes.func,
-  unlikeClassnews: PropTypes.func
+  unlikeClassnews: PropTypes.func,
+  likeParentnews: PropTypes.func,
+  unlikeParentnews: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
@@ -106,5 +133,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   likeClassnews,
-  unlikeClassnews
+  unlikeClassnews,
+  likeParentnews,
+  unlikeParentnews
 })(NewsItem)
