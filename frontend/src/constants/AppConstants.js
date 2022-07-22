@@ -111,6 +111,16 @@ export const PARENTIN4= {
   CLEAN: 'CLEAN'
 }
 
+export const NOTIFY= {
+  GET_NOTIFY: 'GET_NOTIFY',
+  GET_NOTIFIES: 'GET_NOTIFIES',
+  ADD_NOTIFY: 'ADD_NOTIFY',
+  UPDATE_NOTIFY: 'UPDATE_NOTIFY',
+  DELETE_NOTIFY: 'DELETE_NOTIFY',
+  ERRORS: 'ERRORS',
+  CLEAN: 'CLEAN'
+}
+
 export const TOAST_TYPE = {
   SUCCESS: 'success',
   ERROR: 'error',

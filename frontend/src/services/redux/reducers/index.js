@@ -10,6 +10,7 @@ import competition from './competition'
 import classnews from './classnews'
 import parentnews from './parentnews'
 import parentIn4 from './parentIn4'
+import notify from './notify'
 
 export default combineReducers({
   user,
@@ -23,4 +24,5 @@ export default combineReducers({
   classnews,
   parentnews,
   parentIn4,
+  notify
 })

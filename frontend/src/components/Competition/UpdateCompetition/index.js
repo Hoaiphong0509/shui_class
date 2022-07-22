@@ -18,7 +18,6 @@ const UpdateCompetition = ({
   studentUsername,
   updateCompetition
 }) => {
-  console.log('competition', competition)
   const { negativePoint, positivePoint } = competition
   const history = useHistory()
   const schema = yup

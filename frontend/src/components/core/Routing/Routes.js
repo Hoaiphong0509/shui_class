@@ -44,6 +44,7 @@ import CreateParent from 'pages/Teacher/CreateParent'
 import TrashParent from 'pages/Teacher/TrashParent'
 import TeacherChildrenPage from 'pages/Teacher/TeacherChildrenPage'
 import UpdateParentnews from 'pages/Parentnews/UpdateParentnews'
+import NotifyPages from 'pages/NotifyPages'
 
 const Routes = () => {
   return (
@@ -267,6 +268,12 @@ const Routes = () => {
         role={ROLES.PARENT}
         layout={DefaultLayout}
         component={CompetitionChild}
+      />
+        <PrivateRoute
+        exact
+        path="/notifies"
+        layout={DefaultLayout}
+        component={NotifyPages}
       />
       <PrivateRoute component={NotFoundPage} layout={DefaultLayout} />
     </Switch>

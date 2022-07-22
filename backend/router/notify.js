@@ -21,6 +21,11 @@ router.get('/me', authorize(), async (req, res) => {
         result.push(n)
     })
 
+    
+    result?.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
+    })
+
     res.json(result)
   } catch (err) {
     console.error(err.message)

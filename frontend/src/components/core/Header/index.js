@@ -16,7 +16,7 @@ const Header = ({
   getCurrentProfile,
   logout
 }) => {
-const history = useHistory()
+  const history = useHistory()
   const location = useLocation()
   useEffect(() => {
     getCurrentProfile()
@@ -122,6 +122,17 @@ const history = useHistory()
           >
             Cập nhật tài khoản
           </Dropdown.Item>
+          {!user?.roles.includes(ROLES.TEACHER) &&
+          !user?.roles.includes(ROLES.ADMIN) ? (
+            <>
+              <Dropdown.Item
+                as="button"
+                onClick={() => history.push('/notifies')}
+              >
+                Thông báo
+              </Dropdown.Item>
+            </>
+          ) : null}
           {user?.roles.includes(ROLES.PARENT) ? (
             <>
               <Dropdown.Item
