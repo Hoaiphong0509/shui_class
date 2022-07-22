@@ -11,6 +11,7 @@ const MenuLogin = (props) => {
           <h1>DÀNH CHO GIÁO VIÊN CHỦ NHIỆM</h1>
         </div>
         <div className={s.menuButton}>
+          <button onClick={() => handlelLoginAs('admin')}>QUẢN TRỊ VIÊN</button>
           <button onClick={() => handlelLoginAs('teacher')}>
             GIÁO VIÊN CHỦ NHIỆM
           </button>

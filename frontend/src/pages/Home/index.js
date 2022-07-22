@@ -1,5 +1,6 @@
 import LoaderComponent from 'components/core/LoaderComponent'
 import HomeTeacherComponent from 'components/Teacher/HomeTeacherComponent'
+import AdminDashboard from 'pages/AdminDashboard'
 import Classnews from 'pages/Classnews'
 import Parentnews from 'pages/Parentnews'
 import StaffHome from 'pages/Student/StaffHome'
@@ -17,11 +18,11 @@ const Home = ({
   useEffect(() => {
     getCurrentProfile()
   }, [getCurrentProfile])
-  
+
   const renderHome = () => {
     switch (normalizeRole(user)) {
       case 'admin':
-        break
+        return <AdminDashboard />
       case 'student':
         if (myprofile && myprofile.staffClass.some((s) => s.staffCode !== 0))
           return <StaffHome />
