@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import Swal from 'sweetalert2'
 import CommentItem from '../CommentItem'
 import FormComment from '../FormComment'
 import s from './styles.module.scss'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
-import { deleteCommentClassnews } from 'services/redux/actions/student'
 import { deleteCommentParentnews } from 'services/redux/actions/parent'
+import { deleteCommentClassnews } from 'services/redux/actions/student'
 
 const NewsComment = ({
   newsState,
@@ -46,7 +46,6 @@ const NewsComment = ({
       }
     })
   }
-
   return (
     <div className={s.root}>
       <div className={s.formCmt}>

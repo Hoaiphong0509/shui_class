@@ -16,3 +16,18 @@ export const getMyParentnews = () => async (dispatch) => {
     })
   }
 }
+
+export const getParentnewsById = (idParentnews) => async (dispatch) => {
+  try {
+    const res = await api.get(`/users/get_parentnews/${idParentnews}`)
+
+    dispatch({
+      type: PARENTNEWS.GET_PARENTNEWS,
+      payload: res.data
+    })
+  } catch (err) {
+    dispatch({
+      type: PARENTNEWS.ERRORS
+    })
+  }
+}

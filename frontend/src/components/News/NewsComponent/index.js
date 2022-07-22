@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import Swal from 'sweetalert2'
-import NewsComment from '../NewsComment'
-import NewsItem from '../NewsItem'
-import s from './styles.module.scss'
 import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
 import { connect, useSelector } from 'react-redux'
+import { getClassnewsById } from 'services/redux/actions/classnews'
+import { getParentnewsById } from 'services/redux/actions/parentnews'
 import {
   deleteClassnews,
   deleteParentnews
 } from 'services/redux/actions/teacher'
+import Swal from 'sweetalert2'
+import NewsComment from '../NewsComment'
+import NewsItem from '../NewsItem'
+import s from './styles.module.scss'
 
 const NewsComponent = ({
   newss,
   myprofile,
   asNews,
   deleteClassnews,
-  deleteParentnews
+  deleteParentnews,
+  getClassnewsById,
+  getParentnewsById
 }) => {
   const [newssState, setNewssState] = useState(newss)
   const [newsState, setNewsState] = useState()
@@ -23,17 +27,39 @@ const NewsComponent = ({
   const cln = useSelector((state) => state.classnews)
   const pns = useSelector((state) => state.parentnews)
 
-  useEffect(() => {
-    if (asNews === 'class') setNewsState(cln.classnews)
-    if (asNews === 'parent') setNewsState(pns.parentnews)
-  }, [cln, pns, asNews])
+  // useEffect(() => {
+  //   if (asNews === 'class') {
+  //     setNewsState(cln?.classnews)
+  //   }
+  //   if (asNews === 'parent') {
+  //     setNewsState(pns?.parentnews)
+  //   }
+  // }, [cln, pns, newssState, asNews])
 
   useEffect(() => {
     setNewssState(newss)
   }, [newss])
 
-  const handleGetNews = (news) => {
-    setNewsState(news)
+  useEffect(() => {
+    if (asNews === 'class') {
+      setNewsState(cln.classnews)
+    }
+    if (asNews === 'parent') {
+      setNewsState(pns.parentnews)
+    }
+  }, [asNews, cln, pns])
+
+  const handleGetNews = async (idNews) => {
+    switch (asNews) {
+      case 'class':
+        await getClassnewsById(idNews)
+        break
+      case 'parent':
+        await getParentnewsById(idNews)
+        break
+      default:
+        break
+    }
   }
 
   const handleDelete = (_id) => {
@@ -50,15 +76,14 @@ const NewsComponent = ({
       if (result.isConfirmed) {
         switch (asNews) {
           case 'class':
-            deleteClassnews(_id)
+            await deleteClassnews(_id)
             break
           case 'parent':
-            deleteParentnews(_id)
+            await deleteParentnews(_id)
             break
           default:
             break
         }
-
         const temp = newssState.filter((c) => c._id.toString() !== _id)
         setNewssState(temp)
       }
@@ -79,26 +104,53 @@ const NewsComponent = ({
             </div>
           ))}
         </div>
-        <div className={s.cmtArea}>
-          {newsState && (
-            <NewsComment
-              newsState={newsState}
-              myprofile={myprofile}
-              asNews={asNews}
-            />
-          )}
-        </div>
+        {asNews === 'class' ? (
+          <div className={s.cmtArea}>
+            {cln.loading ||
+            newsState === null ||
+            newsState === undefined ? null : (
+              <NewsComment
+                newsState={newsState}
+                myprofile={myprofile}
+                asNews={asNews}
+              />
+            )}
+          </div>
+        ) : (
+          <div className={s.cmtArea}>
+            {pns.loading ||
+            newsState === null ||
+            newsState === undefined ? null : (
+              <NewsComment
+                newsState={newsState}
+                myprofile={myprofile}
+                asNews={asNews}
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
 }
 
 NewsComponent.prototype = {
+  classnews: PropTypes.object,
+  parentnews: PropTypes.object,
   deleteClassnews: PropTypes.func,
-  deleteParentnews: PropTypes.func
+  deleteParentnews: PropTypes.func,
+  getClassnewsById: PropTypes.func,
+  getParentnewsById: PropTypes.func
 }
 
-export default connect(null, {
+const mapStateToProps = (state) => ({
+  classnews: state.classnews,
+  parentnews: state.parentnews
+})
+
+export default connect(mapStateToProps, {
   deleteClassnews,
-  deleteParentnews
+  deleteParentnews,
+  getClassnewsById,
+  getParentnewsById
 })(NewsComponent)

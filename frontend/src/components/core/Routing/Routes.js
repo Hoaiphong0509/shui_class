@@ -168,28 +168,24 @@ const Routes = () => {
         exact
         path="/add_competition_1/:id_student"
         layout={DefaultLayout}
-        role={ROLES.TEACHER}
         component={AddCompetitionSheet1}
       />
       <PrivateRoute
         exact
         path="/add_competition_2/:id_student"
         layout={DefaultLayout}
-        role={ROLES.TEACHER}
         component={AddCompetitionSheet2}
       />
       <PrivateRoute
         exact
         path="/update_competition_1/:id_student"
         layout={DefaultLayout}
-        role={ROLES.TEACHER}
         component={UpdateCompetionSheet1}
       />
       <PrivateRoute
         exact
         path="/update_competition_2/:id_student"
         layout={DefaultLayout}
-        role={ROLES.TEACHER}
         component={UpdateCompetionSheet2}
       />
       <PrivateRoute

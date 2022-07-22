@@ -44,7 +44,7 @@ router.get(
 router.post(
   '/:id_student',
   checkObjectId('id_student'),
-  authorize(role.Teacher),
+  authorize(),
   async (req, res) => {
     const { ...rest } = req.body
     try {
@@ -68,7 +68,7 @@ router.post(
 router.put(
   '/:id_student',
   checkObjectId('id_student'),
-  authorize(role.Teacher),
+  authorize(),
   async (req, res) => {
     const { hk, ...rest } = req.body
     try {

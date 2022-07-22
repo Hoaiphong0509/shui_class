@@ -69,10 +69,10 @@ const UpdateCompetionSheet1 = ({
           <div className={s.in4}>
             <h1>Cập nhật điểm thi đua HKI - {profile?.fullName}</h1>
           </div>
-          <div className={s.formAddCompetition}>
+          <div className={s.formUpdateCompetition}>
             <UpdateCompetition
               hk={1}
-              score={tempCompetitionObj[0]}
+              competition={tempCompetitionObj[0]}
               idStudent={match.params.id_student}
               studentName={profile?.fullName}
               studentUsername={profile?.username}

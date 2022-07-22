@@ -105,7 +105,7 @@ const AddCompetition = ({
     <div className={s.root}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.overview}>
-          <div>Điểm tổng: {totalPoints ? totalPoints : 0}</div>
+          <div>Điểm tổng: {totalPoints ? totalPoints : 100}</div>
           <div>Xếp loại: {classificationFunc(+totalPoints)}</div>
         </div>
         <div className={s.detailsPoint}>

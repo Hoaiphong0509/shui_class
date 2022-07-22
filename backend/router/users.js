@@ -9,6 +9,7 @@ const Classroom = require('../models/Classroom')
 const Classnews = require('../models/Classnews')
 const Parentnews = require('../models/Parentnews')
 const ParentIn4 = require('../models/ParentIn4')
+const checkObjectId = require('../middleware/checkObjectId')
 
 // @route    GET api/users/auth
 // @desc     Get user by token
@@ -123,6 +124,24 @@ router.get('/get_myclassnews', authorize(), async (req, res) => {
   }
 })
 
+// @route    GET api/users/get_classnews/:id_classnews
+// @desc     Get classnews by id
+// @access   Private
+router.get(
+  '/get_classnews/:id_classnews',
+  checkObjectId('id_classnews'),
+  authorize(),
+  async (req, res) => {
+    try {
+      const result = await Classnews.findById(req.params.id_classnews)
+      res.json(result)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
 // @route    GET api/users/get_myparentnews
 // @desc     GET my parentnews
 // @access   Private
@@ -146,5 +165,23 @@ router.get('/get_myparentnews', authorize(), async (req, res) => {
     res.status(500).send('Server Error')
   }
 })
+
+// @route    GET api/users/get_parentnews/:id_parentnews
+// @desc     Get parentnews by id
+// @access   Private
+router.get(
+  '/get_parentnews/:id_parentnews',
+  checkObjectId('id_parentnews'),
+  authorize(),
+  async (req, res) => {
+    try {
+      const result = await Parentnews.findById(req.params.id_parentnews)
+      res.json(result)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
 
 module.exports = router

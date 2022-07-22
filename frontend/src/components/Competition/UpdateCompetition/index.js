@@ -12,11 +12,14 @@ import { classificationFunc } from 'utils/AppUltils'
 
 const UpdateCompetition = ({
   hk,
+  competition,
   idStudent,
   studentName,
   studentUsername,
   updateCompetition
 }) => {
+  console.log('competition', competition)
+  const { negativePoint, positivePoint } = competition
   const history = useHistory()
   const schema = yup
     .object({
@@ -105,7 +108,7 @@ const UpdateCompetition = ({
     <div className={s.root}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.overview}>
-          <div>Điểm tổng: {totalPoints ? totalPoints : 0}</div>
+          <div>Điểm tổng: {totalPoints ? totalPoints : 100}</div>
           <div>Xếp loại: {classificationFunc(+totalPoints)}</div>
         </div>
         <div className={s.detailsPoint}>
@@ -120,7 +123,8 @@ const UpdateCompetition = ({
                     type="number"
                     min={0}
                     step={1}
-                    defaultValue={0}
+                    defaultValue={positivePoint.point_1.time}
+                    value={positivePoint.point_1.time}
                     {...register('positivePoint.point_1.time')}
                   />{' '}
                   ={' '}
@@ -133,6 +137,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={positivePoint.point_1.note}
+                value={positivePoint.point_1.note}
                 {...register('positivePoint.point_1.note')}
               />
             </div>
@@ -146,7 +152,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={positivePoint.point_2.time}
+                    value={positivePoint.point_2.time}
                     {...register('positivePoint.point_2.time')}
                   />{' '}
                   ={' '}
@@ -159,6 +166,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={positivePoint.point_2.note}
+                value={positivePoint.point_2.note}
                 {...register('positivePoint.point_2.note')}
               />
             </div>
@@ -172,7 +181,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={positivePoint.point_3.time}
+                    value={positivePoint.point_3.time}
                     {...register('positivePoint.point_3.time')}
                   />{' '}
                   ={' '}
@@ -185,6 +195,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={positivePoint.point_3.note}
+                value={positivePoint.point_3.note}
                 {...register('positivePoint.point_3.note')}
               />
             </div>
@@ -198,7 +210,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={positivePoint.point_4.time}
+                    value={positivePoint.point_4.time}
                     {...register('positivePoint.point_4.time')}
                   />{' '}
                   ={' '}
@@ -211,6 +224,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={positivePoint.point_4.note}
+                value={positivePoint.point_4.note}
                 {...register('positivePoint.point_4.note')}
               />
             </div>
@@ -224,7 +239,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={positivePoint.point_5.time}
+                    value={positivePoint.point_5.time}
                     {...register('positivePoint.point_5.time')}
                   />{' '}
                   ={' '}
@@ -237,6 +253,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={positivePoint.point_5.note}
+                value={positivePoint.point_5.note}
                 {...register('positivePoint.point_5.note')}
               />
             </div>
@@ -253,7 +271,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={negativePoint.point_1.time}
+                    value={negativePoint.point_1.time}
                     {...register('negativePoint.point_1.time')}
                   />{' '}
                   ={' '}
@@ -266,6 +285,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={negativePoint.point_1.note}
+                value={negativePoint.point_1.note}
                 {...register('negativePoint.point_1.note')}
               />
             </div>
@@ -279,7 +300,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={negativePoint.point_2.time}
+                    value={negativePoint.point_2.time}
                     {...register('negativePoint.point_2.time')}
                   />{' '}
                   ={' '}
@@ -292,6 +314,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={negativePoint.point_2.note}
+                value={negativePoint.point_2.note}
                 {...register('negativePoint.point_2.note')}
               />
             </div>
@@ -305,7 +329,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={negativePoint.point_3.time}
+                    value={negativePoint.point_3.time}
                     {...register('negativePoint.point_3.time')}
                   />{' '}
                   ={' '}
@@ -318,6 +343,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={negativePoint.point_3.note}
+                value={negativePoint.point_3.note}
                 {...register('negativePoint.point_3.note')}
               />
             </div>
@@ -331,7 +358,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={negativePoint.point_4.time}
+                    value={negativePoint.point_4.time}
                     {...register('negativePoint.point_4.time')}
                   />{' '}
                   ={' '}
@@ -344,6 +372,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={negativePoint.point_4.note}
+                value={negativePoint.point_4.note}
                 {...register('negativePoint.point_4.note')}
               />
             </div>
@@ -357,7 +387,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={negativePoint.point_5.time}
+                    value={negativePoint.point_5.time}
                     {...register('negativePoint.point_5.time')}
                   />{' '}
                   ={' '}
@@ -370,6 +401,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={negativePoint.point_5.note}
+                value={negativePoint.point_5.note}
                 {...register('negativePoint.point_5.note')}
               />
             </div>
@@ -383,7 +416,8 @@ const UpdateCompetition = ({
                     type="number"
                     min="0"
                     step="1"
-                    defaultValue="0"
+                    defaultValue={negativePoint.point_6.time}
+                    value={negativePoint.point_6.time}
                     {...register('negativePoint.point_6.time')}
                   />{' '}
                   ={' '}
@@ -396,6 +430,8 @@ const UpdateCompetition = ({
               <input
                 className={s.note}
                 placeholder="Ghi chú"
+                defaultValue={negativePoint.point_6.note}
+                value={negativePoint.point_6.note}
                 {...register('negativePoint.point_6.note')}
               />
             </div>

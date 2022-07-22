@@ -7,26 +7,35 @@ import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getCompetitionByStudent } from 'services/redux/actions/competition'
+import { getCurrentProfile } from 'services/redux/actions/profile'
 import s from './styles.module.scss'
 
 const SheetCompetion2 = ({
   user: { user, loading: ldu },
+  profile: { myprofile, loading: ldp },
   competition: { competition, loading: ldc },
   getCompetitionByStudent,
+  getCurrentProfile,
   match
 }) => {
   const history = useHistory()
   useEffect(() => {
     getCompetitionByStudent(match.params.id_student)
   }, [getCompetitionByStudent, match])
+  useEffect(() => {
+    getCurrentProfile()
+  }, [getCurrentProfile])
 
   if (
     ldc ||
+    ldp ||
     ldu ||
     competition === null ||
     competition === undefined ||
     user === null ||
-    user === undefined
+    user === undefined ||
+    myprofile === null ||
+    myprofile === undefined
   )
     return <LoaderComponent />
 
@@ -49,7 +58,8 @@ const SheetCompetion2 = ({
             >
               Quay lại
             </Button>
-            {user?.roles.includes(ROLES.TEACHER) ? (
+            {user?.roles.includes(ROLES.TEACHER) ||
+            myprofile.staffClass.some((s) => s.staffCode !== 0) ? (
               <Button
                 variant="primary"
                 onClick={() => {
@@ -67,13 +77,17 @@ const SheetCompetion2 = ({
             <h1>Điểm thi đua HKII - {competition[0]?.studentName}</h1>
           </div>
           <div className={s.table}>
-            <TableCompetition dataCompetitions={tempCompetitionObj[0]} />
+            <TableCompetition
+              title="Tích cực"
+              dataCompetitions={tempCompetitionObj[0]}
+            />
           </div>
           <div className={s.buttonArea}>
             <Button variant="secondary" onClick={() => history.push('/')}>
               Quay lại
             </Button>
-            {user && user.roles.includes(ROLES.TEACHER) ? (
+            {(user && user.roles.includes(ROLES.TEACHER)) ||
+            myprofile.staffClass.some((s) => s.staffCode !== 0) ? (
               <Button
                 variant="primary"
                 onClick={() =>
@@ -93,16 +107,19 @@ const SheetCompetion2 = ({
 }
 
 SheetCompetion2.prototype = {
-  user: PropTypes.object,
   competition: PropTypes.object,
-  getCompetitionByStudent: PropTypes.func
+  user: PropTypes.object,
+  getCompetitionByStudent: PropTypes.func,
+  getScoreByStudent: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
   competition: state.competition,
-  user: state.user
+  user: state.user,
+  profile: state.profile
 })
 
 export default connect(mapStateToProps, {
-  getCompetitionByStudent
+  getCompetitionByStudent,
+  getCurrentProfile
 })(SheetCompetion2)

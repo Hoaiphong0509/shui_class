@@ -6,14 +6,14 @@ import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getProfileByUserId } from 'services/redux/actions/profile'
-import { getScoreByStudent } from 'services/redux/actions/score'
+import { getCompetitionByStudent } from 'services/redux/actions/competition'
 import s from './styles.module.scss'
 
-const UpdateCompetionSheet1 = ({
+const UpdateCompetionSheet2 = ({
   profile: { profile, loading: ldp },
-  score: { score, loading: ldSc },
+  competition: { competition, loading: ldSc },
   getProfileByUserId,
-  getScoreByStudent,
+  getCompetitionByStudent,
   match
 }) => {
   const history = useHistory()
@@ -22,28 +22,28 @@ const UpdateCompetionSheet1 = ({
   }, [getProfileByUserId, match])
 
   useEffect(() => {
-    getScoreByStudent(match.params.id_student)
-  }, [getScoreByStudent, match])
+    getCompetitionByStudent(match.params.id_student)
+  }, [getCompetitionByStudent, match])
 
   if (
     ldp ||
     ldSc ||
     profile === null ||
     profile === undefined ||
-    score === null ||
-    score === undefined
+    competition === null ||
+    competition === undefined
   )
     return <LoaderComponent />
 
-  const tempScoreObj = score?.filter((s) => s.hk === 2)
+  const tempCompetitionObj = competition?.filter((s) => s.hk === 2)
 
   return (
     <div className={s.root}>
-      {score === null ||
-      score === undefined ||
-      tempScoreObj === null ||
-      tempScoreObj === undefined ||
-      tempScoreObj.length === 0 ? (
+      {competition === null ||
+      competition === undefined ||
+      tempCompetitionObj === null ||
+      tempCompetitionObj === undefined ||
+      tempCompetitionObj.length === 0 ? (
         <>
           <h1>Học sinh này chưa có điểm HKII</h1>
           <div>
@@ -60,7 +60,7 @@ const UpdateCompetionSheet1 = ({
                 history.push(`/add_competition_2/${match.params.id_student}`)
               }}
             >
-              Thêm điểm thi đua HKI
+              Thêm điểm thi đua HKII
             </Button>
           </div>
         </>
@@ -69,10 +69,10 @@ const UpdateCompetionSheet1 = ({
           <div className={s.in4}>
             <h1>Cập nhật điểm thi đua HKII - {profile?.fullName}</h1>
           </div>
-          <div className={s.formAddCompetition}>
+          <div className={s.formUpdateCompetition}>
             <UpdateCompetition
               hk={2}
-              score={tempScoreObj[0]}
+              competition={tempCompetitionObj[0]}
               idStudent={match.params.id_student}
               studentName={profile?.fullName}
               studentUsername={profile?.username}
@@ -84,18 +84,18 @@ const UpdateCompetionSheet1 = ({
   )
 }
 
-UpdateCompetionSheet1.prototype = {
+UpdateCompetionSheet2.prototype = {
   profile: PropTypes.object,
   getProfileByUserId: PropTypes.func,
-  getScoreByStudent: PropTypes.func
+  getCompetitionByStudent: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
-  score: state.score
+  competition: state.competition
 })
 
 export default connect(mapStateToProps, {
   getProfileByUserId,
-  getScoreByStudent
-})(UpdateCompetionSheet1)
+  getCompetitionByStudent
+})(UpdateCompetionSheet2)

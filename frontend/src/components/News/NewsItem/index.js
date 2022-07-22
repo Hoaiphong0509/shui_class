@@ -99,7 +99,7 @@ const NewsItem = ({
         >
           💔
         </Button>
-        <Button className={s.btnCmt} onClick={() => handleGetNews(news)}>
+        <Button className={s.btnCmt} onClick={() => handleGetNews(_id)}>
           Bình luận
         </Button>
         {user === us._id.toString() ? (

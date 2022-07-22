@@ -17,7 +17,7 @@ const Parentnews = require('../models/Parentnews')
 // @access   Private
 router.get(
   '/get_student_myclassroom',
-  authorize(role.Teacher),
+  authorize(),
   async (req, res) => {
     try {
       const classroom = await Classroom.find()

@@ -16,7 +16,7 @@ const Header = ({
   getCurrentProfile,
   logout
 }) => {
-  const history = useHistory()
+const history = useHistory()
   const location = useLocation()
   useEffect(() => {
     getCurrentProfile()
@@ -47,9 +47,7 @@ const Header = ({
       </Link>
       <Link
         to="/parents"
-        className={`${
-          location.pathname.includes('parents') ? s.active : null
-        }`}
+        className={`${location.pathname.includes('parents') ? s.active : null}`}
       >
         <p>Danh sách phụ huynh</p>
       </Link>
@@ -190,7 +188,9 @@ const Header = ({
               </Dropdown.Item>
               <Dropdown.Item
                 as="button"
-                onClick={() => history.push(`/competition_all/${myprofile.user}`)}
+                onClick={() =>
+                  history.push(`/competition_all/${myprofile.user}`)
+                }
               >
                 Thi đua cả năm
               </Dropdown.Item>
@@ -218,4 +218,7 @@ const mapStateToProps = (state) => ({
   user: state.user
 })
 
-export default connect(mapStateToProps, { logout, getCurrentProfile })(Header)
+export default connect(mapStateToProps, {
+  logout,
+  getCurrentProfile
+})(Header)

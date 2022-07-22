@@ -1,0 +1,18 @@
+.root {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+
+  .teacherContent {
+    width: 97%;
+
+    .title {
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .table {
+      margin: 15px 0;
+    }
+  }
+}

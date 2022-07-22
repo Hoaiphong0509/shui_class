@@ -40,14 +40,13 @@ router.get('/classroom_available', authorize(role.Admin), async (req, res) => {
 router.get('/get_myclassroom', authorize(), async (req, res) => {
   try {
     const classroom = await Classroom.find()
-    const profileStudent = await Profile.find()
+    const profileStudents = await Profile.find()
 
     const result = classroom.filter(
       (c) =>
         (c.headTeacher.user && c.headTeacher.user.toString() === req.user.id) ||
-        c.students.some((s) => s.user.toString() === req.user.id)
+        c?.students.some((s) => s.user.toString() === req.user.id)
     )
-
     if (result.length === 0) {
       return res.json([])
     }
@@ -56,7 +55,7 @@ router.get('/get_myclassroom', authorize(), async (req, res) => {
       let fullName = ''
       let staffDisplay = ''
       let parentName = ''
-      profileStudent.forEach((p) => {
+      profileStudents.forEach((p) => {
         if (p.user.toString() === s.user.toString()) {
           fullName = p.fullName
           staffDisplay = p.staffClass[0].staffDisplay || 'Học sinh'
