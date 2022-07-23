@@ -16,16 +16,20 @@ const HomeTeacherComponent = ({
   const history = useHistory()
 
   useEffect(() => {
-    getStudentsMyClassroom()
-  }, [getStudentsMyClassroom])
+    if (
+      !(classroom === null || classroom === undefined || classroom.length === 0)
+    )
+      getStudentsMyClassroom()
+  }, [getStudentsMyClassroom, classroom])
 
   if (loading) return <LoaderComponent />
-  if (classroom === null)
+
+  if (classroom === null || classroom === undefined || classroom.length === 0)
     return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nào</h1>
 
   const { name, students } = classroom
 
-  const studentsData = students.filter(s => !s.isDelete)
+  const studentsData = students.filter((s) => !s.isDelete)
 
   return (
     <div className={s.root}>

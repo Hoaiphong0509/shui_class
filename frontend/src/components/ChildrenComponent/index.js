@@ -39,6 +39,9 @@ const ChildrenComponent = ({
       unique.push(c)
     }
   }
+
+  const childrenAvaible = unique.filter((u) => u.roles.includes(ROLES.STUDENT))
+
   return (
     <>
       <div className={s.root}>
@@ -66,7 +69,7 @@ const ChildrenComponent = ({
         setShow={setShow}
         user={user}
         idParent={parentIn4.user.toString()}
-        childrenAvaible={unique}
+        childrenAvaible={childrenAvaible}
       />
     </>
   )

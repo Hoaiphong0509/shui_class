@@ -27,6 +27,45 @@ const Header = ({
     logout()
   }
 
+  const adminLink = (
+    <>
+      <Link
+        to="/admin/users"
+        className={`${location.pathname.includes('users') ? s.active : null}`}
+      >
+        <p>Danh sách Users</p>
+      </Link>
+      <Link
+        to="/admin/teachers"
+        className={`${
+          location.pathname.includes('teachers') ? s.active : null
+        }`}
+      >
+        <p>Danh sách giáo viên</p>
+      </Link>
+      <Link
+        to="/admin/parents"
+        className={`${location.pathname.includes('parents') ? s.active : null}`}
+      >
+        <p>Danh sách phụ huynh</p>
+      </Link>
+      <Link
+        to="/admin/classrooms"
+        className={`${
+          location.pathname.includes('classrooms') ? s.active : null
+        }`}
+      >
+        <p>Danh sách lớp</p>
+      </Link>
+      <Link
+        to="/admin/staffs"
+        className={`${location.pathname.includes('staffs') ? s.active : null}`}
+      >
+        <p>Chức vụ lớp</p>
+      </Link>
+    </>
+  )
+
   const teacherLink = (
     <>
       <Link
@@ -81,6 +120,7 @@ const Header = ({
   )
 
   const linkAuth = () => {
+    if (user?.roles.includes(ROLES.ADMIN)) return adminLink
     if (user?.roles.includes(ROLES.TEACHER)) return teacherLink
     if (user?.roles.includes(ROLES.STUDENT)) return studentLink
     if (user?.roles.includes(ROLES.PARENT)) return parentLink

@@ -20,11 +20,14 @@ const Parentnews = ({
     getCurrentProfile()
   }, [getCurrentProfile])
 
-  return ldc ||
-    ldp ||
+  if (
     parentnewss === null ||
-    parentnewss.length === 0 ||
-    myprofile === null ? (
+    parentnewss === undefined || 
+    parentnewss.length === 0
+  )
+    return <h1>Bạn chưa được thêm vào lớp nào</h1>
+
+  return ldc || ldp || myprofile === null ? (
     <LoaderComponent />
   ) : (
     <NewsComponent newss={parentnewss} myprofile={myprofile} asNews="parent" />

@@ -15,53 +15,48 @@ const Parentnews = require('../models/Parentnews')
 // @route    GET api/teacher/get_student_myclassroom
 // @desc     Get student my classroom
 // @access   Private
-router.get(
-  '/get_student_myclassroom',
-  authorize(),
-  async (req, res) => {
-    try {
-      const classroom = await Classroom.find()
-      const profileStudent = await Profile.find()
+router.get('/get_student_myclassroom', authorize(), async (req, res) => {
+  try {
+    const classroom = await Classroom.find()
+    const profileStudent = await Profile.find()
 
-      const result = classroom.filter(
-        (c) =>
-          c.headTeacher.user && c.headTeacher.user.toString() === req.user.id
-      )
+    const result = classroom.filter(
+      (c) => c.headTeacher.user && c.headTeacher.user.toString() === req.user.id
+    )
 
-      if (result.length === 0) res.json([])
+    if (result.length === 0) res.json([])
 
-      const studentsTemp = result[0].students.map((s) => {
-        let fullName = ''
-        let staffDisplay = ''
-        let parentName = ''
-        profileStudent.forEach((p) => {
-          if (p.user.toString() === s.user.toString()) {
-            fullName = p.fullName
-            staffDisplay = p.staffClass[0].staffDisplay || 'Học sinh'
-            parentName = p.parentName
-          }
-        })
-        return {
-          studentId: s.user.toString(),
-          fullName,
-          staffDisplay,
-          parentName,
-          isDelete: s.isDelete
+    const studentsTemp = result[0].students.map((s) => {
+      let fullName = ''
+      let staffDisplay = ''
+      let parentName = ''
+      profileStudent.forEach((p) => {
+        if (p.user.toString() === s.user.toString()) {
+          fullName = p.fullName
+          staffDisplay = p.staffClass[0].staffDisplay || 'Học sinh'
+          parentName = p.parentName
         }
       })
-
-      const respone = {
-        ...result[0]._doc,
-        students: studentsTemp
+      return {
+        studentId: s.user.toString(),
+        fullName,
+        staffDisplay,
+        parentName,
+        isDelete: s.isDelete
       }
+    })
 
-      res.json(respone)
-    } catch (err) {
-      console.error(err.message)
-      res.status(500).send('Server Error')
+    const respone = {
+      ...result[0]._doc,
+      students: studentsTemp
     }
+
+    res.json(respone)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
   }
-)
+})
 // @route    GET api/teacher/get_parent_myclassroom
 // @desc     Get parent my classroom
 // @access   Private
@@ -192,6 +187,11 @@ router.put(
           }
         }
       )
+      await User.findByIdAndUpdate(student.id.toString(), {
+        $set: {
+          roles: [role.Student]
+        }
+      })
 
       if (classroom.headTeacher.user.toString() !== teacher._id.toString())
         return res
@@ -476,6 +476,10 @@ router.put(
             (s) => s.user.toString() !== req.params.id_student
           )
         }
+      })
+
+      await User.findByIdAndUpdate(s.user.toString(), {
+        $set: { roles: [role.Guesst] }
       })
       const result = await Classroom.findById(req.params.id_classroom)
       res.json(result)

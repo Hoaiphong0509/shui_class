@@ -13,7 +13,7 @@ const checkObjectId = require('../middleware/checkObjectId')
 
 // @route    GET api/users/auth
 // @desc     Get user by token
-// @access   Private
+// @access   Privatee
 router.get('/auth', authorize(), async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password')
@@ -75,6 +75,12 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
       return res.status(400).json({ msg: 'Thông tin đăng nhập không hợp lệ' })
+    }
+
+    if (user.roles.includes('guesst')) {
+      return res.status(400).json({
+        msg: 'Tài khoản bạn chưa có quyền truy cập vào trang này. Vui lòng chờ Admin thêm quyền cho bạn!'
+      })
     }
 
     if (!user.roles.includes(role)) {
@@ -148,6 +154,7 @@ router.get(
 router.get('/get_myparentnews', authorize(), async (req, res) => {
   try {
     const parentIn4 = await ParentIn4.findOne({ user: req.user.id })
+    if (!parentIn4) return res.json([])
 
     const parentnews = await Parentnews.find()
     parentnews.filter((pn) =>

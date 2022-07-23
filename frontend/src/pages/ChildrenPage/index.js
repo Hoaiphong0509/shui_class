@@ -13,8 +13,10 @@ const ChildrenPage = ({
     getMyParentIn4()
   }, [getMyParentIn4])
 
-  if (loading || parentIn4 === null || parentIn4 === undefined)
-    return <LoaderComponent />
+  if (parentIn4 === null || parentIn4 === undefined)
+    return <h1>Bạn chưa được thêm vào lớp nào vào có học sinh nào.</h1>
+
+  if (loading) return <LoaderComponent />
 
   return <ChildrenComponent parentIn4={parentIn4} />
 }

@@ -28,6 +28,13 @@ const classReducer = (state = initialState, action) => {
         classroom: payload,
         loading: false
       }
+    case CLASSROOM.ADD_CLASSROOM:
+      return {
+        ...state,
+        classroom: payload,
+        classrooms: [payload, ...state.classrooms],
+        loading: false
+      }
     case CLASSROOM.ERRORS:
     case CLASSROOM.CLEAN:
       return {

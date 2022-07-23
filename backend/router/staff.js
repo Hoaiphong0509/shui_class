@@ -37,10 +37,15 @@ router.get('/staff_available', authorize(role.Admin), async (req, res) => {
 // @desc     ADD Staff
 // @access   Private
 router.post('/', authorize(role.Admin), async (req, res) => {
-  const { staffDisplay } = req.body
+  const { staffDisplay, staffCode } = req.body
+
+  const staff = await Staff.findOne({ staffCode })
+  if (staff) return res.status(400).json({ msg: 'Mã chức vụ này đã tồn tại.' })
+
   try {
     const newStaff = new Staff({
-      staffDisplay
+      staffDisplay,
+      staffCode
     })
 
     await newStaff.save()
@@ -50,6 +55,30 @@ router.post('/', authorize(role.Admin), async (req, res) => {
     res.status(500).send('Server Error')
   }
 })
+
+// @route    PUT api/staff/edit/:id_staff
+// @desc     Edit Staff
+// @access   Private
+router.put(
+  '/edit/:id_staff',
+  checkObjectId('id_staff'),
+  authorize(role.Admin),
+  async (req, res) => {
+    const { staffDisplay } = req.body
+    try {
+      await Staff.findByIdAndUpdate(req.params.id_staff, {
+        $set: {
+          staffDisplay
+        }
+      })
+      const staff = await Staff.findById(req.params.id_staff)
+      res.json(staff)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
 
 // @route    DELETE api/staff/:id
 // @desc     Move to trash

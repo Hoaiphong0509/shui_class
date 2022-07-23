@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { getStaffs } from 'services/redux/actions/staff'
 import { getStudents } from 'services/redux/actions/student'
 import { getStudentsMyClassroom } from 'services/redux/actions/teacher'
+import { ROLES } from 'constants/AppConstants'
 
 const CreateStudent = ({
   student: { students, loading: ldStu },
@@ -54,12 +55,14 @@ const CreateStudent = ({
     }
   }
 
+  const studentsAvailable = unique.filter((u) => u.roles.includes(ROLES.GUESST))
+
   return (
     <div className={s.root}>
       <div className={s.form}>
         <FormAddStudent
           idClassroom={classroom._id.toString()}
-          studentsAvailable={unique}
+          studentsAvailable={studentsAvailable}
           staffs={staffs}
         />
       </div>

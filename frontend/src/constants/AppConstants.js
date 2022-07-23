@@ -28,6 +28,7 @@ export const PROFILE = {
 export const CLASSROOM = {
   GET_CLASSROOM: 'GET_CLASSROOM',
   GET_CLASSROOMS: 'GET_CLASSROOMS',
+  ADD_CLASSROOM: 'ADD_CLASSROOM',
   UPDATE_CLASSROOM: 'UPDATE_CLASSROOM',
   DELETE_CLASSROOM: 'DELETE_CLASSROOM',
   ERRORS: 'ERRORS',
@@ -57,6 +58,7 @@ export const STAFF = {
   GET_STAFFS: 'GET_STAFFS',
   UPDATE_STAFF: 'UPDATE_STAFF',
   DELETE_STAFF: 'DELETE_STAFF',
+  ADD_STAFF: 'ADD_STAFF',
   ERRORS: 'ERRORS',
   CLEAN: 'CLEAN'
 }
@@ -101,7 +103,7 @@ export const PARENTNEWS = {
   CLEAN: 'CLEAN'
 }
 
-export const PARENTIN4= {
+export const PARENTIN4 = {
   GET_PARENTIN4: 'GET_PARENTIN4',
   GET_PARENTIN4S: 'GET_PARENTIN4S',
   ADD_PARENTIN4: 'ADD_PARENTIN4',
@@ -111,7 +113,7 @@ export const PARENTIN4= {
   CLEAN: 'CLEAN'
 }
 
-export const NOTIFY= {
+export const NOTIFY = {
   GET_NOTIFY: 'GET_NOTIFY',
   GET_NOTIFIES: 'GET_NOTIFIES',
   ADD_NOTIFY: 'ADD_NOTIFY',
@@ -130,6 +132,7 @@ export const TOAST_TYPE = {
 
 export const ROLES = {
   STUDENT: 'student',
+  GUESST: 'guesst',
   STAFF: 'staff',
   TEACHER: 'teacher',
   ADMIN: 'admin',

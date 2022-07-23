@@ -45,6 +45,11 @@ import TrashParent from 'pages/Teacher/TrashParent'
 import TeacherChildrenPage from 'pages/Teacher/TeacherChildrenPage'
 import UpdateParentnews from 'pages/Parentnews/UpdateParentnews'
 import NotifyPages from 'pages/NotifyPages'
+import UsersPage from 'pages/Admin/UsersPage'
+import TeachersPage from 'pages/Admin/TeachersPage'
+import ParentsPage from 'pages/Admin/ParentsPage'
+import ClassroomsPage from 'pages/Admin/ClassroomsPage'
+import StaffsPage from 'pages/Admin/StaffsPage'
 
 const Routes = () => {
   return (
@@ -269,11 +274,46 @@ const Routes = () => {
         layout={DefaultLayout}
         component={CompetitionChild}
       />
-        <PrivateRoute
+      <PrivateRoute
         exact
         path="/notifies"
         layout={DefaultLayout}
         component={NotifyPages}
+      />
+      <PrivateRoute
+        exact
+        path="/admin/users"
+        role={ROLES.ADMIN}
+        layout={DefaultLayout}
+        component={UsersPage}
+      />
+      <PrivateRoute
+        exact
+        path="/admin/teachers"
+        role={ROLES.ADMIN}
+        layout={DefaultLayout}
+        component={TeachersPage}
+      />
+      <PrivateRoute
+        exact
+        path="/admin/parents"
+        role={ROLES.ADMIN}
+        layout={DefaultLayout}
+        component={ParentsPage}
+      />
+      <PrivateRoute
+        exact
+        path="/admin/classrooms"
+        role={ROLES.ADMIN}
+        layout={DefaultLayout}
+        component={ClassroomsPage}
+      />
+      <PrivateRoute
+        exact
+        path="/admin/staffs"
+        role={ROLES.ADMIN}
+        layout={DefaultLayout}
+        component={StaffsPage}
       />
       <PrivateRoute component={NotFoundPage} layout={DefaultLayout} />
     </Switch>

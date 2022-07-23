@@ -1,6 +1,6 @@
 import LoaderComponent from 'components/core/LoaderComponent'
 import HomeTeacherComponent from 'components/Teacher/HomeTeacherComponent'
-import AdminDashboard from 'pages/AdminDashboard'
+import AdminDashboard from 'pages/Admin/AdminDashboard'
 import Classnews from 'pages/Classnews'
 import Parentnews from 'pages/Parentnews'
 import StaffHome from 'pages/Student/StaffHome'

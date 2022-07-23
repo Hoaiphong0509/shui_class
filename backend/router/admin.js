@@ -6,7 +6,8 @@ const Profile = require('../models/Profile')
 const role = require('../helper/role')
 const checkObjectId = require('../middleware/checkObjectId')
 const Classroom = require('../models/Classroom')
-const ParentIn4 = require('../models/ParentIn4')
+const Classnews = require('../models/Classnews')
+const Parentnews = require('../models/Parentnews')
 
 // @route    GET api/admin/users
 // @desc     Get all users
@@ -14,8 +15,12 @@ const ParentIn4 = require('../models/ParentIn4')
 router.get('/users', authorize(role.Admin), async (req, res) => {
   try {
     const users = await User.find()
+    const profiles = await Profile.find()
 
-    res.json(users)
+    let result = users.map((item, i) =>
+      Object.assign({}, item._doc, profiles[i])
+    )
+    res.json(result)
   } catch (err) {
     console.error(err.message)
     res.status(500).send('Server Error')
@@ -27,7 +32,56 @@ router.get('/users', authorize(role.Admin), async (req, res) => {
 // @access   Private
 router.get('/teacher', authorize(role.Admin), async (req, res) => {
   try {
-    const result = await User.find({ roles: [role.Teacher] })
+    const users = await User.find({ roles: [role.Teacher] })
+    const profiles = await Profile.find()
+    let result = users.map((item, i) =>
+      Object.assign({}, item._doc, profiles[i])
+    )
+
+    res.json(result)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
+// @route    GET api/admin/parent
+// @desc     Get all parent
+// @access   Private
+router.get('/parent', authorize(role.Admin), async (req, res) => {
+  try {
+    const users = await User.find({ roles: [role.Parent] })
+    const profiles = await Profile.find()
+    let result = users.map((item, i) =>
+      Object.assign({}, item._doc, profiles[i])
+    )
+
+    res.json(result)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
+// @route    GET api/admin/classnews
+// @desc     Get all teacher
+// @access   Private
+router.get('/classnews', authorize(), async (req, res) => {
+  try {
+    const result = await Classnews.find()
+
+    res.json(result)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+// @route    GET api/admin/parentnews
+// @desc     Get all teacher
+// @access   Private
+router.get('/parentnews', authorize(), async (req, res) => {
+  try {
+    const result = await Parentnews.find()
 
     res.json(result)
   } catch (err) {
@@ -42,12 +96,25 @@ router.get('/teacher', authorize(role.Admin), async (req, res) => {
 router.put('/add_teacher', authorize(role.Admin), async (req, res) => {
   const { username } = req.body
   try {
+    const user = await User.findOne({ username })
+
+    if (!user)
+      return res.status(400).json({ msg: 'Tài khoản này không tồn tại!' })
+
+    if (user.roles.includes(role.Parent))
+      return res.status(400).json({ msg: 'Tài khoản này đang là phụ huynh' })
+    if (user.roles.includes(role.Student))
+      return res.status(400).json({ msg: 'Tài khoản này đang là học sinh' })
+    if (user.roles.includes(role.Admin))
+      return res.status(400).json({ msg: 'Tài khoản này đang là admin' })
+
     await User.findOneAndUpdate(
       { username: username },
       {
         $set: { roles: [role.Teacher] }
       }
     )
+
     res.json({ msg: 'Thêm giáo viên thành công' })
   } catch (err) {
     console.error(err.message)
@@ -141,11 +208,19 @@ router.put(
 // @access   Private
 router.put('/add_parent', authorize(role.Admin), async (req, res) => {
   const { username } = req.body
+
   try {
     const user = await User.findOne({ username })
 
+    if (!user)
+      return res.status(400).json({ msg: 'Tài khoản này không tồn tại!' })
+
     if (user.roles.includes(role.Teacher))
       return res.status(400).json({ msg: 'Tài khoản này đang là giáo viên' })
+    if (user.roles.includes(role.Student))
+      return res.status(400).json({ msg: 'Tài khoản này đang là học sinh' })
+    if (user.roles.includes(role.Admin))
+      return res.status(400).json({ msg: 'Tài khoản này đang là admin' })
 
     await User.findOneAndUpdate(
       { username: username },
