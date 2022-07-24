@@ -50,7 +50,7 @@ const NewsComment = ({
     <div className={s.root}>
       <div className={s.formCmt}>
         <FormComment
-          idNews={newsState._id.toString()}
+          idNews={newsState?._id.toString()}
           myprofile={myprofile}
           asNews={asNews}
         />
@@ -62,7 +62,7 @@ const NewsComment = ({
             <CommentItem
               cmt={cmt}
               handleRemoveCmt={handleRemoveCmt}
-              idNews={newsState._id.toString()}
+              idNews={newsState?._id.toString()}
               authorId={newsState.user}
             />
           </div>

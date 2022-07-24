@@ -27,15 +27,6 @@ const NewsComponent = ({
   const cln = useSelector((state) => state.classnews)
   const pns = useSelector((state) => state.parentnews)
 
-  // useEffect(() => {
-  //   if (asNews === 'class') {
-  //     setNewsState(cln?.classnews)
-  //   }
-  //   if (asNews === 'parent') {
-  //     setNewsState(pns?.parentnews)
-  //   }
-  // }, [cln, pns, newssState, asNews])
-
   useEffect(() => {
     setNewssState(newss)
   }, [newss])

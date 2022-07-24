@@ -33,14 +33,10 @@ export const getGuests = () => async (dispatch) => {
   }
 }
 
-
 export const likeClassnews = (id_classnews) => async (dispatch) => {
   try {
-    const res = await api.put(`/student/like_classnews/${id_classnews}`)
-    dispatch({
-      type: CLASSNEWS.UPDATE_CLASSNEWS,
-      payload: res.data
-    })
+    await api.put(`/student/like_classnews/${id_classnews}`)
+
     toast.success('Đã like 💘', {
       position: 'top-right',
       autoClose: 2000,
@@ -59,12 +55,7 @@ export const likeClassnews = (id_classnews) => async (dispatch) => {
 
 export const unlikeClassnews = (id_classnews) => async (dispatch) => {
   try {
-    const res = await api.put(`/student/unlike_classnews/${id_classnews}`)
-    dispatch({
-      type: CLASSNEWS.UPDATE_CLASSNEWS,
-      payload: res.data
-    })
-
+    await api.put(`/student/unlike_classnews/${id_classnews}`)
     toast.warn('Đã unlike 💔', {
       position: 'top-right',
       autoClose: 2000,

@@ -36,9 +36,7 @@ export const getMyParentIn4 = () => async (dispatch) => {
 export const likeParentnews = (id_parentnews) => async (dispatch) => {
   try {
     await api.put(`/parents/like_parentnews/${id_parentnews}`)
-    dispatch({
-      type: PARENTNEWS.UPDATE_PARENTNEWS
-    })
+
     toast.success('Đã like 💘', {
       position: 'top-right',
       autoClose: 2000,
@@ -57,11 +55,7 @@ export const likeParentnews = (id_parentnews) => async (dispatch) => {
 
 export const unlikeParentnews = (id_parentnews) => async (dispatch) => {
   try {
-    const res = await api.put(`/parents/unlike_parentnews/${id_parentnews}`)
-    dispatch({
-      type: PARENTNEWS.UPDATE_PARENTNEWS,
-      payload: res.data
-    })
+    await api.put(`/parents/unlike_parentnews/${id_parentnews}`)
 
     toast.warn('Đã unlike 💔', {
       position: 'top-right',
