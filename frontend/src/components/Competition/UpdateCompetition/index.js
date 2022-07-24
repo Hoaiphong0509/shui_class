@@ -76,18 +76,6 @@ const UpdateCompetition = ({
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (data) => {
-    const payload = {
-      studentName,
-      studentUsername,
-      hk,
-      avgAll: totalPoints,
-      classification: classificationFunc(totalPoints),
-      ...data
-    }
-    updateCompetition(idStudent, payload)
-  }
-
   const totalPoints =
     100 +
     10 *
@@ -102,6 +90,20 @@ const UpdateCompetition = ({
         +watch('negativePoint.point_4.time') -
         +watch('negativePoint.point_5.time') -
         +watch('negativePoint.point_6.time'))
+
+  const onSubmit = (data) => {
+    const payload = {
+      studentName,
+      studentUsername,
+      hk,
+      avgAll: isNaN(totalPoints) ? 100 : totalPoints,
+      classification: classificationFunc(
+        isNaN(totalPoints) ? 100 : totalPoints
+      ),
+      ...data
+    }
+    updateCompetition(idStudent, payload)
+  }
 
   return (
     <div className={s.root}>

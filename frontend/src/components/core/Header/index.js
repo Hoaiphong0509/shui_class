@@ -224,26 +224,10 @@ const Header = ({
               <Dropdown.Item
                 as="button"
                 onClick={() =>
-                  history.push(`/sheet_competition_1/${myprofile.user}`)
-                }
-              >
-                Thi đua HKI
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                onClick={() =>
-                  history.push(`/sheet_competition_2/${myprofile.user}`)
-                }
-              >
-                Thi đua HKII
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                onClick={() =>
                   history.push(`/competition_all/${myprofile.user}`)
                 }
               >
-                Thi đua cả năm
+                Thi đua
               </Dropdown.Item>
             </>
           ) : null}

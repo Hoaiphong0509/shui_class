@@ -9,7 +9,7 @@ import { getProfileByUserId } from 'services/redux/actions/profile'
 import { getCompetitionByStudent } from 'services/redux/actions/competition'
 import s from './styles.module.scss'
 
-const UpdateCompetionSheet2 = ({
+const UpdateCompetionSheet = ({
   profile: { profile, loading: ldp },
   competition: { competition, loading: ldSc },
   getProfileByUserId,
@@ -35,7 +35,9 @@ const UpdateCompetionSheet2 = ({
   )
     return <LoaderComponent />
 
-  const tempCompetitionObj = competition?.filter((s) => s.hk === 2)
+  const tempCompetitionObj = competition?.filter(
+    (s) => s.hk === +match.params.no_week
+  )
 
   return (
     <div className={s.root}>
@@ -45,7 +47,7 @@ const UpdateCompetionSheet2 = ({
       tempCompetitionObj === undefined ||
       tempCompetitionObj.length === 0 ? (
         <>
-          <h1>Học sinh này chưa có điểm HKII</h1>
+          <h1>Học sinh này chưa có điểm thi đua tuần {match.params.no_week}</h1>
           <div>
             <Button
               style={{ marginRight: '5px' }}
@@ -57,21 +59,24 @@ const UpdateCompetionSheet2 = ({
             <Button
               variant="primary"
               onClick={() => {
-                history.push(`/add_competition_2/${match.params.id_student}`)
+                history.push(`/add_competition_1/${match.params.id_student}`)
               }}
             >
-              Thêm điểm thi đua HKII
+              Thêm điểm thi đua tuần {match.params.no_week}
             </Button>
           </div>
         </>
       ) : (
         <>
           <div className={s.in4}>
-            <h1>Cập nhật điểm thi đua HKII - {profile?.fullName}</h1>
+            <h1>
+              Cập nhật điểm thi đua tuần {match.params.no_week} -{' '}
+              {profile?.fullName}
+            </h1>
           </div>
           <div className={s.formUpdateCompetition}>
             <UpdateCompetition
-              hk={2}
+              hk={match.params.no_week}
               competition={tempCompetitionObj[0]}
               idStudent={match.params.id_student}
               studentName={profile?.fullName}
@@ -84,7 +89,7 @@ const UpdateCompetionSheet2 = ({
   )
 }
 
-UpdateCompetionSheet2.prototype = {
+UpdateCompetionSheet.prototype = {
   profile: PropTypes.object,
   getProfileByUserId: PropTypes.func,
   getCompetitionByStudent: PropTypes.func
@@ -98,4 +103,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getProfileByUserId,
   getCompetitionByStudent
-})(UpdateCompetionSheet2)
+})(UpdateCompetionSheet)

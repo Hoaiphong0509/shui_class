@@ -56,7 +56,7 @@ const FormAddParent = ({
         <p className={s.textError}>{errors.username?.message}</p>
       </div>
       <div className={s.interaction}>
-        <Button variant="secondary" onClick={() => history.push('/')}>
+        <Button variant="secondary" onClick={() => history.goBack()}>
           Quay lại
         </Button>
         <Button variant="success" type="submit">

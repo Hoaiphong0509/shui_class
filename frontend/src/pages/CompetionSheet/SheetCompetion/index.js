@@ -7,14 +7,18 @@ import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getCompetitionByStudent } from 'services/redux/actions/competition'
-import { getCurrentProfile } from 'services/redux/actions/profile'
+import {
+  getCurrentProfile,
+  getProfileByUserId
+} from 'services/redux/actions/profile'
 import s from './styles.module.scss'
 
-const SheetCompetion1 = ({
+const SheetCompetion = ({
   user: { user, loading: ldu },
-  profile: { myprofile, loading: ldp },
+  profile: { myprofile, profile, loading: ldp },
   competition: { competition, loading: ldc },
   getCompetitionByStudent,
+  getProfileByUserId,
   getCurrentProfile,
   match
 }) => {
@@ -22,6 +26,9 @@ const SheetCompetion1 = ({
   useEffect(() => {
     getCompetitionByStudent(match.params.id_student)
   }, [getCompetitionByStudent, match])
+  useEffect(() => {
+    getProfileByUserId(match.params.id_student)
+  }, [getProfileByUserId, match])
   useEffect(() => {
     getCurrentProfile()
   }, [getCurrentProfile])
@@ -34,12 +41,15 @@ const SheetCompetion1 = ({
     competition === undefined ||
     user === null ||
     user === undefined ||
+    profile === null ||
+    profile === undefined ||
     myprofile === null ||
     myprofile === undefined
   )
     return <LoaderComponent />
-
-  const tempCompetitionObj = competition?.filter((s) => s.hk === 1)
+  const tempCompetitionObj = competition?.filter(
+    (s) => s.hk === +match.params.no_week
+  )
 
   return (
     <div className={s.root}>
@@ -49,12 +59,12 @@ const SheetCompetion1 = ({
       tempCompetitionObj === undefined ||
       tempCompetitionObj.length === 0 ? (
         <>
-          <h1>Chưa có điểm thi đua HKI</h1>
+          <h1>Chưa có điểm thi đua tuần {match.params.no_week}</h1>
           <div>
             <Button
               style={{ marginRight: '5px' }}
               variant="secondary"
-              onClick={() => history.push('/')}
+              onClick={() => history.goBack()}
             >
               Quay lại
             </Button>
@@ -63,10 +73,12 @@ const SheetCompetion1 = ({
               <Button
                 variant="primary"
                 onClick={() => {
-                  history.push(`/add_competition_1/${match.params.id_student}`)
+                  history.push(
+                    `/add_competition_by_week/${match.params.id_student}/${match.params.no_week}`
+                  )
                 }}
               >
-                Thêm điểm thi đua HKI
+                Thêm điểm thi đua tuần {match.params.no_week}
               </Button>
             ) : null}
           </div>
@@ -74,7 +86,10 @@ const SheetCompetion1 = ({
       ) : (
         <>
           <div className={s.in4}>
-            <h1>Điểm thi đua HKI - {competition[0]?.studentName}</h1>
+            <h1>
+              Điểm thi đua {match.params.no_week} -{' '}
+              {competition[0]?.studentName}
+            </h1>
           </div>
           <div className={s.table}>
             <TableCompetition
@@ -83,7 +98,7 @@ const SheetCompetion1 = ({
             />
           </div>
           <div className={s.buttonArea}>
-            <Button variant="secondary" onClick={() => history.push('/')}>
+            <Button variant="secondary" onClick={() => history.goBack()}>
               Quay lại
             </Button>
             {(user && user.roles.includes(ROLES.TEACHER)) ||
@@ -92,7 +107,7 @@ const SheetCompetion1 = ({
                 variant="primary"
                 onClick={() =>
                   history.push(
-                    `/update_competition_1/${match.params.id_student}`
+                    `/update_competition_by_week/${match.params.id_student}/${match.params.no_week}`
                   )
                 }
               >
@@ -106,11 +121,11 @@ const SheetCompetion1 = ({
   )
 }
 
-SheetCompetion1.prototype = {
+SheetCompetion.prototype = {
   competition: PropTypes.object,
   user: PropTypes.object,
   getCompetitionByStudent: PropTypes.func,
-  getScoreByStudent: PropTypes.func
+  getProfileByUserId: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
@@ -121,5 +136,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getCompetitionByStudent,
-  getCurrentProfile
-})(SheetCompetion1)
+  getCurrentProfile,
+  getProfileByUserId
+})(SheetCompetion)

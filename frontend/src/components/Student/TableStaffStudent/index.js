@@ -2,7 +2,7 @@ import { Button, Table } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import s from './styles.module.scss'
 
-const TableStaffStudent = ({students }) => {
+const TableStaffStudent = ({ students }) => {
   const history = useHistory()
   if (students.length === 0) return <h1>Lớp học này chưa có học sinh nào</h1>
 
@@ -26,18 +26,10 @@ const TableStaffStudent = ({students }) => {
               <Button
                 variant="outline-success"
                 onClick={() =>
-                  history.push(`/sheet_competition_1/${s.studentId}`)
+                  history.push(`/sheet_competition/${s.studentId}`)
                 }
               >
-                Thi đua HKI
-              </Button>
-              <Button
-                variant="outline-success"
-                onClick={() =>
-                  history.push(`/sheet_competition_2/${s.studentId}`)
-                }
-              >
-                Thi đua HKII
+                Xem điểm thi đua
               </Button>
             </td>
             <td>

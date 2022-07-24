@@ -1,15 +1,13 @@
-import React from 'react'
-import { Button, Table } from 'react-bootstrap'
-import s from './styles.module.scss'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, Table } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { Link } from 'react-router-dom'
+import s from './styles.module.scss'
 
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { addScore } from 'services/redux/actions/score'
 import { useHistory } from 'react-router-dom'
+import { addScore } from 'services/redux/actions/score'
 import {
   calcAvgPoint,
   CalcTotalPoint,
@@ -1488,9 +1486,9 @@ const AddScore = ({
         </tbody>
       </Table>
       <div className={s.buttonArea}>
-        <Link to="/">
-          <Button variant="secondary">Quay lại</Button>
-        </Link>
+        <Button variant="secondary" onClick={() => history.goBack()}>
+          Quay lại
+        </Button>
         <Button type="submit">Lưu điểm</Button>
       </div>
     </form>

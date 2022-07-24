@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { getProfileByUserId } from 'services/redux/actions/profile'
 import s from './styles.module.scss'
 
-const AddCompetitionSheet1 = ({
+const AddCompetitionSheet = ({
   profile: { profile, loading },
   getProfileByUserId,
   match
@@ -21,11 +21,13 @@ const AddCompetitionSheet1 = ({
   return (
     <div className={s.root}>
       <div className={s.in4}>
-        <h1>Thêm Điểm thi đua HKII - {profile?.fullName}</h1>
+        <h1>
+          Thêm Điểm thi đua tuần {match.params.no_week} - {profile?.fullName}
+        </h1>
       </div>
       <div className={s.formAddCompetition}>
         <AddCompetition
-          hk={2}
+          hk={match.params.no_week}
           idStudent={match.params.id_student}
           studentName={profile?.fullName}
           studentUsername={profile?.username}
@@ -35,7 +37,7 @@ const AddCompetitionSheet1 = ({
   )
 }
 
-AddCompetitionSheet1.prototype = {
+AddCompetitionSheet.prototype = {
   profile: PropTypes.object,
   getProfileByUserId: PropTypes.func
 }
@@ -46,4 +48,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getProfileByUserId
-})(AddCompetitionSheet1)
+})(AddCompetitionSheet)

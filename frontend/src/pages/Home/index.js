@@ -18,15 +18,15 @@ const Home = ({
   useEffect(() => {
     getCurrentProfile()
   }, [getCurrentProfile])
-
+  console.log('myprofile', myprofile)
   const renderHome = () => {
     switch (normalizeRole(user)) {
       case 'admin':
         return <AdminDashboard />
       case 'student':
-        if (myprofile && myprofile.staffClass.some((s) => s.staffCode !== 0))
-          return <StaffHome />
-        else return <Classnews />
+        if (myprofile?.staffClass.some((s) => +s.staffCode === 0))
+          return <Classnews />
+        else return <StaffHome />
       case 'teacher':
         return <HomeTeacherComponent />
       case 'parent':

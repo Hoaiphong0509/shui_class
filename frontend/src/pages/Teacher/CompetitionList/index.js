@@ -1,7 +1,7 @@
 import LoaderComponent from 'components/core/LoaderComponent'
-import Competition from 'components/DetailsIn4StudentComponent/Competition'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
+import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { getCompetitionByStudent } from 'services/redux/actions/competition'
 import {
@@ -9,8 +9,9 @@ import {
   getProfileByUserId
 } from 'services/redux/actions/profile'
 import s from './styles.module.scss'
+import { useHistory } from 'react-router-dom'
 
-const CompetitionChild = ({
+const CompetitionList = ({
   user: { user, loading: ldu },
   profile: { myprofile, profile, loading: ldp },
   competition: { competition, loading: ldc },
@@ -19,6 +20,7 @@ const CompetitionChild = ({
   getCurrentProfile,
   match
 }) => {
+  const history = useHistory()
   useEffect(() => {
     getCompetitionByStudent(match.params.id_student)
   }, [getCompetitionByStudent, match])
@@ -51,17 +53,29 @@ const CompetitionChild = ({
           <h2>Điểm thi đua học tập - {profile.fullName}</h2>
         </div>
         <div className={s.weeks}>
-          <Competition
-            competition={competition}
-            studentId={profile.user.toString()}
-          />
+          {[...Array(35)].map((x, i) => (
+            <div key={i}>
+              <Button
+                variant="outline-success"
+                onClick={() =>
+                  history.push(
+                    `/sheet_competition_by_week/${profile.user.toString()}/${
+                      i + 1
+                    }`
+                  )
+                }
+              >
+                Tuần {i + 1}
+              </Button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   )
 }
 
-CompetitionChild.prototype = {
+CompetitionList.prototype = {
   competition: PropTypes.object,
   user: PropTypes.object,
   getCompetitionByStudent: PropTypes.func,
@@ -78,4 +92,4 @@ export default connect(mapStateToProps, {
   getCompetitionByStudent,
   getCurrentProfile,
   getProfileByUserId
-})(CompetitionChild)
+})(CompetitionList)

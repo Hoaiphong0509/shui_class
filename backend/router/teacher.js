@@ -121,7 +121,8 @@ router.put(
           $set: {
             staffClass: {
               staff: staff.id.toString(),
-              staffDisplay: staff.staffDisplay
+              staffDisplay: staff.staffDisplay,
+              staffCode
             },
             address,
             phone,
@@ -178,7 +179,8 @@ router.put(
           $set: {
             staffClass: {
               staff: staff.id.toString(),
-              staffDisplay: staff.staffDisplay
+              staffDisplay: staff.staffDisplay,
+              staffCode
             },
             address,
             phone,

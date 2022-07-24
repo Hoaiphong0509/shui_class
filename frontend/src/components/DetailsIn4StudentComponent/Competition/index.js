@@ -6,37 +6,16 @@ import s from './styles.module.scss'
 const Competition = ({ competition, studentId }) => {
   const history = useHistory()
 
-  const tempCompetitionObj1 = competition?.filter((s) => s.hk === 1)
-  const tempCompetitionObj2 = competition?.filter((s) => s.hk === 2)
+  const tempCompetitionObj = (hk) => competition?.filter((s) => s.hk === +hk)
 
-  const totalAll =
-    (tempCompetitionObj1[0]?.avgAll + 2 * tempCompetitionObj2[0]?.avgAll) / 3
+  const totalAll = competition.reduce((prev, curr) => {
+    let prevPoint = isNaN(prev.avgAll) ? 0 : prev.avgAll
+    let currPoint = isNaN(curr.avgAll) ? 0 : curr.avgAll
+    return prevPoint + currPoint
+  }, 0) / 35
+
   return (
     <div className={s.root}>
-      <div className={s.scoreHk}>
-        <div className={s.scorePanel}>
-          <h3>Điểm thi đua học kỳ I</h3>
-          <p>Trung bình: {tempCompetitionObj1[0]?.avgAll}</p>
-          <p>Xếp loại:{tempCompetitionObj1[0]?.classification}</p>
-          <Button
-            variant="info"
-            onClick={() => history.push(`/sheet_competition_1/${studentId}`)}
-          >
-            Chi tiết
-          </Button>
-        </div>
-        <div className={s.scorePanel}>
-          <h3>Điểm thi đua học kỳ II</h3>
-          <p>Trung bình: {tempCompetitionObj2[0]?.avgAll}</p>
-          <p>Xếp loại:{tempCompetitionObj2[0]?.classification}</p>
-          <Button
-            variant="info"
-            onClick={() => history.push(`/sheet_competition_2/${studentId}`)}
-          >
-            Chi tiết
-          </Button>
-        </div>
-      </div>
       <div className={s.scoreAll}>
         <h2>Tổng điểm thi đua</h2>
         <p>
@@ -44,6 +23,24 @@ const Competition = ({ competition, studentId }) => {
           {!isNaN(totalAll) ? Number.parseFloat(totalAll).toFixed(2) : ''}
         </p>
         <p>Xếp loại: {classificationPointFunc(+totalAll)}</p>
+      </div>
+      <div className={s.scoreHk}>
+        {[...Array(35)].map((x, i) => (
+          <div className={s.scorePanel} key={i}>
+            <h6>
+              Tuần {i + 1}: {tempCompetitionObj(i + 1)[0]?.avgAll}✡
+            </h6>
+            <p>Xếp loại: {tempCompetitionObj(i + 1)[0]?.classification}</p>
+            <Button
+              variant="outline-info"
+              onClick={() =>
+                history.push(`/sheet_competition_by_week/${studentId}/${i + 1}`)
+              }
+            >
+              Chi tiết
+            </Button>
+          </div>
+        ))}
       </div>
     </div>
   )
