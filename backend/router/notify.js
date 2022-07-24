@@ -12,7 +12,6 @@ const Notify = require('../models/Notify')
 router.get('/me', authorize(), async (req, res) => {
   try {
     const notifies = await Notify.find()
-    console.log('notifies', notifies)
     const result = []
 
     notifies.forEach((n) => {

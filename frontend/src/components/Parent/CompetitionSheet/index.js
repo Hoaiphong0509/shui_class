@@ -7,7 +7,6 @@ import s from './styles.module.scss'
 
 const CompetitionSheet = ({ competition }) => {
   const [activeTab, setActiveTab] = useState('tab1')
-  console.log('competition', competition)
 
   const tempCompetition1Obj = competition?.filter((s) => s.hk === 1)
   const tempCompetition2Obj = competition?.filter((s) => s.hk === 2)

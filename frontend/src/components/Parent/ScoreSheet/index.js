@@ -6,7 +6,6 @@ import TotalScore from '../TotalScore'
 import s from './styles.module.scss'
 const ScoreSheet = ({ score }) => {
   const [activeTab, setActiveTab] = useState('tab1')
-  // console.log('score', score)
 
   const tempScore1Obj = score?.filter((s) => s.hk === 1)
   const tempScore2Obj = score?.filter((s) => s.hk === 2)

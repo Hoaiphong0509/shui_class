@@ -13,6 +13,9 @@ const ParentsPage = ({ user: { user, users, loading: ldu }, getAllUsers }) => {
   useEffect(() => {
     getAllUsers()
   }, [getAllUsers])
+
+  console.log('users', users)
+
   if (ldu || users === null || users === undefined) return <LoaderComponent />
 
   const parents = users?.filter((us) => us.roles.includes(ROLES.PARENT))

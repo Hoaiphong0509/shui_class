@@ -21,7 +21,6 @@ const FormUpdateStudent = ({ staffs, updateStudent, profileStudent }) => {
     user,
     username
   } = profileStudent
-  console.log('profileStudent', profileStudent)
   const schema = yup
     .object({
       address: yup.string().required('Địa chỉ không được bỏ trống'),

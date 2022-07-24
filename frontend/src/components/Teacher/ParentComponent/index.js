@@ -6,31 +6,25 @@ import s from './styles.module.scss'
 
 import LoaderComponent from 'components/core/LoaderComponent'
 import { useHistory } from 'react-router-dom'
-import {
-  getParentsMyClassroom,
-  getParentnews
-} from 'services/redux/actions/teacher'
+import { getParentsMyClassroom } from 'services/redux/actions/teacher'
 import TableParents from './TableParents'
-import { ROLES } from 'constants/AppConstants'
 
 const ParentComponent = ({
   classroom: { classroom, loading },
   user: { user },
-  getParentsMyClassroom,
-  getParentnews
+  getParentsMyClassroom
 }) => {
   const history = useHistory()
   useEffect(() => {
-    if (user?.roles.includes(ROLES.TEACHER)) getParentnews()
-    else getParentsMyClassroom()
-  }, [getParentsMyClassroom, getParentnews, user])
+    getParentsMyClassroom()
+  }, [getParentsMyClassroom])
 
   if (loading) return <LoaderComponent />
   if (classroom === null || classroom === undefined)
     return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nào</h1>
 
   const { name, parents } = classroom
-
+  console.log('classroom', classroom)
   if (parents === null || parents === undefined)
     return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nào</h1>
 
@@ -65,8 +59,7 @@ const ParentComponent = ({
 ParentComponent.prototype = {
   classroom: PropTypes.object,
   user: PropTypes.object,
-  getParentsMyClassroom: PropTypes.func,
-  getParentnews: PropTypes.func
+  getParentsMyClassroom: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
@@ -75,6 +68,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-  getParentsMyClassroom,
-  getParentnews
+  getParentsMyClassroom
 })(ParentComponent)
