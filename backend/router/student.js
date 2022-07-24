@@ -26,6 +26,25 @@ router.get('/', authorize(), async (req, res) => {
   }
 })
 
+// @route    GET api/student
+// @desc     Get all guest
+// @access   Private
+router.get('/guest', authorize(), async (req, res) => {
+  try {
+    const students = await User.find({ roles: [role.Guest] })
+    const profiles = await Profile.find()
+
+    const result = profiles.filter((p) =>
+      students.some((s) => s._id.toString() === p.user.toString())
+    )
+
+    res.json(result)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
 // @route    PUT api/student/like_classnews/:id_classnews
 // @desc     Like news
 // @access   Private

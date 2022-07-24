@@ -19,7 +19,10 @@ const RegisterForm = ({ registerAccount }) => {
       password: yup
         .string()
         .required('Mật khẩu không được bỏ trống')
-        .min(6, 'Mật khẩu phải ít nhất 4 ký tự')
+        .min(6, 'Mật khẩu phải ít nhất 4 ký tự'),
+      fullName: yup.string().required('Họ tên không được bỏ trống'),
+      birthday: yup.string().required('Ngày sinh không được bỏ trống'),
+      note: yup.string()
     })
     .required()
   const {
@@ -59,6 +62,35 @@ const RegisterForm = ({ registerAccount }) => {
             {...register('password')}
           />
           <p className={s.textError}>{errors.password?.message}</p>
+        </div>
+        <div className={s.panel}>
+          <label htmlFor="fullName">Họ tên</label>
+          <input
+            name="fullName"
+            placeholder="Ví dụ: Nguyễn Văn A"
+            type="fullName"
+            {...register('fullName')}
+          />
+          <p className={s.textError}>{errors.fullName?.message}</p>
+        </div>
+        <div className={s.panel}>
+          <label htmlFor="birthday">Ngày sinh</label>
+          <input
+            name="birthday"
+            type="date"
+            {...register('birthday')}
+          />
+          <p className={s.textError}>{errors.birthday?.message}</p>
+        </div>
+        <div className={s.panel}>
+          <label htmlFor="note">Ghi chú</label>
+          <input
+            name="note"
+            placeholder="Ghi chú"
+            type="text"
+            {...register('note')}
+          />
+          <p className={s.textError}>{errors.note?.message}</p>
         </div>
         <div className={s.interaction}>
           <button onClick={() => history.push('/login')}>Đăng nhập</button>

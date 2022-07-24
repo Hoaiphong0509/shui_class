@@ -39,7 +39,7 @@ const UsersList = ({ users, allusers, me }) => {
     }
   }
 
-  const parentAvaible = unique.filter((u) => u.roles.includes(ROLES.GUESST))
+  const parentAvaible = unique.filter((u) => u.roles.includes(ROLES.GUEST))
   
   return (
     <div className={s.root}>

@@ -18,6 +18,22 @@ export const getStudents = () => async (dispatch) => {
   }
 }
 
+export const getGuests = () => async (dispatch) => {
+  try {
+    const res = await api.get('/student/guest')
+
+    dispatch({
+      type: STUDENT.GET_STUDENTS,
+      payload: res.data
+    })
+  } catch (err) {
+    dispatch({
+      type: STUDENT.ERRORS
+    })
+  }
+}
+
+
 export const likeClassnews = (id_classnews) => async (dispatch) => {
   try {
     const res = await api.put(`/student/like_classnews/${id_classnews}`)

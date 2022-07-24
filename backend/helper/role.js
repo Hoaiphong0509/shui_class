@@ -3,6 +3,6 @@ module.exports = {
   Teacher: 'teacher',
   Staff: 'staff',
   Student: 'student',
-  Guesst: 'guesst',
+  Guest: 'guest',
   Parent: 'parent',
 }

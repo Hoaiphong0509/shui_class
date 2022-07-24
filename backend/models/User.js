@@ -12,8 +12,8 @@ const UserSchema = new mongoose.Schema({
   },
   roles: {
     type: [String],
-    default: ['guesst'],
-    enum: ['guesst', 'student', 'teacher', 'admin', 'parent']
+    default: ['guest'],
+    enum: ['guest', 'student', 'teacher', 'admin', 'parent']
   },
   isDelete: {
     type: Boolean,

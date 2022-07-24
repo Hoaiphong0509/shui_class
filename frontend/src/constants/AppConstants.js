@@ -132,7 +132,7 @@ export const TOAST_TYPE = {
 
 export const ROLES = {
   STUDENT: 'student',
-  GUESST: 'guesst',
+  GUEST: 'guest',
   STAFF: 'staff',
   TEACHER: 'teacher',
   ADMIN: 'admin',

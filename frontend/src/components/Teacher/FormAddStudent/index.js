@@ -9,6 +9,7 @@ import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { addStudent } from 'services/redux/actions/teacher'
+import { useState } from 'react'
 
 const FormAddStudent = ({
   idClassroom,
@@ -17,6 +18,7 @@ const FormAddStudent = ({
   addStudent
 }) => {
   const history = useHistory()
+  const [noteData, setNoteData] = useState()
 
   const schema = yup
     .object({
@@ -50,6 +52,8 @@ const FormAddStudent = ({
     history.push('/')
   }
 
+  console.log("note", noteData);
+
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
       <div className={s.title}>
@@ -59,16 +63,32 @@ const FormAddStudent = ({
         <label htmlFor="username" style={{ color: 'red' }}>
           Học sinh *
         </label>
-        <select {...register('username')}>
+        <select
+          {...register('username')}
+          onChange={(e) => {
+            console.log("event", e.target?.attributes['data_note']);
+            setNoteData(e.target?.attributes['data_note'])
+          }}
+        >
           {studentsAvailable &&
             studentsAvailable.map((s, idx) => (
-              <option key={idx} value={s.username}>
+              <option key={idx} value={s.username} data_note={s.note}>
                 {s.fullName} -{' '}
                 {s.birthday && moment(s.birthday).format('DD-MM-YYYY')}
               </option>
             ))}
         </select>
         <p className={s.textError}>{errors.username?.message}</p>
+      </div>
+      <div className={s.panel}>
+        <label htmlFor="note">Ghi chú</label>
+        <input
+          name="address"
+          disabled
+          value={noteData && noteData}
+          defaultValue={noteData && noteData}
+        />
+        <p className={s.textError}>{errors.address?.message}</p>
       </div>
       <div className={s.panel}>
         <label htmlFor="address" style={{ color: 'red' }}>

@@ -39,7 +39,7 @@ const UsersList = ({ users, allusers, me }) => {
     }
   }
 
-  const teacherAvaible = unique.filter((u) => u.roles.includes(ROLES.GUESST))
+  const teacherAvaible = unique.filter((u) => u.roles.includes(ROLES.GUEST))
   return (
     <div className={s.root}>
       <div className={s.searchInput}>

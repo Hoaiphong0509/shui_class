@@ -481,7 +481,7 @@ router.put(
       })
 
       await User.findByIdAndUpdate(s.user.toString(), {
-        $set: { roles: [role.Guesst] }
+        $set: { roles: [role.Guest] }
       })
       const result = await Classroom.findById(req.params.id_classroom)
       res.json(result)

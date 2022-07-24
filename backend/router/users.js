@@ -28,7 +28,7 @@ router.get('/auth', authorize(), async (req, res) => {
 // @desc     Register user
 // @access   Public
 router.post('/register', async (req, res) => {
-  const { username, password } = req.body
+  const { username, password, fullName, birthday, note } = req.body
 
   try {
     let user = await User.findOne({ username })
@@ -49,7 +49,9 @@ router.post('/register', async (req, res) => {
     const profile = new Profile({
       user: user._id,
       username,
-      fullName: username,
+      fullName,
+      birthday,
+      note,
       avatar: ''
     })
 
@@ -77,7 +79,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ msg: 'Thông tin đăng nhập không hợp lệ' })
     }
 
-    if (user.roles.includes('guesst')) {
+    if (user.roles.includes('guest')) {
       return res.status(400).json({
         msg: 'Tài khoản bạn chưa có quyền truy cập vào trang này. Vui lòng chờ Admin thêm quyền cho bạn!'
       })
