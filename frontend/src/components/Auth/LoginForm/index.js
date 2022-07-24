@@ -34,6 +34,9 @@ const LoginForm = ({ login, loginAs, goBack }) => {
 
   let loginAsDisplay = ''
   switch (loginAs) {
+    case 'admin':
+      loginAsDisplay = 'quản trị viên'
+      break
     case 'teacher':
       loginAsDisplay = 'giáo viên chủ nhiệm'
       break

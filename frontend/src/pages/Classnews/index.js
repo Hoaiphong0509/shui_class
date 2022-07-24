@@ -20,10 +20,11 @@ const Classnews = ({
     getCurrentProfile()
   }, [getCurrentProfile])
 
+  if (classnewss === null || classnewss === undefined || classnewss.length === 0)
+    return <h1>Chưa có bản tin nào</h1>
+
   return ldc ||
     ldp ||
-    classnewss === null ||
-    classnewss.length === 0 ||
     myprofile === null ? (
     <LoaderComponent />
   ) : (

@@ -16,25 +16,24 @@ const HomeTeacherComponent = ({
   const history = useHistory()
 
   useEffect(() => {
-    if (
-      !(classroom === null || classroom === undefined || classroom.length === 0)
-    )
-      getStudentsMyClassroom()
-  }, [getStudentsMyClassroom, classroom])
+    getStudentsMyClassroom()
+  }, [getStudentsMyClassroom])
 
   if (loading) return <LoaderComponent />
 
-  if (classroom === null || classroom === undefined || classroom.length === 0)
+  if (classroom === null || classroom === undefined)
     return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nào</h1>
 
   const { name, students } = classroom
 
-  const studentsData = students.filter((s) => !s.isDelete)
+  const studentsData = students?.filter((s) => !s.isDelete)
 
-  return (
+  return classroom === null || classroom === undefined ? (
+    <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nào</h1>
+  ) : (
     <div className={s.root}>
       <div className={s.teacherContent}>
-        <h1 className={s.title}>Lớp {name.toUpperCase()}</h1>
+        <h1 className={s.title}>Lớp {name?.toUpperCase()}</h1>
         <div className={s.buttonArea}>
           <Button onClick={() => history.push('/createStudent')} variant="info">
             Thêm mới
@@ -47,10 +46,12 @@ const HomeTeacherComponent = ({
           </Button>
         </div>
         <div className={s.table}>
-          <TableStudent
-            idClassroom={classroom._id.toString()}
-            students={studentsData}
-          />
+          {studentsData && (
+            <TableStudent
+              idClassroom={classroom?._id?.toString()}
+              students={studentsData}
+            />
+          )}
         </div>
       </div>
     </div>

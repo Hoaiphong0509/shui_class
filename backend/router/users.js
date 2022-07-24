@@ -13,7 +13,7 @@ const checkObjectId = require('../middleware/checkObjectId')
 
 // @route    GET api/users/auth
 // @desc     Get user by token
-// @access   Privatee
+// @access   Private
 router.get('/auth', authorize(), async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password')
@@ -116,6 +116,8 @@ router.get('/get_myclassnews', authorize(), async (req, res) => {
         c.students.some((s) => s.user.toString() === req.user.id)
     )
 
+    if (!result || result.length === 0) return res.json([])
+
     const classnews = await Classnews.find({
       classroom: result[0]._id.toString()
     })
@@ -162,6 +164,8 @@ router.get('/get_myparentnews', authorize(), async (req, res) => {
         (pc) => pc.class.toString() === pn.classroom.toString()
       )
     )
+
+    if (!parentnews || parentnews.length === 0) return res.json([])
 
     parentnews?.sort((a, b) => {
       return new Date(b.date) - new Date(a.date)

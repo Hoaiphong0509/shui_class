@@ -373,6 +373,21 @@ export const getClassnewsById = (idClassnews) => async (dispatch) => {
   }
 }
 
+export const getParentnews = () => async (dispatch) => {
+  try {
+    const res = await api.get(`/teacher/get_myparentnews`)
+
+    dispatch({
+      type: PARENTNEWS.GET_PARENTNEWSS,
+      payload: res.data
+    })
+  } catch (err) {
+    dispatch({
+      type: PARENTNEWS.ERRORS
+    })
+  }
+}
+
 export const getParentnewsById = (idParentnews) => async (dispatch) => {
   try {
     const res = await api.get(`/teacher/get_parentnews/${idParentnews}`)

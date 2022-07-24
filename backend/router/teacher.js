@@ -24,7 +24,7 @@ router.get('/get_student_myclassroom', authorize(), async (req, res) => {
       (c) => c.headTeacher.user && c.headTeacher.user.toString() === req.user.id
     )
 
-    if (result.length === 0) res.json([])
+    if (!result || result.length === 0) return res.json(null)
 
     const studentsTemp = result[0].students.map((s) => {
       let fullName = ''
@@ -73,9 +73,9 @@ router.get(
           c.headTeacher.user && c.headTeacher.user.toString() === req.user.id
       )
 
-      if (result.length === 0) res.json([])
+      if (!result || result.length === 0) return res.json(null)
 
-      const parentsTemp = result[0].parents.map((s) => {
+      const parentsTemp = result[0]?.parents.map((s) => {
         let fullName = ''
         profileParent.forEach((p) => {
           if (p.user.toString() === s.user.toString()) {
@@ -91,7 +91,7 @@ router.get(
       })
 
       const respone = {
-        ...result[0]._doc,
+        ...result[0]?._doc,
         parents: parentsTemp
       }
 

@@ -24,7 +24,6 @@ const ChildrenComponent = ({
 
   if (ldu || ldStu || students === null || user === null || user === undefined)
     return <LoaderComponent />
-
   let duplicates = []
   let unique = []
   for (let s of students) {
@@ -40,37 +39,41 @@ const ChildrenComponent = ({
     }
   }
 
-  const childrenAvaible = unique.filter((u) => u.roles.includes(ROLES.STUDENT))
+  const childrenAvaible = unique.filter((u) => u?.roles?.includes(ROLES.STUDENT))
 
   return (
     <>
       <div className={s.root}>
         <div className={s.content}>
           <div className={s.header}>
-            {user && user.roles.includes(ROLES.TEACHER) ? (
+            {user && user?.roles?.includes(ROLES.TEACHER) ? (
               <Button onClick={() => setShow(!show)}>Thêm học sinh</Button>
             ) : null}
           </div>
           <div className={s.childrenList}>
             {children.map((c, idx) => (
               <div key={idx} className={s.itemChild}>
-                <ProfileItem
-                  profile={c}
-                  user={user}
-                  idParent={parentIn4.user.toString()}
-                />
+                {user && (
+                  <ProfileItem
+                    profile={c}
+                    user={user}
+                    idParent={parentIn4.user.toString()}
+                  />
+                )}
               </div>
             ))}
           </div>
         </div>
       </div>
-      <ModalAddChild
-        show={show}
-        setShow={setShow}
-        user={user}
-        idParent={parentIn4.user.toString()}
-        childrenAvaible={childrenAvaible}
-      />
+      {user && (
+        <ModalAddChild
+          show={show}
+          setShow={setShow}
+          user={user}
+          idParent={parentIn4.user.toString()}
+          childrenAvaible={childrenAvaible}
+        />
+      )}
     </>
   )
 }
