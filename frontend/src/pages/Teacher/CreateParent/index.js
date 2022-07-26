@@ -40,8 +40,6 @@ const CreateParent = ({
     }
   }
 
-  console.log("unique",unique);
-
   return (
     <div className={s.root}>
       <div className={s.form}>

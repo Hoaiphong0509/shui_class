@@ -12,8 +12,14 @@ export const getScoreByStudent = (idStudent) => async (dispatch) => {
       payload: res.data
     })
   } catch (err) {
-    dispatch({
-      type: SCORE.ERRORS
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
     })
   }
 }
@@ -28,7 +34,7 @@ export const addScore = (idStudent, formData) => async (dispatch) => {
 
     toast.success('Thêm điểm thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -36,13 +42,9 @@ export const addScore = (idStudent, formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: SCORE.ERRORS
-    })
-
     toast.error('Thêm điểm thất bại, vui lòng thử lại sau!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -62,7 +64,7 @@ export const updateScore = (idStudent, formData) => async (dispatch) => {
 
     toast.success('Cập nhật điểm thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -70,13 +72,9 @@ export const updateScore = (idStudent, formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: SCORE.ERRORS
-    })
-
     toast.error('Cập nhật thất bại, vui lòng thử lại sau!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -84,10 +82,4 @@ export const updateScore = (idStudent, formData) => async (dispatch) => {
       progress: undefined
     })
   }
-}
-
-export const cleanScore = () => async (dispatch) => {
-  dispatch({
-    type: SCORE.CLEAN
-  })
 }

@@ -1,0 +1,47 @@
+.root {
+  h2,
+  h3 {
+    font-weight: bold;
+  }
+
+  .scoreHk {
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    grid-gap: 20px;
+
+    .scorePanel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between  ;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+     
+      p {
+        margin: 0;
+        padding: 0;
+      }
+     
+      h6 {
+        font-weight: bold;
+      }
+      
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .scoreAll {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+
+    p {
+      font-size: 19px;
+    }
+  }
+}

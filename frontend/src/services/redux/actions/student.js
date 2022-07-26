@@ -39,7 +39,7 @@ export const likeClassnews = (id_classnews) => async (dispatch) => {
 
     toast.success('Đã like 💘', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -58,7 +58,7 @@ export const unlikeClassnews = (id_classnews) => async (dispatch) => {
     await api.put(`/student/unlike_classnews/${id_classnews}`)
     toast.warn('Đã unlike 💔', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -85,7 +85,7 @@ export const addCommentClassnews =
       })
       toast.success('Bạn đã gửi comment', {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -111,7 +111,7 @@ export const deleteCommentClassnews =
       })
       toast.success('Xoá comment thành công', {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

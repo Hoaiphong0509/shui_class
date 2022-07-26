@@ -27,7 +27,7 @@ export const deleteNotify = (idNoty) => async (dispatch) => {
     })
     toast.success('Xoá thông báo thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

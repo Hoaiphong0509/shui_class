@@ -39,7 +39,7 @@ export const likeParentnews = (id_parentnews) => async (dispatch) => {
 
     toast.success('Đã like 💘', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -59,7 +59,7 @@ export const unlikeParentnews = (id_parentnews) => async (dispatch) => {
 
     toast.warn('Đã unlike 💔', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -86,7 +86,7 @@ export const addCommentParentnews =
       })
       toast.success('Bạn đã gửi comment', {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -112,7 +112,7 @@ export const deleteCommentParentnews =
       })
       toast.success('Xoá comment thành công', {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

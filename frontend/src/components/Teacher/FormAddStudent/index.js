@@ -52,8 +52,6 @@ const FormAddStudent = ({
     history.push('/')
   }
 
-  console.log("note", noteData);
-
   return (
     <form className={s.root} onSubmit={handleSubmit(onSubmit)}>
       <div className={s.title}>
@@ -66,13 +64,19 @@ const FormAddStudent = ({
         <select
           {...register('username')}
           onChange={(e) => {
-            console.log("event", e.target?.attributes['data_note']);
-            setNoteData(e.target?.attributes['data_note'])
+            var index = e.target.selectedIndex
+            const optionElement = e.target.childNodes[index]
+            const option = optionElement.getAttribute('data_note')
+            setNoteData(option)
           }}
         >
           {studentsAvailable &&
             studentsAvailable.map((s, idx) => (
-              <option key={idx} value={s.username} data_note={s.note}>
+              <option
+                key={idx}
+                value={s.username}
+                data_note={s.note ? s.note : ''}
+              >
                 {s.fullName} -{' '}
                 {s.birthday && moment(s.birthday).format('DD-MM-YYYY')}
               </option>

@@ -471,18 +471,20 @@ router.put(
         return res
           .status(400)
           .json({ msg: 'Bạn không phải là giáo viên chủ nhiệm của lớp này.' })
+      await User.findByIdAndUpdate(req.params.id_student, {
+        $set: { roles: [role.Guest] }
+      })
+
+      const tempStu = classroom.students.filter(
+        (stu) => stu.user.toString() !== req.params.id_student
+      )
 
       await Classroom.findByIdAndUpdate(req.params.id_classroom, {
         $set: {
-          students: classroom.students.filter(
-            (s) => s.user.toString() !== req.params.id_student
-          )
+          students: tempStu
         }
       })
 
-      await User.findByIdAndUpdate(s.user.toString(), {
-        $set: { roles: [role.Guest] }
-      })
       const result = await Classroom.findById(req.params.id_classroom)
       res.json(result)
     } catch (err) {

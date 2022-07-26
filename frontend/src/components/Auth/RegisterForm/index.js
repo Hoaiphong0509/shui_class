@@ -35,6 +35,7 @@ const RegisterForm = ({ registerAccount }) => {
 
   const onSubmit = (data) => {
     registerAccount(data)
+    history.replace('/login')
   }
 
   return (
@@ -75,11 +76,7 @@ const RegisterForm = ({ registerAccount }) => {
         </div>
         <div className={s.panel}>
           <label htmlFor="birthday">Ngày sinh</label>
-          <input
-            name="birthday"
-            type="date"
-            {...register('birthday')}
-          />
+          <input name="birthday" type="date" {...register('birthday')} />
           <p className={s.textError}>{errors.birthday?.message}</p>
         </div>
         <div className={s.panel}>

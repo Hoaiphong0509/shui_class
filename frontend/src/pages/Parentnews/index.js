@@ -17,7 +17,7 @@ const Parentnews = ({
   getParentnews,
   getCurrentProfile
 }) => {
-  console.log("user",user);
+
   useEffect(() => {
     if (user && user?.roles.includes(ROLES.TEACHER)) getParentnews()
     else getMyParentnews()

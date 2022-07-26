@@ -26,7 +26,6 @@ const Header = ({
     history.replace('/login')
     logout()
   }
-
   const adminLink = (
     <>
       <Link
@@ -204,19 +203,25 @@ const Header = ({
               <Dropdown.Divider />
               <Dropdown.Item
                 as="button"
-                onClick={() => history.push(`/sheet_score_1/${myprofile.user}`)}
+                onClick={() =>
+                  history.push(`/sheet_score_1/${user._id.toString()}`)
+                }
               >
                 Bảng điểm HKI
               </Dropdown.Item>
               <Dropdown.Item
                 as="button"
-                onClick={() => history.push(`/sheet_score_2/${myprofile.user}`)}
+                onClick={() =>
+                  history.push(`/sheet_score_2/${user._id.toString()}`)
+                }
               >
                 Bảng điểm HKII
               </Dropdown.Item>
               <Dropdown.Item
                 as="button"
-                onClick={() => history.push(`/sheet_all/${myprofile.user}`)}
+                onClick={() =>
+                  history.push(`/sheet_all/${user._id.toString()}`)
+                }
               >
                 Học tập cả năm
               </Dropdown.Item>
@@ -224,7 +229,7 @@ const Header = ({
               <Dropdown.Item
                 as="button"
                 onClick={() =>
-                  history.push(`/competition_all/${myprofile.user}`)
+                  history.push(`/competition_all/${user._id.toString()}`)
                 }
               >
                 Thi đua

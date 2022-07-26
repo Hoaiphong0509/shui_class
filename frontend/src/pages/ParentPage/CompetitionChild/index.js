@@ -1,5 +1,5 @@
 import LoaderComponent from 'components/core/LoaderComponent'
-import Competition from 'components/DetailsIn4StudentComponent/Competition'
+import CompetitionComponent from 'components/DetailsIn4StudentComponent/CompetitionComponent'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
@@ -11,9 +11,8 @@ import {
 import s from './styles.module.scss'
 
 const CompetitionChild = ({
-  user: { user, loading: ldu },
   profile: { myprofile, profile, loading: ldp },
-  competition: { competition, loading: ldc },
+  competition: { competitions, loading: ldc },
   getCompetitionByStudent,
   getProfileByUserId,
   getCurrentProfile,
@@ -32,11 +31,8 @@ const CompetitionChild = ({
   if (
     ldc ||
     ldp ||
-    ldu ||
-    competition === null ||
-    competition === undefined ||
-    user === null ||
-    user === undefined ||
+    competitions === null ||
+    competitions === undefined ||
     profile === null ||
     profile === undefined ||
     myprofile === null ||
@@ -51,10 +47,7 @@ const CompetitionChild = ({
           <h2>Điểm thi đua học tập - {profile.fullName}</h2>
         </div>
         <div className={s.weeks}>
-          <Competition
-            competition={competition}
-            studentId={profile.user.toString()}
-          />
+          <CompetitionComponent competitions={competitions} />
         </div>
       </div>
     </div>
@@ -63,14 +56,12 @@ const CompetitionChild = ({
 
 CompetitionChild.prototype = {
   competition: PropTypes.object,
-  user: PropTypes.object,
   getCompetitionByStudent: PropTypes.func,
   getProfileByUserId: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
   competition: state.competition,
-  user: state.user,
   profile: state.profile
 })
 

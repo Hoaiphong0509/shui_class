@@ -24,7 +24,7 @@ const ParentComponent = ({
     return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nào</h1>
 
   const { name, parents } = classroom
-  console.log('classroom', classroom)
+
   if (parents === null || parents === undefined)
     return <h1>Bạn chưa là giáo viên chủ nhiệm của lớp nào</h1>
 

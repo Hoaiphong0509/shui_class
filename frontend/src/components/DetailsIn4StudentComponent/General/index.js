@@ -21,8 +21,8 @@ const General = ({ user, profile, classroom }) => {
           src={avatar.length > 0 ? avatar : '/assets/img/avatar.png'}
           alt="avatar"
         />
-        <h3>{fullName}</h3>
-        <h3>{moment(birthday).format('DD-MM-YYYY')}</h3>
+        <h5>{fullName}</h5>
+        <h5>{moment(birthday).format('DD-MM-YYYY')}</h5>
       </div>
       <div className={s.general}>
         <div className={s.panel}>
@@ -43,7 +43,7 @@ const General = ({ user, profile, classroom }) => {
           <div>
             <h4>Chức vụ</h4>
             <p>
-              {user?.roles.includes(ROLES.TEACHER)
+              {user && user?.roles.includes(ROLES.TEACHER)
                 ? 'Giáo viên chủ nhiệm'
                 : staffClass[0]?.staffDisplay}
             </p>

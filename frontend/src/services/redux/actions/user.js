@@ -29,28 +29,26 @@ export const logout = () => async (dispatch) => {
 
 export const registerAccount = (formData) => async (dispatch) => {
   try {
-    const res = await api.post('/users/register', formData)
-    dispatch({
-      type: USERS.REGISTER,
-      payload: res.data
-    })
-    toast.success('Đăng ký tài khoản thành công', {
-      position: 'top-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined
-    })
-    dispatch(loadUser())
+    await api.post('/users/register', formData)
+    toast.success(
+      'Đăng ký tài khoản thành công. Bạn vui lòng đợi quản trị viên thêm quyền truy cập vào hệ thống',
+      {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      }
+    )
   } catch (err) {
     dispatch({
       type: USERS.ERRORS
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -72,7 +70,7 @@ export const login = (formData) => async (dispatch) => {
     dispatch(loadUser())
     toast.success('Đăng nhập tài khoản thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -85,7 +83,7 @@ export const login = (formData) => async (dispatch) => {
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

@@ -18,7 +18,7 @@ const Home = ({
   useEffect(() => {
     getCurrentProfile()
   }, [getCurrentProfile])
-  console.log('myprofile', myprofile)
+ 
   const renderHome = () => {
     switch (normalizeRole(user)) {
       case 'admin':

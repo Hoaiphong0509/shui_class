@@ -33,8 +33,13 @@ router.get('/users', authorize(role.Admin), async (req, res) => {
 router.get('/teacher', authorize(role.Admin), async (req, res) => {
   try {
     const users = await User.find({ roles: [role.Teacher] })
+
+    const tempUs = users.filter(
+      (us) => us._id.toString() !== req.user.id.toString()
+    )
+
     const profiles = await Profile.find()
-    let result = users.map((item, i) =>
+    let result = tempUs.map((item, i) =>
       Object.assign({}, item._doc, profiles[i])
     )
 

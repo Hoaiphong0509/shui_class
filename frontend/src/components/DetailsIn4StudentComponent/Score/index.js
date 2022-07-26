@@ -6,8 +6,8 @@ import s from './styles.module.scss'
 const Score = ({ score, studentId }) => {
   const history = useHistory()
 
-  const tempScoreObj1 = score?.filter((s) => s.hk === 1)
-  const tempScoreObj2 = score?.filter((s) => s.hk === 2)
+  const tempScoreObj1 = score?.filter((s) => s?.hk === 1)
+  const tempScoreObj2 = score?.filter((s) => s?.hk === 2)
 
   const totalAll = (tempScoreObj1[0]?.avgAll + 2 * tempScoreObj2[0]?.avgAll) / 3
   return (

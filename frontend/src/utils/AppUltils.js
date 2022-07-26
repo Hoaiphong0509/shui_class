@@ -149,3 +149,38 @@ export const normalizeRole = (user) => {
   if (user.roles.includes(ROLES.STUDENT)) return 'student'
   if (user.roles.includes(ROLES.PARENT)) return 'parent'
 }
+
+export const getCompetitionByWeek = (hk, arr) =>
+  arr?.filter((s) => +s.hk === +hk)
+
+export const totalByRangeWeek = (from = 1, to = 1, arr) => {
+  const indexFrom = arr.findIndex((x) => +x.hk === +from)
+  const indexTo = arr.findIndex((x) => +x.hk === +to)
+
+  const tempCom = arr?.splice(indexFrom, Math.abs(indexTo - indexFrom) + 1)
+
+  const totalbyweek =
+    tempCom.reduce((prev, curr) => {
+      let prevPoint = isNaN(prev.avgAll) ? 0 : prev.avgAll
+      let currPoint = isNaN(curr.avgAll) ? 0 : curr.avgAll
+      return prevPoint + currPoint
+    }, 0) / Math.abs(indexTo - indexFrom)
+  return +totalbyweek
+}
+
+export const totalAllCompetition = (arr) => {
+  let total = 0
+  arr.forEach((x) => {
+    total += +x.avgAll
+  })
+
+  return total / 35
+}
+export const totalCompetitionByWeek = (arr) => {
+  let total = 0
+  arr.forEach((x) => {
+    total += +x.avgAll
+  })
+
+  return total / arr.length
+}

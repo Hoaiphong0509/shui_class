@@ -39,27 +39,12 @@ const CreateStudent = ({
   )
     return <LoaderComponent />
 
-  let duplicates = []
-  let unique = []
-  for (let s of students) {
-    if (classroom.students.some((cs) => cs.studentId === s.user)) {
-      duplicates.push(s)
-    } else {
-      unique.push(s)
-    }
-  }
-  for (let cs of classroom.students) {
-    if (!duplicates.some((dup) => dup.user === cs.studentId)) {
-      unique.push(cs)
-    }
-  }
-
   return (
     <div className={s.root}>
       <div className={s.form}>
         <FormAddStudent
           idClassroom={classroom._id.toString()}
-          studentsAvailable={unique}
+          studentsAvailable={students}
           staffs={staffs}
         />
       </div>

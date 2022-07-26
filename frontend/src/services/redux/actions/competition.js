@@ -6,14 +6,19 @@ import { toast } from 'react-toastify'
 export const getCompetitionByStudent = (idStudent) => async (dispatch) => {
   try {
     const res = await api.get(`/competition/${idStudent}`)
-
     dispatch({
-      type: COMPETITION.GET_COMPETITION,
+      type: COMPETITION.GET_COMPETITIONS,
       payload: res.data
     })
   } catch (err) {
-    dispatch({
-      type: COMPETITION.ERRORS
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
     })
   }
 }
@@ -22,13 +27,11 @@ export const addCompetition = (idStudent, formData) => async (dispatch) => {
   try {
     await api.post(`/competition/${idStudent}`, formData)
 
-    dispatch({
-      type: COMPETITION.ADD_COMPETITION
-    })
+    dispatch(getCompetitionByStudent(idStudent))
 
     toast.success('Thêm điểm thi đua thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -36,13 +39,9 @@ export const addCompetition = (idStudent, formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: COMPETITION.ERRORS
-    })
-
     toast.error('Thêm điểm thi đua thất bại, vui lòng thử lại sau!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -56,13 +55,10 @@ export const updateCompetition = (idStudent, formData) => async (dispatch) => {
   try {
     await api.put(`/competition/${idStudent}`, formData)
 
-    dispatch({
-      type: COMPETITION.UPDATE_COMPETITION
-    })
-
+    dispatch(getCompetitionByStudent(idStudent))
     toast.success('Cập nhật điểm thi đua thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -70,13 +66,9 @@ export const updateCompetition = (idStudent, formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: COMPETITION.ERRORS
-    })
-
     toast.error('Cập nhật điểm thi đua thất bại, vui lòng thử lại sau!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -84,10 +76,4 @@ export const updateCompetition = (idStudent, formData) => async (dispatch) => {
       progress: undefined
     })
   }
-}
-
-export const cleanScore = () => async (dispatch) => {
-  dispatch({
-    type: COMPETITION.CLEAN
-  })
 }

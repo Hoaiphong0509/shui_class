@@ -11,9 +11,16 @@ export const getCurrentProfile = () => async (dispatch) => {
       type: PROFILE.GET_MYPROFILE,
       payload: res.data
     })
+    return
   } catch (err) {
-    dispatch({
-      type: PROFILE.ERRORS
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
     })
   }
 }
@@ -21,14 +28,21 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const getProfileByUserId = (userId) => async (dispatch) => {
   try {
     const res = await api.get(`/profile/${userId}`)
-
     dispatch({
       type: PROFILE.GET_PROFILE,
       payload: res.data
     })
+    return
+    
   } catch (err) {
-    dispatch({
-      type: PROFILE.ERRORS
+    toast.error('Something wrong', {
+      position: 'top-right',
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
     })
   }
 }
@@ -43,7 +57,7 @@ export const updateMyProfile = (formData) => async (dispatch) => {
 
     toast.success('Cập nhật hồ sơ thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -51,12 +65,9 @@ export const updateMyProfile = (formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: PROFILE.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -76,7 +87,7 @@ export const changeAvatar = (formData) => async (dispatch) => {
 
     toast.success('Thay đổi ảnh đại diên thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -84,12 +95,9 @@ export const changeAvatar = (formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: PROFILE.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import s from './styles.module.scss'
 
 import LoaderComponent from 'components/core/LoaderComponent'
-import Competition from 'components/DetailsIn4StudentComponent/Competition'
+// import Competition from 'components/DetailsIn4StudentComponent/CompetitionComponent'
 import General from 'components/DetailsIn4StudentComponent/General'
 import Score from 'components/DetailsIn4StudentComponent/Score'
 import PropTypes from 'prop-types'
@@ -14,12 +14,13 @@ import { getClassroomUserId } from 'services/redux/actions/classroom'
 import { getCompetitionByStudent } from 'services/redux/actions/competition'
 import { getProfileByUserId } from 'services/redux/actions/profile'
 import { getScoreByStudent } from 'services/redux/actions/score'
+import CompetitionComponent from 'components/DetailsIn4StudentComponent/CompetitionComponent'
 
 const DetailIn4Student = ({
-  profile: { profile, loading: ldp },
   user: { user, loading: ldu },
+  profile: { profile, loading: ldp },
   classroom: { classroom, loading: ldcl },
-  competition: { competition, loading: ldc },
+  competition: { competitions, loading: ldc },
   score: { score, loading: lds },
   getProfileByUserId,
   getClassroomUserId,
@@ -27,6 +28,7 @@ const DetailIn4Student = ({
   getCompetitionByStudent,
   match
 }) => {
+  const [activeTab, setActiveTab] = useState('tab1')
   useEffect(() => {
     getProfileByUserId(match.params.id_student)
   }, [getProfileByUserId, match])
@@ -40,19 +42,19 @@ const DetailIn4Student = ({
     getCompetitionByStudent(match.params.id_student)
   }, [getCompetitionByStudent, match])
 
-  const [activeTab, setActiveTab] = useState('tab1')
-
   if (
     ldc ||
     lds ||
     ldp ||
-    ldu ||
     ldcl ||
-    user === null ||
     profile === null ||
+    profile === undefined ||
     classroom === null ||
+    classroom === undefined ||
+    competitions === null ||
+    competitions === undefined ||
     score === null ||
-    competition === null
+    score === undefined
   )
     return <LoaderComponent />
 
@@ -81,13 +83,19 @@ const DetailIn4Student = ({
         </ul>
         <div className={s.tabsContent}>
           <TabContent id="tab1" activeTab={activeTab}>
-            <General profile={profile} classroom={classroom} user={user} />
+            {profile && classroom && user && (
+              <General profile={profile} classroom={classroom} user={user} />
+            )}
           </TabContent>
           <TabContent id="tab2" activeTab={activeTab}>
-            <Score score={score} studentId={profile.user} />
+            {score && profile && (
+              <Score score={score} studentId={profile.user} />
+            )}
           </TabContent>
           <TabContent id="tab3" activeTab={activeTab}>
-            <Competition competition={competition} studentId={profile.user} />
+            {competitions && profile && (
+              <CompetitionComponent competitions={competitions} />
+            )}
           </TabContent>
         </div>
       </div>
@@ -109,7 +117,7 @@ DetailIn4Student.prototype = {
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
-  user: state.profile,
+  user: state.user,
   classroom: state.classroom,
   score: state.score,
   competition: state.competition

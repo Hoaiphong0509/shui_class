@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { getCompetitionByStudent } from 'services/redux/actions/competition'
 import {
   getCurrentProfile,
   getProfileByUserId
@@ -14,16 +13,11 @@ import { useHistory } from 'react-router-dom'
 const CompetitionList = ({
   user: { user, loading: ldu },
   profile: { myprofile, profile, loading: ldp },
-  competition: { competition, loading: ldc },
-  getCompetitionByStudent,
   getProfileByUserId,
   getCurrentProfile,
   match
 }) => {
   const history = useHistory()
-  useEffect(() => {
-    getCompetitionByStudent(match.params.id_student)
-  }, [getCompetitionByStudent, match])
   useEffect(() => {
     getProfileByUserId(match.params.id_student)
   }, [getProfileByUserId, match])
@@ -32,11 +26,8 @@ const CompetitionList = ({
   }, [getCurrentProfile])
 
   if (
-    ldc ||
     ldp ||
     ldu ||
-    competition === null ||
-    competition === undefined ||
     user === null ||
     user === undefined ||
     profile === null ||
@@ -78,18 +69,15 @@ const CompetitionList = ({
 CompetitionList.prototype = {
   competition: PropTypes.object,
   user: PropTypes.object,
-  getCompetitionByStudent: PropTypes.func,
   getProfileByUserId: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
-  competition: state.competition,
   user: state.user,
   profile: state.profile
 })
 
 export default connect(mapStateToProps, {
-  getCompetitionByStudent,
   getCurrentProfile,
   getProfileByUserId
 })(CompetitionList)

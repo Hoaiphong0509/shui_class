@@ -100,10 +100,10 @@ export const getAllParentnews = () => async (dispatch) => {
 export const addTeacher = (formData) => async (dispatch) => {
   try {
     await api.put('/admin/add_teacher', formData)
-    dispatch(getAllTeachers())
+    dispatch(getAllUsers())
     toast.success('Thêm giáo viên thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -113,7 +113,7 @@ export const addTeacher = (formData) => async (dispatch) => {
   } catch (err) {
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -129,7 +129,7 @@ export const addParent = (formData) => async (dispatch) => {
     dispatch(getAllParents())
     toast.success('Thêm phụ huynh thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -139,7 +139,7 @@ export const addParent = (formData) => async (dispatch) => {
   } catch (err) {
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -158,7 +158,7 @@ export const addClassroom = (formData) => async (dispatch) => {
     })
     toast.success('Thêm lớp học thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -169,7 +169,7 @@ export const addClassroom = (formData) => async (dispatch) => {
     console.log('err', err)
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -186,7 +186,7 @@ export const addTeacherIntoClass =
       dispatch(getAllClassrooms())
       toast.success('Thêm lớp GVCN thành công', {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -197,7 +197,7 @@ export const addTeacherIntoClass =
       console.log('err', err)
       toast.error(err.response.data.msg, {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -213,7 +213,7 @@ export const removeTeacherOutoClass = (idClassroom) => async (dispatch) => {
     dispatch(getAllClassrooms())
     toast.success('Xoá GVCN thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -224,7 +224,7 @@ export const removeTeacherOutoClass = (idClassroom) => async (dispatch) => {
     console.log('err', err)
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -258,7 +258,7 @@ export const addStaff = (formData) => async (dispatch) => {
     })
     toast.success('Thêm chức vụ ban cán sự thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -269,7 +269,7 @@ export const addStaff = (formData) => async (dispatch) => {
     console.log('err', err)
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -289,7 +289,7 @@ export const editStaff = (idStaff, formData) => async (dispatch) => {
     dispatch(getStaffs())
     toast.success('Chỉnh sửa chức vụ ban cán sự thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -300,7 +300,7 @@ export const editStaff = (idStaff, formData) => async (dispatch) => {
     console.log('err', err)
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -319,7 +319,7 @@ export const deleteStaff = (idStaff) => async (dispatch) => {
     })
     toast.success('Xoá chức vụ ban cán sự thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -330,7 +330,7 @@ export const deleteStaff = (idStaff) => async (dispatch) => {
     console.log('err', err)
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

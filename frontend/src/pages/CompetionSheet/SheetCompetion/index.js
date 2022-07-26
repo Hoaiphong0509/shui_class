@@ -16,7 +16,7 @@ import s from './styles.module.scss'
 const SheetCompetion = ({
   user: { user, loading: ldu },
   profile: { myprofile, profile, loading: ldp },
-  competition: { competition, loading: ldc },
+  competition: { competitions, loading: ldc },
   getCompetitionByStudent,
   getProfileByUserId,
   getCurrentProfile,
@@ -37,8 +37,8 @@ const SheetCompetion = ({
     ldc ||
     ldp ||
     ldu ||
-    competition === null ||
-    competition === undefined ||
+    competitions === null ||
+    competitions === undefined ||
     user === null ||
     user === undefined ||
     profile === null ||
@@ -47,19 +47,20 @@ const SheetCompetion = ({
     myprofile === undefined
   )
     return <LoaderComponent />
-  const tempCompetitionObj = competition?.filter(
-    (s) => s.hk === +match.params.no_week
+    
+  const tempCompetitionObj = competitions?.filter(
+    (s) => +s.hk === +match.params.no_week
   )
 
   return (
     <div className={s.root}>
-      {competition === null ||
-      competition === undefined ||
+      {competitions === null ||
+      competitions === undefined ||
       tempCompetitionObj === null ||
       tempCompetitionObj === undefined ||
       tempCompetitionObj.length === 0 ? (
         <>
-          <h1>Chưa có điểm thi đua tuần {match.params.no_week}</h1>
+          <h1>Chưa có điểm thi đua tuần {+match.params.no_week}</h1>
           <div>
             <Button
               style={{ marginRight: '5px' }}
@@ -74,7 +75,7 @@ const SheetCompetion = ({
                 variant="primary"
                 onClick={() => {
                   history.push(
-                    `/add_competition_by_week/${match.params.id_student}/${match.params.no_week}`
+                    `/add_competition_by_week/${match.params.id_student}/${+match.params.no_week}`
                   )
                 }}
               >
@@ -88,7 +89,7 @@ const SheetCompetion = ({
           <div className={s.in4}>
             <h1>
               Điểm thi đua {match.params.no_week} -{' '}
-              {competition[0]?.studentName}
+              {competitions[0]?.studentName}
             </h1>
           </div>
           <div className={s.table}>

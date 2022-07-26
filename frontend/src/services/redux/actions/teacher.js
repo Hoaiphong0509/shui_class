@@ -55,15 +55,12 @@ export const getParentsIn4ById = (idParent) => async (dispatch) => {
 
 export const addStudent = (idClassroom, formData) => async (dispatch) => {
   try {
-    const res = await api.put(`/teacher/add_student/${idClassroom}`, formData)
+    await api.put(`/teacher/add_student/${idClassroom}`, formData)
 
-    dispatch({
-      type: CLASSROOM.UPDATE_CLASSROOM,
-      payload: res.data
-    })
+    dispatch(getStudentsMyClassroom())
     toast.success('Thêm học sinh vào lớp học thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -76,7 +73,7 @@ export const addStudent = (idClassroom, formData) => async (dispatch) => {
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -92,7 +89,7 @@ export const updateStudent = (idStudent, formData) => async (dispatch) => {
 
     toast.success('Cập nhật học sinh thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -105,7 +102,7 @@ export const updateStudent = (idStudent, formData) => async (dispatch) => {
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -118,16 +115,13 @@ export const updateStudent = (idStudent, formData) => async (dispatch) => {
 export const moveStudentToTrash =
   (idClassroom, idStudent) => async (dispatch) => {
     try {
-      const res = await api.put(
+      await api.put(
         `/teacher/move_student_to_trash/${idClassroom}/${idStudent}`
       )
-      dispatch({
-        type: CLASSROOM.UPDATE_CLASSROOM,
-        payload: res.data
-      })
+      dispatch(getStudentsMyClassroom())
       toast.success('Xoá học sinh vào thùng rác thành công!', {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -140,7 +134,7 @@ export const moveStudentToTrash =
       })
       toast.error(err.response.data.msg, {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -152,17 +146,12 @@ export const moveStudentToTrash =
 
 export const restoreStudent = (idClassroom, idStudent) => async (dispatch) => {
   try {
-    const res = await api.put(
-      `/teacher/restore_student/${idClassroom}/${idStudent}`
-    )
+    await api.put(`/teacher/restore_student/${idClassroom}/${idStudent}`)
 
-    dispatch({
-      type: CLASSROOM.UPDATE_CLASSROOM,
-      payload: res.data
-    })
+    dispatch(getStudentsMyClassroom())
     toast.success('Khôi phục học sinh thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -175,7 +164,7 @@ export const restoreStudent = (idClassroom, idStudent) => async (dispatch) => {
     })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -187,17 +176,11 @@ export const restoreStudent = (idClassroom, idStudent) => async (dispatch) => {
 
 export const deleteStudent = (idClassroom, idStudent) => async (dispatch) => {
   try {
-    const res = await api.put(
-      `/teacher/delete_student/${idClassroom}/${idStudent}`
-    )
-
-    dispatch({
-      type: CLASSROOM.UPDATE_CLASSROOM,
-      payload: res.data
-    })
+    await api.put(`/teacher/delete_student/${idClassroom}/${idStudent}`)
+    dispatch(getStudentsMyClassroom())
     toast.success('Xoá học sinh vĩnh viễn thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -205,12 +188,9 @@ export const deleteStudent = (idClassroom, idStudent) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: CLASSROOM.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -230,7 +210,7 @@ export const addParent = (idClassroom, formData) => async (dispatch) => {
     })
     toast.success('Thêm phụ huynh vào lớp học thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -238,12 +218,9 @@ export const addParent = (idClassroom, formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: CLASSROOM.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -265,7 +242,7 @@ export const moveParentToTrash =
       })
       toast.success('Xoá phụ huynh vào thùng rác thành công!', {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -273,12 +250,9 @@ export const moveParentToTrash =
         progress: undefined
       })
     } catch (err) {
-      dispatch({
-        type: CLASSROOM.ERRORS
-      })
       toast.error(err.response.data.msg, {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -300,7 +274,7 @@ export const restoreParent = (idClassroom, idParent) => async (dispatch) => {
     })
     toast.success('Khôi phục phụ huynh thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -308,12 +282,9 @@ export const restoreParent = (idClassroom, idParent) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: CLASSROOM.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -335,7 +306,7 @@ export const deleteParent = (idClassroom, idParent) => async (dispatch) => {
     })
     toast.success('Xoá phụ huynh vĩnh viễn thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -343,12 +314,9 @@ export const deleteParent = (idClassroom, idParent) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: CLASSROOM.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -367,8 +335,14 @@ export const getClassnewsById = (idClassnews) => async (dispatch) => {
       payload: res.data
     })
   } catch (err) {
-    dispatch({
-      type: CLASSNEWS.ERRORS
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
     })
   }
 }
@@ -382,8 +356,14 @@ export const getParentnews = () => async (dispatch) => {
       payload: res.data
     })
   } catch (err) {
-    dispatch({
-      type: PARENTNEWS.ERRORS
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
     })
   }
 }
@@ -408,7 +388,7 @@ export const addChildren = (formData, idParent) => async (dispatch) => {
     await api.put(`/teacher/add_children/${idParent}`, formData)
     toast.success('Thêm học sinh thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -422,15 +402,12 @@ export const addChildren = (formData, idParent) => async (dispatch) => {
   } catch (err) {
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined
-    })
-    dispatch({
-      type: PARENTIN4.ERRORS
     })
   }
 }
@@ -440,7 +417,7 @@ export const removeChildren = (idParent, idStudent) => async (dispatch) => {
     await api.put(`/teacher/remove_student/${idParent}/${idStudent}`)
     toast.success('Xoá học sinh thành công', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -454,15 +431,12 @@ export const removeChildren = (idParent, idStudent) => async (dispatch) => {
   } catch (err) {
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined
-    })
-    dispatch({
-      type: PARENTIN4.ERRORS
     })
   }
 }
@@ -477,7 +451,7 @@ export const addClassnews = (formData) => async (dispatch) => {
     })
     toast.success('Thêm bản tin lớp thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -485,12 +459,9 @@ export const addClassnews = (formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: CLASSNEWS.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -510,7 +481,7 @@ export const updateClassnews = (idnews, formData) => async (dispatch) => {
     })
     toast.success('Cập nhật bản tin lớp thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -518,12 +489,9 @@ export const updateClassnews = (idnews, formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: CLASSNEWS.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -542,7 +510,7 @@ export const addParentnews = (formData) => async (dispatch) => {
     })
     toast.success('Thêm bản tin phụ huynh thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -550,12 +518,9 @@ export const addParentnews = (formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: PARENTNEWS.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
 
       hideProgressBar: false,
       closeOnClick: true,
@@ -576,7 +541,7 @@ export const updateParentnews = (idnews, formData) => async (dispatch) => {
     })
     toast.success('Cập nhật bản tin lớp thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -584,12 +549,9 @@ export const updateParentnews = (idnews, formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: PARENTNEWS.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -609,7 +571,7 @@ export const deleteClassnews = (idClassnews) => async (dispatch) => {
     })
     toast.success('Xoá bản tin thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -617,12 +579,9 @@ export const deleteClassnews = (idClassnews) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: CLASSNEWS.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -642,7 +601,7 @@ export const deleteParentnews = (idParentnews) => async (dispatch) => {
     })
     toast.success('Xoá bản tin thành công!', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -650,12 +609,9 @@ export const deleteParentnews = (idParentnews) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    dispatch({
-      type: CLASSNEWS.ERRORS
-    })
     toast.error(err.response.data.msg, {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

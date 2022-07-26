@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Interweave } from 'interweave'
 import { Button } from 'react-bootstrap'
 import s from './styles.module.scss'
 import moment from 'moment'
@@ -8,6 +7,7 @@ import { connect } from 'react-redux'
 import { likeClassnews, unlikeClassnews } from 'services/redux/actions/student'
 import { likeParentnews, unlikeParentnews } from 'services/redux/actions/parent'
 import { useHistory } from 'react-router-dom'
+import { Interweave } from 'interweave'
 
 const NewsItem = ({
   user: { user: us },

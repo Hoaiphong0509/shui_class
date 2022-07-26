@@ -39,7 +39,8 @@ const UsersList = ({ users, allusers, me }) => {
     }
   }
 
-  const teacherAvaible = unique.filter((u) => u.roles.includes(ROLES.GUEST))
+  const teacherAvaible = allusers.filter((u) => u.roles.includes(ROLES.GUEST))
+
   return (
     <div className={s.root}>
       <div className={s.searchInput}>
@@ -54,12 +55,14 @@ const UsersList = ({ users, allusers, me }) => {
         <Button onClick={() => setShow(!show)}>Thêm giáo viên</Button>
       </div>
       <div>{userData && <TableUsers userData={userData} />}</div>
-      <ModalAddTeacher
-        show={show}
-        setShow={setShow}
-        teacherAvaible={teacherAvaible}
-        me={me}
-      />
+      {teacherAvaible && (
+        <ModalAddTeacher
+          show={show}
+          setShow={setShow}
+          teacherAvaible={teacherAvaible}
+          me={me}
+        />
+      )}
     </div>
   )
 }

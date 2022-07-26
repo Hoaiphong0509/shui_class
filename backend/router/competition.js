@@ -28,8 +28,9 @@ router.get(
   authorize(),
   async (req, res) => {
     try {
-      const competion = await Competition.find({ user: req.params.id_student })
-
+      const competion = await Competition.find({
+        user: req.params.id_student
+      })
       res.json(competion)
     } catch (err) {
       console.error(err.message)
