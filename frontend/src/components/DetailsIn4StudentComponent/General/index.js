@@ -2,6 +2,8 @@ import moment from 'moment'
 import React from 'react'
 import s from './styles.module.scss'
 import { ROLES } from 'constants/AppConstants'
+import { Button } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom'
 
 const General = ({ user, profile, classroom }) => {
   const {
@@ -14,8 +16,7 @@ const General = ({ user, profile, classroom }) => {
     parentName,
     parentEmail
   } = profile
-
-  console.log('staffClass', staffClass)
+  const history = useHistory()
   return (
     <div className={s.root}>
       <div className={s.in4}>
@@ -64,6 +65,22 @@ const General = ({ user, profile, classroom }) => {
             <h4>Email phụ huynh</h4>
             <p>{parentEmail}</p>
           </div>
+        </div>
+        <div className={s.panel}>
+          <Button
+            onClick={() =>
+              history.push(`/sheet_all/${profile.user.toString()}`)
+            }
+          >
+            Kết quả học tập
+          </Button>
+          <Button
+            onClick={() =>
+              history.push(`/competition_all/${profile.user.toString()}`)
+            }
+          >
+            Kết quả thi đua
+          </Button>
         </div>
       </div>
     </div>

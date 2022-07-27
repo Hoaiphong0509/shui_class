@@ -2,10 +2,12 @@ import LoaderComponent from 'components/core/LoaderComponent'
 import Score from 'components/DetailsIn4StudentComponent/Score'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
+import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { getProfileByUserId } from 'services/redux/actions/profile'
 import { getScoreByStudent } from 'services/redux/actions/score'
 import s from './styles.module.scss'
+import { useHistory } from 'react-router-dom'
 
 const ScoreAll = ({
   user: { user, loading: ldu },
@@ -15,6 +17,7 @@ const ScoreAll = ({
   getScoreByStudent,
   match
 }) => {
+  const history = useHistory()
   useEffect(() => {
     getProfileByUserId(match.params.id_student)
   }, [getProfileByUserId, match])
@@ -28,7 +31,28 @@ const ScoreAll = ({
   return (
     <div className={s.root}>
       <div className={s.scorePanel}>
-        <Score score={score} studentId={profile.user} />
+        {score && score.length > 0 ? (
+          <>
+            <Score score={score} studentId={profile.user} />
+            <div className={s.btn}>
+              <Button variant="secondary" onClick={() => history.goBack()}>
+                Quay lại
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2>Chưa có điểm học tập</h2>
+            <div
+              className={s.btn}
+              style={{ display: 'flex', justifyContent: 'flex-start' }}
+            >
+              <Button variant="secondary" onClick={() => history.goBack()}>
+                Quay lại
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
