@@ -39,7 +39,9 @@ const ChildrenComponent = ({
     }
   }
 
-  const childrenAvaible = unique.filter((u) => u?.roles?.includes(ROLES.STUDENT))
+  const childrenAvaible = unique.filter((u) =>
+    u?.roles?.includes(ROLES.STUDENT)
+  )
 
   return (
     <>
@@ -47,9 +49,14 @@ const ChildrenComponent = ({
         <div className={s.content}>
           <div className={s.header}>
             {user && user?.roles?.includes(ROLES.TEACHER) ? (
-              <Button onClick={() => setShow(!show)}>Thêm học sinh</Button>
+              <Button onClick={() => setShow(!show)}>
+                Thêm học sinh cho phụ huynh
+              </Button>
             ) : null}
           </div>
+          <h3 style={{ marginTop: '20px' }}>
+            Danh sách học sinh của phụ huynh
+          </h3>
           <div className={s.childrenList}>
             {children.map((c, idx) => (
               <div key={idx} className={s.itemChild}>

@@ -36,7 +36,7 @@ const ParentComponent = ({
         <h1 className={s.title}>Phụ huynh Lớp {name.toUpperCase()}</h1>
         <div className={s.buttonArea}>
           <Button onClick={() => history.push('/createParent')} variant="info">
-            Thêm mới
+            Thêm mới phụ huynh
           </Button>
           <Button
             onClick={() => history.push('/trashParent')}
