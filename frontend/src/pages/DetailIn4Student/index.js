@@ -4,7 +4,6 @@ import { useState } from 'react'
 import s from './styles.module.scss'
 
 import LoaderComponent from 'components/core/LoaderComponent'
-// import Competition from 'components/DetailsIn4StudentComponent/CompetitionComponent'
 import General from 'components/DetailsIn4StudentComponent/General'
 import Score from 'components/DetailsIn4StudentComponent/Score'
 import PropTypes from 'prop-types'

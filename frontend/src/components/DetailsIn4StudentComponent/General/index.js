@@ -14,6 +14,8 @@ const General = ({ user, profile, classroom }) => {
     parentName,
     parentEmail
   } = profile
+
+  console.log('staffClass', staffClass)
   return (
     <div className={s.root}>
       <div className={s.in4}>
@@ -43,9 +45,13 @@ const General = ({ user, profile, classroom }) => {
           <div>
             <h4>Chức vụ</h4>
             <p>
-              {user && user?.roles.includes(ROLES.TEACHER)
+              {staffClass[0]
+                ? staffClass[0].staffDisplay
+                : user?.roles.includes(ROLES.TEACHER)
                 ? 'Giáo viên chủ nhiệm'
-                : staffClass[0]?.staffDisplay}
+                : user?.roles.includes(ROLES.PARENT)
+                ? ' Phụ huynh'
+                : null}
             </p>
           </div>
         </div>

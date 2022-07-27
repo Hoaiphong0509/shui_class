@@ -8,9 +8,11 @@ import { useHistory } from 'react-router-dom'
 import { getProfileByUserId } from 'services/redux/actions/profile'
 import { getCompetitionByStudent } from 'services/redux/actions/competition'
 import s from './styles.module.scss'
+import { ROLES } from 'constants/AppConstants'
 
 const UpdateCompetionSheet = ({
-  profile: { profile, loading: ldp },
+  user: { user, loading: ldu },
+  profile: { myprofile, profile, loading: ldp },
   competition: { competition, loading: ldSc },
   getProfileByUserId,
   getCompetitionByStudent,
@@ -27,9 +29,14 @@ const UpdateCompetionSheet = ({
 
   if (
     ldp ||
+    ldu ||
     ldSc ||
+    user === null ||
+    user === undefined ||
     profile === null ||
     profile === undefined ||
+    myprofile === null ||
+    myprofile === undefined ||
     competition === null ||
     competition === undefined
   )
@@ -56,14 +63,17 @@ const UpdateCompetionSheet = ({
             >
               Quay lại
             </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                history.push(`/add_competition_1/${match.params.id_student}`)
-              }}
-            >
-              Thêm điểm thi đua tuần {match.params.no_week}
-            </Button>
+            {user?.roles.includes(ROLES.TEACHER) ||
+            myprofile.staffClass.some((s) => s.staffCode === 1) ? (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  history.push(`/add_competition_1/${match.params.id_student}`)
+                }}
+              >
+                Thêm điểm thi đua tuần {match.params.no_week}
+              </Button>
+            ) : null}
           </div>
         </>
       ) : (

@@ -47,7 +47,7 @@ const SheetCompetion = ({
     myprofile === undefined
   )
     return <LoaderComponent />
-    
+
   const tempCompetitionObj = competitions?.filter(
     (s) => +s.hk === +match.params.no_week
   )
@@ -70,12 +70,14 @@ const SheetCompetion = ({
               Quay lại
             </Button>
             {user?.roles.includes(ROLES.TEACHER) ||
-            myprofile.staffClass.some((s) => s.staffCode !== 0) ? (
+            myprofile.staffClass.some((s) => s.staffCode === 1) ? (
               <Button
                 variant="primary"
                 onClick={() => {
                   history.push(
-                    `/add_competition_by_week/${match.params.id_student}/${+match.params.no_week}`
+                    `/add_competition_by_week/${
+                      match.params.id_student
+                    }/${+match.params.no_week}`
                   )
                 }}
               >
@@ -103,7 +105,7 @@ const SheetCompetion = ({
               Quay lại
             </Button>
             {(user && user.roles.includes(ROLES.TEACHER)) ||
-            myprofile.staffClass.some((s) => s.staffCode !== 0) ? (
+            myprofile.staffClass.some((s) => s.staffCode === 1) ? (
               <Button
                 variant="primary"
                 onClick={() =>
