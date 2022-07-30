@@ -144,19 +144,20 @@ const Header = ({
         />
         <DropdownButton
           className={s.menu}
-          variant="primary"
           title={myprofile?.fullName ? myprofile?.fullName : 'Menu'}
-          id="input-group-dropdown-2"
+          // id="input-group-dropdown-2"
           align="end"
         >
           <Dropdown.Item
             as="button"
+            className={s.btnItem}
             onClick={() => history.push('/my_profile')}
           >
             Thông tin tài khoản
           </Dropdown.Item>
           <Dropdown.Item
             as="button"
+            className={s.btnItem}
             onClick={() => history.push('/update_profile')}
           >
             Cập nhật tài khoản
@@ -166,6 +167,7 @@ const Header = ({
             <>
               <Dropdown.Item
                 as="button"
+                className={s.btnItem}
                 onClick={() => history.push('/notifies')}
               >
                 Thông báo
@@ -176,6 +178,7 @@ const Header = ({
             <>
               <Dropdown.Item
                 as="button"
+                className={s.btnItem}
                 onClick={() => history.push('/children')}
               >
                 Danh sách học sinh
@@ -186,12 +189,14 @@ const Header = ({
             <>
               <Dropdown.Item
                 as="button"
+                className={s.btnItem}
                 onClick={() => history.push('/add_classnews')}
               >
                 Thêm bản tin học sinh
               </Dropdown.Item>
               <Dropdown.Item
                 as="button"
+                className={s.btnItem}
                 onClick={() => history.push('/add_parentnews')}
               >
                 Thêm bản tin phụ huynh
@@ -203,6 +208,7 @@ const Header = ({
               <Dropdown.Divider />
               <Dropdown.Item
                 as="button"
+                className={s.btnItem}
                 onClick={() =>
                   history.push(`/sheet_score_1/${user._id.toString()}`)
                 }
@@ -211,6 +217,7 @@ const Header = ({
               </Dropdown.Item>
               <Dropdown.Item
                 as="button"
+                className={s.btnItem}
                 onClick={() =>
                   history.push(`/sheet_score_2/${user._id.toString()}`)
                 }
@@ -219,6 +226,7 @@ const Header = ({
               </Dropdown.Item>
               <Dropdown.Item
                 as="button"
+                className={s.btnItem}
                 onClick={() =>
                   history.push(`/sheet_all/${user._id.toString()}`)
                 }
@@ -228,6 +236,7 @@ const Header = ({
               <Dropdown.Divider />
               <Dropdown.Item
                 as="button"
+                className={s.btnItem}
                 onClick={() =>
                   history.push(`/competition_all/${user._id.toString()}`)
                 }
@@ -237,7 +246,11 @@ const Header = ({
             </>
           ) : null}
           <Dropdown.Divider />
-          <Dropdown.Item as="button" onClick={handleLogout}>
+          <Dropdown.Item
+            as="button"
+            className={s.btnItem}
+            onClick={handleLogout}
+          >
             Đăng xuất
           </Dropdown.Item>
         </DropdownButton>

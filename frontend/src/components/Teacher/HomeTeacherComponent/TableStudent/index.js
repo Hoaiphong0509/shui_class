@@ -40,15 +40,15 @@ const TableStudent = ({ idClassroom, students, moveStudentToTrash }) => {
         </tr>
       </thead>
       <tbody>
-        {students.map((s, idx) => (
+        {students.map((stud, idx) => (
           <tr key={idx}>
             <td>{idx + 1}</td>
-            <td>{s.fullName}</td>
+            <td>{stud.fullName}</td>
             <td>
               <Button
-                variant="outline-success"
+                className={s.btnSuccess}
                 onClick={() =>
-                  history.push(`/sheet_competition/${s.studentId}`)
+                  history.push(`/sheet_competition/${stud.studentId}`)
                 }
               >
                 Xem điểm thi đua
@@ -56,50 +56,54 @@ const TableStudent = ({ idClassroom, students, moveStudentToTrash }) => {
             </td>
             <td>
               <Button
-                variant="outline-success"
-                onClick={() => history.push(`/sheet_score_1/${s.studentId}`)}
+                className={s.btnSuccess}
+                onClick={() => history.push(`/sheet_score_1/${stud.studentId}`)}
               >
                 Xem điểm
               </Button>
               <Button
-                variant="outline-warning"
-                onClick={() => history.push(`/update_score_1/${s.studentId}`)}
-              >
-                Cập nhật
-              </Button>
-            </td>
-            <td>
-              <Button
-                variant="outline-success"
-                onClick={() => history.push(`/sheet_score_2/${s.studentId}`)}
-              >
-                Xem điểm
-              </Button>
-              <Button
-                variant="outline-warning"
-                onClick={() => history.push(`/update_score_2/${s.studentId}`)}
-              >
-                Cập nhật
-              </Button>
-            </td>
-            <td>
-              <Button
-                variant="outline-success"
+                className={s.btnInfo}
                 onClick={() =>
-                  history.push(`/detail_in4_student/${s.studentId}`)
+                  history.push(`/update_score_1/${stud.studentId}`)
+                }
+              >
+                Cập nhật
+              </Button>
+            </td>
+            <td>
+              <Button
+                className={s.btnSuccess}
+                onClick={() => history.push(`/sheet_score_2/${stud.studentId}`)}
+              >
+                Xem điểm
+              </Button>
+              <Button
+                className={s.btnInfo}
+                onClick={() =>
+                  history.push(`/update_score_2/${stud.studentId}`)
+                }
+              >
+                Cập nhật
+              </Button>
+            </td>
+            <td>
+              <Button
+                className={s.btnSuccess}
+                onClick={() =>
+                  history.push(`/detail_in4_student/${stud.studentId}`)
                 }
               >
                 Chi tiết
               </Button>
               <Button
-                variant="outline-warning"
-                onClick={() => history.push(`/updateStudent/${s.studentId}`)}
+                className={s.btnInfo}
+                onClick={() => history.push(`/updateStudent/${stud.studentId}`)}
               >
                 Sửa
               </Button>
               <Button
-                variant="outline-danger"
-                onClick={() => handleMoveToTrash(s.studentId)}
+                className={s.btnDanger}
+                onClick={() => handleMoveToTrash(stud.studentId)}
               >
                 Xoá học sinh
               </Button>

@@ -26,7 +26,7 @@ const TableUsers = ({ userData }) => {
         <tr>
           <th>STT</th>
           <th>Họ tên</th>
-          <th>Username</th>
+          <th>Tài khoản</th>
           <th>Ngày sinh</th>
           <th>Quyền</th>
         </tr>
@@ -49,7 +49,11 @@ const TableUsers = ({ userData }) => {
             <td>{us.username}</td>
             <td>{moment(us._doc.birthday).format('DD-MM-YYYY')}</td>
             <td>
-              <Badge bg={badgeBg(us.roles[0])}>{us.roles[0]}</Badge>
+              <Badge
+                bg={badgeBg(us.roles[0])}
+              >
+                {us.roles[0]}
+              </Badge>
             </td>
           </tr>
         ))}

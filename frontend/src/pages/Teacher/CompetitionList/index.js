@@ -47,7 +47,7 @@ const CompetitionList = ({
           {[...Array(35)].map((x, i) => (
             <div key={i}>
               <Button
-                variant="outline-success"
+                className={s.btnWeek}
                 onClick={() =>
                   history.push(
                     `/sheet_competition_by_week/${profile.user.toString()}/${

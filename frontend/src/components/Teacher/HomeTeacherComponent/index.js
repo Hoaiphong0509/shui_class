@@ -35,10 +35,15 @@ const HomeTeacherComponent = ({
       <div className={s.teacherContent}>
         <h1 className={s.title}>Lớp {name?.toUpperCase()}</h1>
         <div className={s.buttonArea}>
-          <Button onClick={() => history.push('/createStudent')} variant="info">
+          <Button
+            className={s.btnAdd}
+            onClick={() => history.push('/createStudent')}
+            variant="info"
+          >
             Thêm mới
           </Button>
           <Button
+            className={s.btnTrash}
             onClick={() => history.push('/trashStudent')}
             variant="secondary"
           >

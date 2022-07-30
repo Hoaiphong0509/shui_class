@@ -1,10 +1,10 @@
+@mixin bg-gradient($angle: 180deg, $color: #fef9ef, $amount: 20%) {
+  background: linear-gradient($angle, $color, adjust-hue($color, $amount)) fixed;
+}
+
 .root {
   min-height: 100vh;
   max-height: 100vh;
-  background-color: #4158d0;
-  background-color: #0093e9;
-  background-color: #0093e9;
-  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
 
   display: flex;
   justify-content: center;
@@ -12,10 +12,12 @@
 
   .menu {
     margin: 0 auto;
-    width: 40%;
+    width: 60%;
     height: auto;
     padding: 20px;
     background: #fff;
+    z-index: 999999;
+    position: absolute;
 
     display: flex;
     flex-direction: column;
@@ -24,6 +26,7 @@
     border-radius: 10px;
 
     .title {
+      font-weight: bold;
       text-align: center;
     }
 
@@ -39,7 +42,9 @@
         margin-bottom: 10px;
         border: none;
         color: #fff;
-        background-color: var(--normal-blue);
+        font-weight: bold;
+        background-color: var(--purple);
+        border-radius: 5px;
       }
 
       button:hover {

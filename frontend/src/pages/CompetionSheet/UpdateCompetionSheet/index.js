@@ -13,19 +13,18 @@ import { ROLES } from 'constants/AppConstants'
 const UpdateCompetionSheet = ({
   user: { user, loading: ldu },
   profile: { myprofile, profile, loading: ldp },
-  competition: { competition, loading: ldSc },
+  competition: { competitions, loading: ldSc },
   getProfileByUserId,
   getCompetitionByStudent,
   match
 }) => {
   const history = useHistory()
   useEffect(() => {
-    getProfileByUserId(match.params.id_student)
-  }, [getProfileByUserId, match])
-
-  useEffect(() => {
     getCompetitionByStudent(match.params.id_student)
   }, [getCompetitionByStudent, match])
+  useEffect(() => {
+    getProfileByUserId(match.params.id_student)
+  }, [getProfileByUserId, match])
 
   if (
     ldp ||
@@ -36,20 +35,18 @@ const UpdateCompetionSheet = ({
     profile === null ||
     profile === undefined ||
     myprofile === null ||
-    myprofile === undefined ||
-    competition === null ||
-    competition === undefined
+    myprofile === undefined
   )
     return <LoaderComponent />
 
-  const tempCompetitionObj = competition?.filter(
-    (s) => s.hk === +match.params.no_week
+  const tempCompetitionObj = competitions?.filter(
+    (s) => +s.hk === +match.params.no_week
   )
 
   return (
     <div className={s.root}>
-      {competition === null ||
-      competition === undefined ||
+      {competitions === null ||
+      competitions === undefined ||
       tempCompetitionObj === null ||
       tempCompetitionObj === undefined ||
       tempCompetitionObj.length === 0 ? (
@@ -87,7 +84,7 @@ const UpdateCompetionSheet = ({
           <div className={s.formUpdateCompetition}>
             <UpdateCompetition
               hk={match.params.no_week}
-              competition={tempCompetitionObj[0]}
+              competitions={tempCompetitionObj[0]}
               idStudent={match.params.id_student}
               studentName={profile?.fullName}
               studentUsername={profile?.username}
@@ -106,6 +103,7 @@ UpdateCompetionSheet.prototype = {
 }
 
 const mapStateToProps = (state) => ({
+  user: state.user,
   profile: state.profile,
   competition: state.competition
 })

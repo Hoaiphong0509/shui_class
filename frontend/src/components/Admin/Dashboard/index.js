@@ -8,7 +8,7 @@ const Dashboard = ({ users, classrooms, classnewss, parentnewss }) => {
   return (
     <div className={s.root}>
       <div>
-        <CardItem title="Người dùng" num={users.length} icon="user" bgColor='#ff99c8' />
+        <CardItem title="Người dùng" num={users.length} icon="user" bgColor='#f5cac3' />
       </div>
       <div>
         <CardItem title="Giáo viên" num={teachers.length} icon="teacher" bgColor='#fcf6bd'/>

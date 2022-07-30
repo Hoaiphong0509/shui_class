@@ -61,18 +61,18 @@ const TableStaff = ({ staffData, deleteStaff }) => {
         </thead>
         <tbody>
           {staffData &&
-            staffData.map((s, idx) => (
+            staffData.map((staff, idx) => (
               <tr key={idx}>
                 <td>{idx + 1}</td>
-                <td>{s.staffCode}</td>
-                <td>{s.staffDisplay}</td>
-                <td>{moment(s.date).format('DD-MM-YYYY')}</td>
+                <td>{staff.staffCode}</td>
+                <td>{staff.staffDisplay}</td>
+                <td>{moment(staff.date).format('DD-MM-YYYY')}</td>
                 <td>
-                  <Button variant="outline-info" onClick={() => handleEdit(s)}>
+                  <Button className={s.btnInfo} onClick={() => handleEdit(s)}>
                     Sửa
                   </Button>
                   <Button
-                    variant="outline-danger"
+                    className={s.btnDanger}
                     onClick={() => handleDelete(s)}
                   >
                     Xoá

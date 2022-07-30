@@ -23,6 +23,17 @@
       button {
         min-width: 140px;
       }
+
+      .btnWeek {
+        background-color: transparent;
+        border: 1px solid var(--blue-3);
+        color: var(--blue-3);
+      }
+
+      .btnWeek:hover {
+        background-color: var(--blue-3);
+        color: var(--white-1);
+      }
     }
   }
 }

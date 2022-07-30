@@ -12,13 +12,13 @@ import { classificationFunc } from 'utils/AppUltils'
 
 const UpdateCompetition = ({
   hk,
-  competition,
+  competitions,
   idStudent,
   studentName,
   studentUsername,
   updateCompetition
 }) => {
-  const { negativePoint, positivePoint } = competition
+  const { negativePoint, positivePoint } = competitions
   const history = useHistory()
   const schema = yup
     .object({
@@ -114,7 +114,7 @@ const UpdateCompetition = ({
         </div>
         <div className={s.detailsPoint}>
           <div className={s.point}>
-            <h3 style={{ color: 'var(--green)' }}>Tích cực</h3>
+            <h3 style={{ color: 'var(--green-1)' }}>Tích cực</h3>
             <div className={s.panel}>
               <div className={s.panel_in4}>
                 <div>Tham gia xây dựng bài</div>

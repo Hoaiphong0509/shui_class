@@ -71,11 +71,11 @@
         .panel {
           .panel_in4 {
             div:first-child {
-              background: var(--green);
+              background: var(--green-1);
             }
             .panel_input {
               background-color: transparent;
-              border: 1px solid var(--green);
+              border: 1px solid var(--green-1);
             }
           }
         }
@@ -100,6 +100,17 @@
       justify-content: flex-end;
       button {
         margin-left: 5px;
+      }
+
+      .btnSubmit {
+        background-color: transparent;
+        border: 1px solid var(--green-3);
+        color: var(--green-3);
+      }
+
+      .btnSubmit:hover {
+        background-color: var(--green-3);
+        color: var(--white-1);
       }
     }
   }

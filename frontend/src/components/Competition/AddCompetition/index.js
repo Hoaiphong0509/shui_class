@@ -111,7 +111,7 @@ const AddCompetition = ({
         </div>
         <div className={s.detailsPoint}>
           <div className={s.point}>
-            <h3 style={{ color: 'var(--green)' }}>Tích cực</h3>
+            <h3 style={{ color: 'var(--green-1)' }}>Tích cực</h3>
             <div className={s.panel}>
               <div className={s.panel_in4}>
                 <div>Tham gia xây dựng bài</div>
@@ -407,7 +407,7 @@ const AddCompetition = ({
           <Button variant="secondary" onClick={() => history.push('/')}>
             Quay về
           </Button>
-          <Button variant="success" type="submit">
+          <Button className={s.btnSubmit} type="submit">
             Lưu
           </Button>
         </div>

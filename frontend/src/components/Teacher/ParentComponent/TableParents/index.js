@@ -37,22 +37,20 @@ const TableParents = ({ idClassroom, parents, moveParentToTrash }) => {
         </tr>
       </thead>
       <tbody>
-        {parents.map((s, idx) => (
+        {parents.map((par, idx) => (
           <tr key={idx}>
             <td>{idx + 1}</td>
-            <td>{s.fullName}</td>
+            <td>{par.fullName}</td>
             <td>
               <Button
-                variant="outline-success"
-                onClick={() =>
-                  history.push(`/detail_parent/${s.parentId}`)
-                }
+                className={s.btnSuccess}
+                onClick={() => history.push(`/detail_parent/${par.parentId}`)}
               >
                 Chi tiết
               </Button>
               <Button
-                variant="outline-danger"
-                onClick={() => handleMoveToTrash(s.parentId)}
+                className={s.btnDanger}
+                onClick={() => handleMoveToTrash(par.parentId)}
               >
                 Xoá phụ huynh
               </Button>

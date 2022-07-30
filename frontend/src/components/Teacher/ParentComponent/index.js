@@ -35,10 +35,15 @@ const ParentComponent = ({
       <div className={s.teacherContent}>
         <h1 className={s.title}>Phụ huynh Lớp {name.toUpperCase()}</h1>
         <div className={s.buttonArea}>
-          <Button onClick={() => history.push('/createParent')} variant="info">
+          <Button
+            className={s.btnAdd}
+            onClick={() => history.push('/createParent')}
+            variant="info"
+          >
             Thêm mới phụ huynh
           </Button>
           <Button
+            className={s.btnTrash}
             onClick={() => history.push('/trashParent')}
             variant="secondary"
           >

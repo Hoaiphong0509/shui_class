@@ -1,21 +1,18 @@
 .root {
   min-height: 100vh;
   max-height: 100vh;
-  background-color: #4158d0;
-  background-color: #0093e9;
-  background-color: #0093e9;
-  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
-
   display: flex;
   justify-content: center;
   align-items: center;
 
   .menu {
     margin: 0 auto;
-    width: 40%;
+    width: 50%;
     height: auto;
     padding: 20px;
     background: #fff;
+    z-index: 999999;
+    position: absolute;
 
     display: flex;
     flex-direction: column;
@@ -26,18 +23,27 @@
 
     .title {
       text-align: center;
+      font-weight: bold;
     }
 
     .panel {
-      width: 50%;
+      width: 70%;
       margin-top: 10px;
       display: flex;
       flex-direction: column;
 
+      label {
+        font-size: 26px;
+        color: var(--purple);
+      }
+
       input {
         margin-top: 5px;
-        padding: 15px 10px;
+        padding: 20px 10px;
         height: 30px;
+        font-size: 20px;
+        border-radius: 5px;
+        border: 2px solid var(--purple);
       }
 
       .textError {
@@ -53,7 +59,9 @@
 
       button {
         cursor: pointer;
-        font-size: 12px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 5px;
         padding: 5px;
         margin-left: 10px;
         border: none;
@@ -63,7 +71,7 @@
       }
 
       button:last-child {
-        background-color: #0093e9;
+        background-color: var(--purple);
         color: #fff;
       }
 

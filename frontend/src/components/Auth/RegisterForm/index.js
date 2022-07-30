@@ -40,6 +40,20 @@ const RegisterForm = ({ registerAccount }) => {
 
   return (
     <div className={s.root}>
+      <div className="area">
+        <ul className="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
       <form className={s.menu} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.title}>
           <h1>ĐĂNG KÝ</h1>

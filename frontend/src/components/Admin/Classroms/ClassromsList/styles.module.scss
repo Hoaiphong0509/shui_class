@@ -7,9 +7,14 @@
       font-size: 18px;
       width: 50%;
       border-radius: 5px;
+      border: 2px solid var(--purple);
     }
   }
-
+  .btn {
+    button {
+      background-color: var(--purple);
+    }
+  }
   .table {
     margin: 20px 0;
   }

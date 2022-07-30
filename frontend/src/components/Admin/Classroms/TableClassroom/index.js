@@ -71,13 +71,13 @@ const TableClassroom = ({
                 <td>{c.students?.length}</td>
                 <td>
                   <Button
-                    variant="outline-success"
+                    className={s.btnSuccess}
                     onClick={(e) => handleEdit(e, c)}
                   >
                     Thêm GVCN
                   </Button>
                   <Button
-                    variant="outline-danger"
+                    className={s.btnDanger}
                     onClick={(e) => handleDeleteTeacherOutClassroom(e, c._id)}
                   >
                     Xoá GVCN

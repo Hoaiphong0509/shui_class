@@ -5,6 +5,20 @@ const MenuLogin = (props) => {
   const { handlelLoginAs } = props
   return (
     <div className={s.root}>
+      <div className="area">
+        <ul className="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
       <div className={s.menu}>
         <div className={s.title}>
           <h1>QUẢN LÝ LỚP HỌC</h1>
