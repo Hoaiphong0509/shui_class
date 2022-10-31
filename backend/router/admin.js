@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const authorize = require('../middleware/authorize')
 const User = require('../models/User')
+const ParentIn4 = require('../models/ParentIn4')
 const Profile = require('../models/Profile')
 const role = require('../helper/role')
 const checkObjectId = require('../middleware/checkObjectId')
@@ -233,6 +234,17 @@ router.put('/add_parent', authorize(role.Admin), async (req, res) => {
         $set: { roles: [role.Parent] }
       }
     )
+
+    const newParentIn4 = new ParentIn4({
+      username,
+      fullName: username,
+      classroomIn4: [],
+      children: [],
+      user: user._id.toString()
+    })
+
+    await newParentIn4.save()
+
     res.json({ msg: 'Thêm phụ huynh thành công' })
   } catch (err) {
     console.error(err.message)

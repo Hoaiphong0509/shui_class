@@ -29,6 +29,7 @@ const ModalAddParent = ({ show, setShow, parentAvaible, addParent, me }) => {
       username: data.username
     }
     addParent(payload)
+    window.location.reload()
     handleClose()
   }
 

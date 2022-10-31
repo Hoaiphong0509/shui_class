@@ -29,6 +29,7 @@ const ModalAddTeacher = ({ show, setShow, teacherAvaible, addTeacher, me }) => {
       username: data.username
     }
     addTeacher(payload)
+    window.location.reload()
     handleClose()
   }
 

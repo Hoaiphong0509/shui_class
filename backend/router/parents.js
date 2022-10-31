@@ -53,6 +53,8 @@ router.get(
     try {
       const result = await ParentIn4.findOne({ user: req.params.id_parent })
 
+      console.log("result", result)
+
       res.json(result)
     } catch (err) {
       console.error(err.message)
