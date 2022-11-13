@@ -10,12 +10,12 @@ import * as yup from 'yup'
 import s from './styles.module.scss'
 
 const ModalAddChild = ({
-  show,
-  setShow,
-  childrenAvaible,
-  addChildren,
-  idParent
-}) => {
+                         show,
+                         setShow,
+                         childrenAvaible,
+                         addChildren,
+                         idParent
+                       }) => {
   const handleClose = () => setShow(false)
 
   const schema = yup.object({
@@ -30,11 +30,11 @@ const ModalAddChild = ({
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const payload = {
       childrenUsername: data.username
     }
-    addChildren(payload, idParent)
+    await addChildren(payload, idParent)
     handleClose()
   }
 
@@ -43,7 +43,7 @@ const ModalAddChild = ({
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
+        backdrop='static'
         keyboard={false}
       >
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
@@ -52,7 +52,7 @@ const ModalAddChild = ({
           </Modal.Header>
           <Modal.Body>
             <div className={s.panel}>
-              <label htmlFor="username">Học sinh *</label>
+              <label htmlFor='username'>Học sinh *</label>
               <select {...register('username')}>
                 {childrenAvaible &&
                   childrenAvaible.map((s, idx) => (
@@ -66,10 +66,10 @@ const ModalAddChild = ({
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant='secondary' onClick={handleClose}>
               Huỷ
             </Button>
-            <Button variant="primary" type="submit">
+            <Button variant='primary' type='submit'>
               Lưu
             </Button>
           </Modal.Footer>

@@ -24,11 +24,11 @@ const ModalAddTeacher = ({ show, setShow, teacherAvaible, addTeacher, me }) => {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const payload = {
       username: data.username
     }
-    addTeacher(payload)
+    await addTeacher(payload)
     window.location.reload()
     handleClose()
   }
@@ -40,7 +40,7 @@ const ModalAddTeacher = ({ show, setShow, teacherAvaible, addTeacher, me }) => {
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
+        backdrop='static'
         keyboard={false}
       >
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
@@ -49,7 +49,7 @@ const ModalAddTeacher = ({ show, setShow, teacherAvaible, addTeacher, me }) => {
           </Modal.Header>
           <Modal.Body>
             <div className={s.panel}>
-              <label htmlFor="username">Giáo viên *</label>
+              <label htmlFor='username'>Giáo viên *</label>
               <select {...register('username')}>
                 {renderteacherAvaible &&
                   renderteacherAvaible.map((s, idx) => (
@@ -63,10 +63,10 @@ const ModalAddTeacher = ({ show, setShow, teacherAvaible, addTeacher, me }) => {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant='secondary' onClick={handleClose}>
               Huỷ
             </Button>
-            <Button variant="primary" type="submit">
+            <Button variant='primary' type='submit'>
               Lưu
             </Button>
           </Modal.Footer>

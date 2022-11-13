@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import TableUsers from '../common/TableUsers'
 import s from './styles.module.scss'
+import { Button } from 'react-bootstrap'
+import ModalAddUser from 'components/Admin/Users/ModalAddUser'
 
 const UsersList = ({ users }) => {
   const [keyword, setKeyword] = useState('')
   const [userData, setUserData] = useState(users)
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     setUserData(users)
@@ -29,7 +32,12 @@ const UsersList = ({ users }) => {
           onChange={handleSearch}
         />
       </div>
+      <Button onClick={() => setShow(!show)}>Thêm người dùng</Button>
       <div>{userData && <TableUsers userData={userData} />}</div>
+      <ModalAddUser
+        show={show}
+        setShow={setShow}
+      />
     </div>
   )
 }
