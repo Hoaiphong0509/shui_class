@@ -24,11 +24,11 @@ const ModalAddParent = ({ show, setShow, parentAvaible, addParent, me }) => {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const payload = {
       username: data.username
     }
-    addParent(payload)
+    await addParent(payload)
     window.location.reload()
     handleClose()
   }
@@ -40,7 +40,7 @@ const ModalAddParent = ({ show, setShow, parentAvaible, addParent, me }) => {
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
+        backdrop='static'
         keyboard={false}
       >
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
@@ -49,13 +49,13 @@ const ModalAddParent = ({ show, setShow, parentAvaible, addParent, me }) => {
           </Modal.Header>
           <Modal.Body>
             <div className={s.panel}>
-              <label htmlFor="username">Phụ Huynh *</label>
+              <label htmlFor='username'>Phụ Huynh *</label>
               <select {...register('username')}>
                 {renderParentAvaible &&
                   renderParentAvaible.map((s, idx) => (
                     <option key={idx} value={s.username}>
                       {s._doc?.fullName} - {s.username} -{' '}
-                      {s.__doc?.birthday && moment(s._doc?.birthday).format('DD-MM-YYYY')}
+                      {s._doc?.birthday && moment(s._doc?.birthday).format('DD-MM-YYYY')}
                     </option>
                   ))}
               </select>
@@ -63,10 +63,10 @@ const ModalAddParent = ({ show, setShow, parentAvaible, addParent, me }) => {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant='secondary' onClick={handleClose}>
               Huỷ
             </Button>
-            <Button variant="primary" type="submit">
+            <Button variant='primary' type='submit'>
               Lưu
             </Button>
           </Modal.Footer>

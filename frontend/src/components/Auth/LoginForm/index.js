@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import s from './styles.module.scss'
 
@@ -9,7 +8,6 @@ import { connect } from 'react-redux'
 import { login } from 'services/redux/actions/user'
 
 const LoginForm = ({ login, loginAs, goBack }) => {
-  const history = useHistory()
   const schema = yup
     .object({
       username: yup.string().required('Tài khoản không được bỏ trống'),
@@ -90,7 +88,6 @@ const LoginForm = ({ login, loginAs, goBack }) => {
         </div>
         <div className={s.interaction}>
           <button onClick={() => goBack()}>Quay lại</button>
-          <button onClick={() => history.push('/register')}>Đăng ký</button>
           <button type="submit">Đăng nhập</button>
         </div>
       </form>

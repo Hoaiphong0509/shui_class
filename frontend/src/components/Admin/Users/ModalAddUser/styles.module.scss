@@ -1,0 +1,27 @@
+.form {
+  .panel {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 26px;
+      color: var(--purple);
+    }
+
+    input {
+      margin-top: 5px;
+      padding: 20px 10px;
+      height: 30px;
+      font-size: 15px;
+      border-radius: 5px;
+      border: 2px solid var(--purple);
+    }
+
+    .textError {
+      color: var(--red);
+    }
+  }
+
+}
