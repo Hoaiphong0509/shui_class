@@ -32,7 +32,7 @@ const UsersList = ({ users }) => {
           onChange={handleSearch}
         />
       </div>
-      <Button onClick={() => setShow(!show)}>Thêm người dùng</Button>
+      <Button onClick={() => setShow(!show)}>Thêm users</Button>
       <div>{userData && <TableUsers userData={userData} />}</div>
       <ModalAddUser
         show={show}

@@ -1,8 +1,8 @@
 import { ROLES } from 'constants/AppConstants'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import TableUsers from '../common/TableUsers'
-import ModalAddParent from './ModalAddParent'
+import ModalAddAdmin from './ModalAddAdmin'
 import s from './styles.module.scss'
 
 const UsersList = ({ users, allusers, me }) => {
@@ -39,28 +39,30 @@ const UsersList = ({ users, allusers, me }) => {
     }
   }
 
-  const parentAvaible = unique.filter((u) => u.roles.includes(ROLES.GUEST))
-  
+  const adminAvaible = allusers.filter((u) => u.roles.includes(ROLES.GUEST))
+
   return (
     <div className={s.root}>
       <div className={s.searchInput}>
         <input
           name="keyword"
-          placeholder="Tìm kiếm phụ huynh"
+          placeholder="Tìm kiếm admin"
           value={keyword}
           onChange={handleSearch}
         />
       </div>
       <div className={s.addTeacher}>
-        <Button onClick={() => setShow(!show)}>Thêm Phụ huynh</Button>
+        <Button onClick={() => setShow(!show)}>Thêm admin</Button>
       </div>
       <div>{userData && <TableUsers userData={userData} />}</div>
-      <ModalAddParent
-        show={show}
-        setShow={setShow}
-        parentAvaible={parentAvaible}
-        me={me}
-      />
+      {adminAvaible && (
+        <ModalAddAdmin
+          show={show}
+          setShow={setShow}
+          adminAvaible={adminAvaible}
+          me={me}
+        />
+      )}
     </div>
   )
 }

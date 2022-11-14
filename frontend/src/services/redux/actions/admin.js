@@ -149,6 +149,33 @@ export const addParent = (formData) => async (dispatch) => {
   }
 }
 
+
+export const addAdmin = (formData) => async (dispatch) => {
+  try {
+    await api.put('/admin/add_admin', formData)
+    dispatch(getAllParents())
+    toast.success('Thêm admin thành công', {
+      position: 'top-right',
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  } catch (err) {
+    toast.error(err.response.data.msg, {
+      position: 'top-right',
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+  }
+}
+
 export const addClassroom = (formData) => async (dispatch) => {
   try {
     const res = await api.post('/classroom', formData)

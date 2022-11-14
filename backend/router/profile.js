@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const authorize = require('../middleware/authorize')
 const Profile = require('../models/Profile')
+const Classroom = require('../models/Classroom')
+const ParentIn4 = require('../models/ParentIn4')
 const multer = require('multer')
 const bufferUpload = require('../utils/bufferUpload')
 const multerSingle = multer()
@@ -45,9 +47,27 @@ router.get(
 // @desc     Update profile
 // @access   Public
 router.put('/me', authorize(), async (req, res) => {
-  const { ...rest } = req.body
+  const { fullName, ...rest } = req.body
   try {
-    await Profile.findOneAndUpdate({ user: req.user.id }, { $set: { ...rest } })
+    await Profile.findOneAndUpdate({ user: req.user.id }, { $set: { fullName, ...rest } })
+
+    const classroms = await Classroom.find()
+    const parentIn4 = await ParentIn4.findOne({ user: req.user.id })
+    const techerOfClass = classroms.find(x => x.headTeacher.user.toString() === req.user.id.toString())
+    if (techerOfClass) {
+      await Classroom.findByIdAndUpdate(techerOfClass._id.toString(), {
+        $set: {
+          headTeacher: { ...techerOfClass.headTeacher, teacherName: fullName }
+        }
+      })
+    }
+    if (parentIn4) {
+      await ParentIn4.findOneAndUpdate({ user: req.user.id }, {
+        $set: {
+          fullName
+        }
+      })
+    }
     res.json({ msg: 'Cập nhật hồ sơ thành công' })
   } catch (err) {
     console.error(err.message)
