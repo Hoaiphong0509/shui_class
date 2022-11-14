@@ -9,12 +9,12 @@ import { removeTeacherOutoClass } from 'services/redux/actions/admin'
 import Swal from 'sweetalert2'
 
 const TableClassroom = ({
-  classrooms,
-  teachers,
-  allusers,
-  me,
-  removeTeacherOutoClass
-}) => {
+                          classrooms,
+                          teachers,
+                          allusers,
+                          me,
+                          removeTeacherOutoClass
+                        }) => {
   const [show, setShow] = useState(false)
   const [classIn4, setClassIn4] = useState()
 
@@ -53,38 +53,39 @@ const TableClassroom = ({
     <>
       <Table responsive hover className={s.root}>
         <thead>
-          <tr>
-            <th>STT</th>
-            <th>Lớp</th>
-            <th>Giáo viên chủ nhiệm</th>
-            <th>Sỉ số học sinh</th>
-            <th>#</th>
-          </tr>
+        <tr>
+          <th>STT</th>
+          <th>Lớp</th>
+          <th>Giáo viên chủ nhiệm</th>
+          <th>Sỉ số học sinh</th>
+          <th>#</th>
+        </tr>
         </thead>
         <tbody>
-          {classrooms &&
-            classrooms.map((c, idx) => (
-              <tr key={idx}>
-                <td>{idx + 1}</td>
-                <td>{c.name}</td>
-                <td>{c.headTeacher?.teacherName}</td>
-                <td>{c.students?.length}</td>
-                <td>
-                  <Button
-                    className={s.btnSuccess}
-                    onClick={(e) => handleEdit(e, c)}
-                  >
-                    Thêm GVCN
-                  </Button>
-                  <Button
-                    className={s.btnDanger}
-                    onClick={(e) => handleDeleteTeacherOutClassroom(e, c._id)}
-                  >
-                    Xoá GVCN
-                  </Button>
-                </td>
-              </tr>
-            ))}
+        {classrooms &&
+          classrooms.map((c, idx) => (
+            <tr key={idx}>
+              <td>{idx + 1}</td>
+              <td>{c.name}</td>
+              <td>{c.headTeacher?.teacherName}</td>
+              <td>{c.students?.length}</td>
+              <td>
+                <Button
+                  disabled={c?.headTeacher?.user !== null}
+                  className={c?.headTeacher?.user !== null ? s.btnDisable : s.btnSuccess}
+                  onClick={(e) => handleEdit(e, c)}
+                >
+                  Thêm GVCN
+                </Button>
+                <Button
+                  className={s.btnDanger}
+                  onClick={(e) => handleDeleteTeacherOutClassroom(e, c._id)}
+                >
+                  Xoá GVCN
+                </Button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
       {classIn4 && (

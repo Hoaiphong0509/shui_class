@@ -5,15 +5,15 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
-import { addParent } from 'services/redux/actions/admin'
+import { addAdmin } from 'services/redux/actions/admin'
 import * as yup from 'yup'
 import s from './styles.module.scss'
 
-const ModalAddParent = ({ show, setShow, parentAvaible, addParent, me }) => {
+const ModalAddAdmin = ({ show, setShow, adminAvaible, addAdmin, me }) => {
   const handleClose = () => setShow(false)
 
   const schema = yup.object({
-    username: yup.string().required('Phụ huynh không được để trống!')
+    username: yup.string().required('Giáo viên không được để trống!')
   })
 
   const {
@@ -28,12 +28,12 @@ const ModalAddParent = ({ show, setShow, parentAvaible, addParent, me }) => {
     const payload = {
       username: data.username
     }
-    await addParent(payload)
+    await addAdmin(payload)
     window.location.reload()
     handleClose()
   }
 
-  const renderParentAvaible = parentAvaible?.filter((t) => t._id !== me._id)
+  const renderAdminAvaible = adminAvaible?.filter((t) => t._id !== me._id)
 
   return (
     <>
@@ -45,17 +45,17 @@ const ModalAddParent = ({ show, setShow, parentAvaible, addParent, me }) => {
       >
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <Modal.Header closeButton>
-            <Modal.Title>Thêm Phụ Huynh</Modal.Title>
+            <Modal.Title>Thêm Admin</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className={s.panel}>
-              <label htmlFor='username'>Phụ Huynh *</label>
+              <label htmlFor='username'>Admin *</label>
               <select {...register('username')}>
-                {renderParentAvaible &&
-                  renderParentAvaible.map((s, idx) => (
+                {renderAdminAvaible &&
+                  renderAdminAvaible.map((s, idx) => (
                     <option key={idx} value={s.username}>
-                      {s._doc?.fullName} - {' '}
-                      {s._doc?.birthday && moment(s._doc?.birthday).format('DD-MM-YYYY')}
+                      {s._doc.fullName} - {' '}
+                      {s._doc.birthday && moment(s._doc.birthday).format('DD-MM-YYYY')}
                     </option>
                   ))}
               </select>
@@ -76,10 +76,10 @@ const ModalAddParent = ({ show, setShow, parentAvaible, addParent, me }) => {
   )
 }
 
-ModalAddParent.prototype = {
-  addParent: PropTypes.func
+ModalAddAdmin.prototype = {
+  addAdmin: PropTypes.func
 }
 
 export default connect(null, {
-  addParent
-})(ModalAddParent)
+  addAdmin
+})(ModalAddAdmin)

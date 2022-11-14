@@ -32,6 +32,7 @@ const TableStaff = ({ staffData, deleteStaff }) => {
   }
 
   const handleDelete = (staff) => {
+    console.log("staff",staff)
     Swal.fire({
       title: 'Xác nhận',
       text: `Các học sinh được lưu chức vụ ${staff.staffDisplay} từ trước sẽ không cập nhật sự thay đổi này. Sự xoá này chỉ ảnh hướng đến các học sinh trong tương lai!`,
@@ -68,12 +69,12 @@ const TableStaff = ({ staffData, deleteStaff }) => {
                 <td>{staff.staffDisplay}</td>
                 <td>{moment(staff.date).format('DD-MM-YYYY')}</td>
                 <td>
-                  <Button className={s.btnInfo} onClick={() => handleEdit(s)}>
+                  <Button className={s.btnInfo} onClick={() => handleEdit(staff)}>
                     Sửa
                   </Button>
                   <Button
                     className={s.btnDanger}
-                    onClick={() => handleDelete(s)}
+                    onClick={() => handleDelete(staff)}
                   >
                     Xoá
                   </Button>

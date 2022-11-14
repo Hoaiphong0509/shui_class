@@ -252,4 +252,37 @@ router.put('/add_parent', authorize(role.Admin), async (req, res) => {
   }
 })
 
+// @route    GET api/admin/add_admin
+// @desc     Add Admin
+// @access   Private
+router.put('/add_admin', authorize(role.Admin), async (req, res) => {
+  const { username } = req.body
+  try {
+    const user = await User.findOne({ username })
+
+    if (!user)
+      return res.status(400).json({ msg: 'Tài khoản này không tồn tại!' })
+
+    if (user.roles.includes(role.Parent))
+      return res.status(400).json({ msg: 'Tài khoản này đang là phụ huynh' })
+    if (user.roles.includes(role.Student))
+      return res.status(400).json({ msg: 'Tài khoản này đang là học sinh' })
+    if (user.roles.includes(role.Admin))
+      return res.status(400).json({ msg: 'Tài khoản này đang là admin' })
+
+    await User.findOneAndUpdate(
+      { username: username },
+      {
+        $set: { roles: [role.Admin] }
+      }
+    )
+
+    res.json({ msg: 'Thêm Admin thành công' })
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
+
 module.exports = router

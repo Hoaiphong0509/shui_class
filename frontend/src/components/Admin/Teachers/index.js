@@ -46,7 +46,7 @@ const UsersList = ({ users, allusers, me }) => {
       <div className={s.searchInput}>
         <input
           name="keyword"
-          placeholder="Tìm kiếm user"
+          placeholder="Tìm kiếm giáo viên"
           value={keyword}
           onChange={handleSearch}
         />

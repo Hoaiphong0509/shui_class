@@ -54,7 +54,7 @@ const ModalAddTeacher = ({ show, setShow, teacherAvaible, addTeacher, me }) => {
                 {renderteacherAvaible &&
                   renderteacherAvaible.map((s, idx) => (
                     <option key={idx} value={s.username}>
-                      {s._doc.fullName} - {s.username} -{' '}
+                      {s._doc.fullName} - {' '}
                       {s._doc.birthday && moment(s._doc.birthday).format('DD-MM-YYYY')}
                     </option>
                   ))}

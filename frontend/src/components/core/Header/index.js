@@ -35,18 +35,24 @@ const Header = ({
         <p>Danh sách Users</p>
       </Link>
       <Link
+        to="/admin/admins"
+        className={`${location.pathname.includes('admins') ? s.active : null}`}
+      >
+        <p>Admin</p>
+      </Link>
+      <Link
         to="/admin/teachers"
         className={`${
           location.pathname.includes('teachers') ? s.active : null
         }`}
       >
-        <p>Danh sách giáo viên</p>
+        <p>Giáo viên</p>
       </Link>
       <Link
         to="/admin/parents"
         className={`${location.pathname.includes('parents') ? s.active : null}`}
       >
-        <p>Danh sách phụ huynh</p>
+        <p>Phụ huynh</p>
       </Link>
       <Link
         to="/admin/classrooms"

@@ -48,6 +48,7 @@ import TrashParent from 'pages/Teacher/TrashParent'
 import TrashStudent from 'pages/Teacher/TrashStudent'
 import UpdateStudent from 'pages/Teacher/UpdateStudent'
 import Route from './Route'
+import AdminsPage from '../../../pages/Admin/AdminsPage'
 
 const Routes = () => {
   return (
@@ -273,6 +274,13 @@ const Routes = () => {
         layout={DefaultLayout}
         component={UsersPage}
       />
+        <PrivateRoute
+          exact
+          path="/admin/admins"
+          role={ROLES.ADMIN}
+          layout={DefaultLayout}
+          component={AdminsPage}
+        />
       <PrivateRoute
         exact
         path="/admin/teachers"
