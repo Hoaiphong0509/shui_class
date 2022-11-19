@@ -3,27 +3,30 @@ import { Button } from 'react-bootstrap'
 import s from './styles.module.scss'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { likeClassnews, unlikeClassnews } from 'services/redux/actions/student'
 import { likeParentnews, unlikeParentnews } from 'services/redux/actions/parent'
 import { useHistory } from 'react-router-dom'
 import { Interweave } from 'interweave'
 
 const NewsItem = ({
-  user: { user: us },
-  news,
-  handleGetNews,
-  likeClassnews,
-  unlikeClassnews,
-  likeParentnews,
-  unlikeParentnews,
-  handleDelete,
-  asNews
-}) => {
+                    user: { user: us },
+                    news,
+                    handleGetNews,
+                    likeClassnews,
+                    unlikeClassnews,
+                    likeParentnews,
+                    unlikeParentnews,
+                    handleDelete,
+                    asNews
+                  }) => {
   const history = useHistory()
 
-  const { _id, createdAt, likes, text, title, user } = news
+  const { _id, createdAt, likes, text, title, user, comments } = news
+  const classnews = useSelector((state) => state.classnews.classnews)
+
   const [numLike, setNumLike] = useState(likes.length)
+  const [numCmts, setNumCmts] = useState(comments.length)
   const [isDisableLike, setIsDisableLike] = useState()
   const [isDisableUnLike, setIsUnDisableLike] = useState()
 
@@ -82,7 +85,8 @@ const NewsItem = ({
       </div>
       <div className={s.inf4}>
         <i>Ngày: {moment(createdAt).format('DD-MM-YYYY hh:mm')}</i>
-        <p>Yêu thích: {numLike}</p>
+        <p style={{ margin: 0, padding: 0 }}>Yêu thích: {numLike}</p>
+        <p style={{ margin: 0, padding: 0 }}>Bình luận: {classnews ? classnews.comments.length : numCmts}</p>
       </div>
       <div className={s.btnInteraction}>
         <Button
@@ -104,7 +108,7 @@ const NewsItem = ({
         </Button>
         {user === us._id.toString() ? (
           <Button
-            variant="primary"
+            variant='primary'
             onClick={() =>
               history.push(
                 `/${
@@ -117,7 +121,7 @@ const NewsItem = ({
           </Button>
         ) : null}
         {user === us._id.toString() ? (
-          <Button variant="danger" onClick={() => handleDelete(_id)}>
+          <Button variant='danger' onClick={() => handleDelete(_id)}>
             Xoá
           </Button>
         ) : null}

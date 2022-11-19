@@ -10,33 +10,35 @@ import Swal from 'sweetalert2'
 const NotifyItem = ({ notify, deleteNotify }) => {
   const { _id, text, updatedAt } = notify
 
-  const handleDelete = () => {
-    Swal.fire({
-      title: 'Xác nhận',
-      text: 'Bạn có muốn xoá học sinh này vào thùng rác',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#e63c49',
-      cancelButtonColor: '#ccc',
-      confirmButtonText: 'Có',
-      cancelButtonText: 'Huỷ'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        deleteNotify(_id)
-      }
-    })
-  }
+  {/*const handleDelete = () => {*/}
+  {/*  Swal.fire({*/}
+  //     title: 'Xác nhận',
+  //     text: 'Bạn có muốn xoá học sinh này vào thùng rác',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#e63c49',
+  {/*    cancelButtonColor: '#ccc',*/}
+  //     confirmButtonText: 'Có',
+  //     cancelButtonText: 'Huỷ'
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       deleteNotify(_id)
+  //     }
+  //   })
+  // }
   return (
     <div className={s.root}>
       <p>
         {text} lúc <i>{moment(updatedAt).format('DD-MM-YYYY hh:mm')}</i>
       </p>
-      <Button variant="danger" onClick={() => handleDelete()}>
-        Xoá
-      </Button>
+
     </div>
   )
 }
+
+// <Button variant="danger" onClick={() => handleDelete()}>
+//   Xoá
+// </Button>
 
 NotifyItem.prototype = {
   deleteNotify: PropTypes.func

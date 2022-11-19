@@ -7,6 +7,7 @@ import s from './styles.module.scss'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { registerAccount } from 'services/redux/actions/user'
+import moment from 'moment'
 
 const RegisterForm = ({ registerAccount }) => {
   const history = useHistory()
@@ -40,8 +41,8 @@ const RegisterForm = ({ registerAccount }) => {
 
   return (
     <div className={s.root}>
-      <div className="area">
-        <ul className="circles">
+      <div className='area'>
+        <ul className='circles'>
           <li></li>
           <li></li>
           <li></li>
@@ -59,53 +60,53 @@ const RegisterForm = ({ registerAccount }) => {
           <h1>ĐĂNG KÝ</h1>
         </div>
         <div className={s.panel}>
-          <label htmlFor="username">Tài khoản</label>
+          <label htmlFor='username'>Tài khoản</label>
           <input
-            name="username"
-            placeholder="Tài khoản"
-            type="text"
+            name='username'
+            placeholder='Tài khoản'
+            type='text'
             {...register('username')}
           />
           <p className={s.textError}>{errors.username?.message}</p>
         </div>
         <div className={s.panel}>
-          <label htmlFor="password">Mật khẩu</label>
+          <label htmlFor='password'>Mật khẩu</label>
           <input
-            name="password"
-            placeholder="Mật khẩu"
-            type="password"
+            name='password'
+            placeholder='Mật khẩu'
+            type='password'
             {...register('password')}
           />
           <p className={s.textError}>{errors.password?.message}</p>
         </div>
         <div className={s.panel}>
-          <label htmlFor="fullName">Họ tên</label>
+          <label htmlFor='fullName'>Họ tên</label>
           <input
-            name="fullName"
-            placeholder="Ví dụ: Nguyễn Văn A"
-            type="fullName"
+            name='fullName'
+            placeholder='Ví dụ: Nguyễn Văn A'
+            type='fullName'
             {...register('fullName')}
           />
           <p className={s.textError}>{errors.fullName?.message}</p>
         </div>
         <div className={s.panel}>
-          <label htmlFor="birthday">Ngày sinh</label>
-          <input name="birthday" type="date" {...register('birthday')} />
+          <label htmlFor='birthday'>Ngày sinh</label>
+          <input name='birthday' max={moment(new Date()).format('YYYY-MM-dd')} type='date' {...register('birthday')} />
           <p className={s.textError}>{errors.birthday?.message}</p>
         </div>
         <div className={s.panel}>
-          <label htmlFor="note">Ghi chú</label>
+          <label htmlFor='note'>Ghi chú</label>
           <input
-            name="note"
-            placeholder="Ghi chú"
-            type="text"
+            name='note'
+            placeholder='Ghi chú'
+            type='text'
             {...register('note')}
           />
           <p className={s.textError}>{errors.note?.message}</p>
         </div>
         <div className={s.interaction}>
           <button onClick={() => history.push('/login')}>Đăng nhập</button>
-          <button type="submit">Đăng Ký</button>
+          <button type='submit'>Đăng Ký</button>
         </div>
       </form>
     </div>

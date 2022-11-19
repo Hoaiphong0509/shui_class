@@ -120,6 +120,7 @@ const UpdateProfileComponent = ({
           <div>
             <label htmlFor="birthday">Ngày sinh</label>
             <input
+              max={moment(new Date()).format('YYYY-MM-DD')}
               defaultValue={moment(birth).format('YYYY-MM-DD')}
               name="birthday"
               type="date"

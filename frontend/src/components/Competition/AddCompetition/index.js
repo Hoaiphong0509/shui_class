@@ -10,13 +10,14 @@ import { connect } from 'react-redux'
 import { addCompetition } from 'services/redux/actions/competition'
 import { classificationFunc } from 'utils/AppUltils'
 
-const AddCompetition = ({
-  hk,
-  idStudent,
-  studentName,
-  studentUsername,
-  addCompetition
-}) => {
+const AddCompetition = (props) => {
+  const {
+    hk,
+    idStudent,
+    studentName,
+    studentUsername,
+    addCompetition
+  } = props
   const history = useHistory()
   const schema = yup
     .object({
@@ -70,25 +71,26 @@ const AddCompetition = ({
       })
     })
     .required()
+
   const { register, handleSubmit, watch } = useForm({
     resolver: yupResolver(schema)
   })
   const totalPoints =
     100 +
     10 *
-      (+watch('positivePoint.point_1.time') +
-        +watch('positivePoint.point_2.time') +
-        +watch('positivePoint.point_3.time') +
-        +watch('positivePoint.point_4.time') +
-        +watch('positivePoint.point_5.time') -
-        +watch('negativePoint.point_1.time') -
-        +watch('negativePoint.point_2.time') -
-        +watch('negativePoint.point_3.time') -
-        +watch('negativePoint.point_4.time') -
-        +watch('negativePoint.point_5.time') -
-        +watch('negativePoint.point_6.time'))
+    (+watch('positivePoint.point_1.time') +
+      +watch('positivePoint.point_2.time') +
+      +watch('positivePoint.point_3.time') +
+      +watch('positivePoint.point_4.time') +
+      +watch('positivePoint.point_5.time') -
+      +watch('negativePoint.point_1.time') -
+      +watch('negativePoint.point_2.time') -
+      +watch('negativePoint.point_3.time') -
+      +watch('negativePoint.point_4.time') -
+      +watch('negativePoint.point_5.time') -
+      +watch('negativePoint.point_6.time'))
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const payload = {
       studentName,
       studentUsername,
@@ -99,7 +101,8 @@ const AddCompetition = ({
       ),
       ...data
     }
-    addCompetition(idStudent, payload)
+    await addCompetition(idStudent, payload)
+    history.replace(`/sheet_competition/${idStudent}`)
   }
 
   return (
@@ -118,7 +121,7 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
+                    type='number'
                     min={0}
                     step={1}
                     defaultValue={0}
@@ -133,7 +136,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('positivePoint.point_1.note')}
               />
             </div>
@@ -144,10 +147,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('positivePoint.point_2.time')}
                   />{' '}
                   ={' '}
@@ -159,7 +162,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('positivePoint.point_2.note')}
               />
             </div>
@@ -170,10 +173,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('positivePoint.point_3.time')}
                   />{' '}
                   ={' '}
@@ -185,7 +188,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('positivePoint.point_3.note')}
               />
             </div>
@@ -196,10 +199,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('positivePoint.point_4.time')}
                   />{' '}
                   ={' '}
@@ -211,7 +214,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('positivePoint.point_4.note')}
               />
             </div>
@@ -222,10 +225,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('positivePoint.point_5.time')}
                   />{' '}
                   ={' '}
@@ -237,7 +240,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('positivePoint.point_5.note')}
               />
             </div>
@@ -251,10 +254,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('negativePoint.point_1.time')}
                   />{' '}
                   ={' '}
@@ -266,7 +269,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('negativePoint.point_1.note')}
               />
             </div>
@@ -277,10 +280,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('negativePoint.point_2.time')}
                   />{' '}
                   ={' '}
@@ -292,7 +295,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('negativePoint.point_2.note')}
               />
             </div>
@@ -303,10 +306,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('negativePoint.point_3.time')}
                   />{' '}
                   ={' '}
@@ -318,7 +321,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('negativePoint.point_3.note')}
               />
             </div>
@@ -329,10 +332,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('negativePoint.point_4.time')}
                   />{' '}
                   ={' '}
@@ -344,7 +347,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('negativePoint.point_4.note')}
               />
             </div>
@@ -355,10 +358,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('negativePoint.point_5.time')}
                   />{' '}
                   ={' '}
@@ -370,7 +373,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('negativePoint.point_5.note')}
               />
             </div>
@@ -381,10 +384,10 @@ const AddCompetition = ({
                 <div className={s.panel_input}>
                   10 x{' '}
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    defaultValue="0"
+                    type='number'
+                    min='0'
+                    step='1'
+                    defaultValue='0'
                     {...register('negativePoint.point_6.time')}
                   />{' '}
                   ={' '}
@@ -396,7 +399,7 @@ const AddCompetition = ({
               </div>
               <input
                 className={s.note}
-                placeholder="Ghi chú"
+                placeholder='Ghi chú'
                 {...register('negativePoint.point_6.note')}
               />
             </div>
@@ -404,10 +407,10 @@ const AddCompetition = ({
           </div>
         </div>
         <div className={s.btnArea}>
-          <Button variant="secondary" onClick={() => history.push('/')}>
+          <Button variant='secondary' onClick={() => history.push('/')}>
             Quay về
           </Button>
-          <Button className={s.btnSubmit} type="submit">
+          <Button className={s.btnSubmit} type='submit'>
             Lưu
           </Button>
         </div>

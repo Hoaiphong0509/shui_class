@@ -32,7 +32,6 @@ const TableStaff = ({ staffData, deleteStaff }) => {
   }
 
   const handleDelete = (staff) => {
-    console.log("staff",staff)
     Swal.fire({
       title: 'Xác nhận',
       text: `Các học sinh được lưu chức vụ ${staff.staffDisplay} từ trước sẽ không cập nhật sự thay đổi này. Sự xoá này chỉ ảnh hướng đến các học sinh trong tương lai!`,

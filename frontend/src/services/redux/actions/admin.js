@@ -193,7 +193,6 @@ export const addClassroom = (formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    console.log('err', err)
     toast.error(err.response.data.msg, {
       position: 'top-right',
       autoClose: 1200,
@@ -221,7 +220,7 @@ export const addTeacherIntoClass =
         progress: undefined
       })
     } catch (err) {
-      console.log('err', err)
+      
       toast.error(err.response.data.msg, {
         position: 'top-right',
         autoClose: 1200,
@@ -248,7 +247,7 @@ export const removeTeacherOutoClass = (idClassroom) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    console.log('err', err)
+    
     toast.error(err.response.data.msg, {
       position: 'top-right',
       autoClose: 1200,
@@ -269,7 +268,7 @@ export const getStaffs = () => async (dispatch) => {
       payload: res.data
     })
   } catch (err) {
-    console.log('err', err)
+    
     dispatch({
       type: STAFF.ERRORS
     })
@@ -293,7 +292,7 @@ export const addStaff = (formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    console.log('err', err)
+    
     toast.error(err.response.data.msg, {
       position: 'top-right',
       autoClose: 1200,
@@ -324,7 +323,7 @@ export const editStaff = (idStaff, formData) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    console.log('err', err)
+    
     toast.error(err.response.data.msg, {
       position: 'top-right',
       autoClose: 1200,
@@ -354,7 +353,7 @@ export const deleteStaff = (idStaff) => async (dispatch) => {
       progress: undefined
     })
   } catch (err) {
-    console.log('err', err)
+    
     toast.error(err.response.data.msg, {
       position: 'top-right',
       autoClose: 1200,

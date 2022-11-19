@@ -14,8 +14,6 @@ const TeacherChildrenPage = ({
     getParentsIn4ById(match.params.id_parent)
   }, [getParentsIn4ById, match])
 
-  console.log("parentIn4", parentIn4)
-
   if (loading || parentIn4 === null || parentIn4 === undefined)
     return <LoaderComponent />
 

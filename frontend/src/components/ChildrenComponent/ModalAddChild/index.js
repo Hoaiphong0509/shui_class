@@ -9,13 +9,14 @@ import { addChildren } from 'services/redux/actions/teacher'
 import * as yup from 'yup'
 import s from './styles.module.scss'
 
-const ModalAddChild = ({
-                         show,
-                         setShow,
-                         childrenAvaible,
-                         addChildren,
-                         idParent
-                       }) => {
+const ModalAddChild = (props) => {
+  const {
+    show,
+    setShow,
+    childrenAvaible,
+    addChildren,
+    idParent
+  } = props
   const handleClose = () => setShow(false)
 
   const schema = yup.object({
@@ -57,7 +58,7 @@ const ModalAddChild = ({
                 {childrenAvaible &&
                   childrenAvaible.map((s, idx) => (
                     <option key={idx} value={s.username}>
-                      {s.fullName} - {s.username} -{' '}
+                      {s.fullName} -{' '}
                       {s.birthday && moment(s.birthday).format('DD-MM-YYYY')}
                     </option>
                   ))}

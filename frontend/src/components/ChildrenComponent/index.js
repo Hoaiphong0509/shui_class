@@ -17,7 +17,6 @@ const ChildrenComponent = ({
 }) => {
   const { children } = parentIn4
   const [show, setShow] = useState(false)
-
   useEffect(() => {
     getStudents()
   }, [getStudents])
@@ -38,10 +37,6 @@ const ChildrenComponent = ({
       unique.push(c)
     }
   }
-
-  const childrenAvaible = unique.filter((u) =>
-    u?.roles?.includes(ROLES.STUDENT)
-  )
 
   return (
     <>
@@ -78,7 +73,7 @@ const ChildrenComponent = ({
           setShow={setShow}
           user={user}
           idParent={parentIn4.user.toString()}
-          childrenAvaible={childrenAvaible}
+          childrenAvaible={unique}
         />
       )}
     </>

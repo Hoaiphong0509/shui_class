@@ -14,7 +14,7 @@ const CompetitionComponent = ({ competitions }) => {
   const history = useHistory()
 
   if (!comptData) return <LoaderComponent />
-  console.log('comptData', comptData)
+
   return (
     <div className={s.root}>
       <div className={s.scoreAll}>

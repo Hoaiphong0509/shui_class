@@ -5,7 +5,7 @@ import { Badge, Table } from 'react-bootstrap'
 import s from './styles.module.scss'
 
 const TableUsers = ({ userData }) => {
-  console.log("userData", userData)
+
   const badgeBg = (role) => {
     switch (role) {
       case ROLES.ADMIN:

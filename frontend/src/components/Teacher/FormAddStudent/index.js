@@ -31,12 +31,7 @@ const FormAddStudent = ({
           /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/,
           'Số điện thoại không đúng'
         ),
-      staffCode: yup.number(),
-      parentName: yup.string().required('Tên phụ huynh không được trống'),
-      parentEmail: yup
-        .string()
-        .required('Email phụ huynh không được trống')
-        .email('Email sai định dạng')
+      staffCode: yup.number()
     })
     .required()
   const {
@@ -49,7 +44,7 @@ const FormAddStudent = ({
 
   const onSubmit = (data) => {
     addStudent(idClassroom, data)
-    history.push('/')
+    history.replace('/')
   }
 
   return (
@@ -64,7 +59,7 @@ const FormAddStudent = ({
         <select
           {...register('username')}
           onChange={(e) => {
-            var index = e.target.selectedIndex
+            const index = e.target.selectedIndex
             const optionElement = e.target.childNodes[index]
             const option = optionElement.getAttribute('data_note')
             setNoteData(option)
@@ -88,7 +83,6 @@ const FormAddStudent = ({
         <label htmlFor="note">Ghi chú</label>
         <input
           name="address"
-          disabled
           value={noteData && noteData}
           defaultValue={noteData && noteData}
         />
@@ -119,20 +113,6 @@ const FormAddStudent = ({
             </option>
           ))}
         </select>
-      </div>
-      <div className={s.panel}>
-        <label htmlFor="parentName" style={{ color: 'red' }}>
-          Tên phụ huynh *
-        </label>
-        <input name="parentName" {...register('parentName')} />
-        <p className={s.textError}>{errors.parentName?.message}</p>
-      </div>
-      <div className={s.panel}>
-        <label htmlFor="parentEmail" style={{ color: 'red' }}>
-          Email phụ huynh *
-        </label>
-        <input name="parentEmail" {...register('parentEmail')} />
-        <p className={s.textError}>{errors.parentEmail?.message}</p>
       </div>
       <div className={s.interaction}>
         <Button variant="secondary" onClick={() => history.goBack()}>
