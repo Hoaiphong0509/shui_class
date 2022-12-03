@@ -36,10 +36,13 @@ const ModalAddUser = ({ show, setShow, registerAccount }) => {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = async (data) => {
-    await registerAccount(data, '')
+  const hanldeAddUserSuccess = () => {
     window.location.reload()
     handleClose()
+  }
+
+  const onSubmit = async (data) => {
+     await registerAccount(data, hanldeAddUserSuccess)
   }
 
   return (

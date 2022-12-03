@@ -27,7 +27,7 @@ export const logout = () => async (dispatch) => {
   })
 }
 
-export const registerAccount = (formData) => async (dispatch) => {
+export const registerAccount = (formData, fnc) => async (dispatch) => {
   try {
     await api.post('/users/register', formData)
     toast.success(
@@ -42,10 +42,11 @@ export const registerAccount = (formData) => async (dispatch) => {
         progress: undefined
       }
     )
+    if(typeof fnc ==="function")fnc()
   } catch (err) {
-    dispatch({
-      type: USERS.ERRORS
-    })
+    // dispatch({
+    //   type: USERS.ERRORS
+    // })
     toast.error(err.response.data.msg, {
       position: 'top-right',
       autoClose: 1200,
